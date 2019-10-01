@@ -16,7 +16,7 @@ TD2
 
    - Consulter les fichiers /etc/network/interfaces et /etc/netplan/50-cloud-init.yaml. Que peut-on en déduire ?
 
-     ![image-20191001161722063](/Users/haida/Library/Application Support/typora-user-images/image-20191001161722063.png)
+     ![image-20191001161722063](./img/image-20191001161722063.png)
 
    - Vérifier en comparant les commandes suivantes ; expliquer :
 
@@ -79,7 +79,7 @@ Partant de la VM précédente, cet exercice permet de créer un réseau de deux 
 
 - - Déterminer le type de carte réseau avec la commande suivante : lspci | grep -i eth.
   
-    ![image-20191001162126559](/Users/haida/Library/Application Support/typora-user-images/image-20191001162126559.png)
+    ![image-20191001162126559](./img/image-20191001162126559.png)
   
   - Installer l'application lynx. A quoi sert-elle ?
   
