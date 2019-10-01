@@ -125,9 +125,9 @@ Cet exercice permet de comprendre les droits par défaut des fichiers et de corr
   ```shell
   umask -S #check default rights while user creates a new file
   ```
-  ![image-20191001113211881](/Users/haida/Library/Application Support/typora-user-images/image-20191001113211881.png)
+  ![image-20191001113211881](https://gitlab.utc.fr/lyujiawe/sr06-a19/blob/master/img/image-20191001113211881.png)
 
-  <img src="/Users/haida/Library/Application Support/typora-user-images/image-20191001113743242.png" alt="image-20191001113743242" style="zoom:50%;" />
+  <img src="https://gitlab.utc.fr/lyujiawe/sr06-a19/blob/master/img/image-20191001113743242.png" alt="image-20191001113743242" style="zoom:50%;" />
 
   Il semble que le droit "x" ne peut être mis pour un nouveau fichier. 
 
@@ -207,6 +207,7 @@ Cet exercice est à réaliser sur la machine virtuelle passoire. Il permet de co
 
   - find / -type d -perm /o+w -a \! -uid 0 -print 2> /dev/null
     
+
   -find folders which other users have write right and ???(J'ai pas le trouvé )
 
 - Supprimer l'utilisateur boule avec la commande deluser boule. Expliquer la commande suivante et corriger l'anomalie trouvée :
