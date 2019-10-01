@@ -126,9 +126,9 @@ Cet exercice permet de comprendre les droits par défaut des fichiers et de corr
   umask -S #check default rights while user creates a new file
   ```
 
-  ![image-20191001113211881](/Users/haida/Google Drive/img/image-20191001113211881.png)
+  ![image-20191001113211881](./img/image-20191001113211881.png)
 
-  <img src="/Users/haida/Google Drive/img/image-20191001113743242.png" alt="image-20191001113743242" style="zoom:50%;" />
+  <img src="./img/image-20191001113743242.png" alt="image-20191001113743242" style="zoom:50%;" />
 
   Il semble que le droit "x" ne peut être mis pour un nouveau fichier. 
 
@@ -138,11 +138,11 @@ Cet exercice permet de comprendre les droits par défaut des fichiers et de corr
   umask 077 //aucun droits pour le groupe ni les autres utilisateurs
   ```
 
-  ![image-20191001115611603](/Users/haida/Google Drive/img/image-20191001115611603.png)
+  ![image-20191001115611603](./img/image-20191001115611603.png)
 
   Quand l'on fait `chmod +x test_umask_2`
 
-  ![image-20191001115949894](/Users/haida/Google Drive/img/image-20191001115949894.png)
+  ![image-20191001115949894](./img/image-20191001115949894.png)
 
   Ça signifie que même si l'on essayer d'ajouter le droit d'exécuter avec `+x`, le group et des autres utilisateurs ne peuvent pas l'exécuter.
 
@@ -166,9 +166,9 @@ The user can create new file in this folder but he can’t delete any other file
 
 - Créer un fichier temporaire avec l'utilisateur boule dans /tmp. Essayer d'effacer ce fichier avec l'utilisateur etu. Que constatez-vous ? Pourquoi ?
 
-  ![image-20191001151423466](/Users/haida/Google Drive/img/image-20191001151423466.png)
+  ![image-20191001151423466](./img/image-20191001151423466.png)
 
-  ![image-20191001150209280](/Users/haida/Google Drive/img/image-20191001150209280.png)
+  ![image-20191001150209280](./img/image-20191001150209280.png)
 
   On peut supprimer le fichier /tmp/temp avec l'utilisateur etu. 
 
@@ -194,9 +194,9 @@ The user can create new file in this folder but he can’t delete any other file
   ls -l /
   ```
 
-  ![image-20191001141328739](/Users/haida/Google Drive/img/image-20191001141328739.png)
+  ![image-20191001141328739](./img/image-20191001141328739.png)
 
-  ![image-20191001141651627](/Users/haida/Google Drive/img/image-20191001141651627.png)
+  ![image-20191001141651627](./img/image-20191001141651627.png)
 
 L'utilisateur etu ne peut pas supprimer le fichier /tmp/temp
 
