@@ -125,7 +125,7 @@ Cet exercice permet de comprendre les droits par défaut des fichiers et de corr
   ```shell
   umask -S #check default rights while user creates a new file
   ```
-  ![image-20191001113211881](https://gitlab.utc.fr/lyujiawe/sr06-a19/blob/master/img/image-20191001113211881.png)
+  ![image-20191001113211881](../img/image-20191001113211881.png)
 
   <img src="https://gitlab.utc.fr/lyujiawe/sr06-a19/blob/master/img/image-20191001113743242.png" alt="image-20191001113743242" style="zoom:50%;" />
 
