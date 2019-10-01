@@ -45,6 +45,7 @@ u —— user		g —— group		o —— other
   ```
 
 - Lancer en tant que remus update.sh. Que constatez-vous ?
+
 - Adapter les droits des fichiers update.sh et log.txt de sorte que l'utilisateur romulus puisse également exécuter update.sh.
 
 
@@ -58,7 +59,6 @@ u —— user		g —— group		o —— other
 - En tant que remus, changer les groupes des fichiers update.sh et log.txt de sorte qu'ils appartiennent au groupe rome.
 - Recommencer les étapes 4 et 6. Que constatez-vous ?
 - Faire en sorte que tous les fichiers dorénavant créés par remus appartiennent au groupe rome. Tester à nouveau l'étape 6.
-
 - Faire en sorte que ce comportement soit le comportement par défaut des utilisateurs remus et romulus. ❓
 
 
@@ -91,29 +91,29 @@ http://www.linux-france.org/article/memo/node19.html#461
 - Expliquer les commandes suivantes : on pourra s'aider de man 2 stat (et du fichier /usr/include/linux/stat.h)
 
 - - find / -user root -perm /u+s 2> /dev/null
-  
+
   chercher à partir de la racine? —— /
-  
+
   find the file whose owner is root —— -user root
-  
+
   find the file with setuid
-  
+
   2> /dev/null —— make stdeer redirect to /dev/null
-  
+
   On peut rediriger les messages d'erreur vers le ``trou noir'' (le périphérique /dev/null)
-  
+
   ❓ -perm /u+s pourquoi on ajoute « /« 
-  
+
 - - find / -type f \ ( -perm -2000 -o -perm -4000 \ ) -print 2 > /dev/null
-  
+
   ​			-  \ ( -perm -2000 -o -perm -4000 \ ) —— find the file with setuid or setgid
-  
+
   ​			- 2000 —— setgid only for floder, in this case we have indicated that it’s file (-type f)
-  
+
 - - find / -type f -perm /u-s -perm /g+s -print 2> /dev/null
-  
+
   ​			- find the file with setgid but without setuid
-  
+
 - Estimer l'intérêt de ce bit selon les exécutables trouvés et au regard de l'usage de la machine. Enlever le *setuid bit* aux commandes qui ne sont pas utiles dans notre contexte.
 
 ## **5. Configuration des droits : umask** 
@@ -125,21 +125,24 @@ Cet exercice permet de comprendre les droits par défaut des fichiers et de corr
   ```shell
   umask -S #check default rights while user creates a new file
   ```
-  ![image-20191001113211881](../img/image-20191001113211881.png)
 
-  <img src="https://gitlab.utc.fr/lyujiawe/sr06-a19/blob/master/img/image-20191001113743242.png" alt="image-20191001113743242" style="zoom:50%;" />
+  ![image-20191001113211881](/Users/haida/Google Drive/img/image-20191001113211881.png)
+
+  <img src="/Users/haida/Google Drive/img/image-20191001113743242.png" alt="image-20191001113743242" style="zoom:50%;" />
 
   Il semble que le droit "x" ne peut être mis pour un nouveau fichier. 
 
 - Changer la valeur du masque de sorte que les fichiers créés aient aucun droits pour le groupe ni les autres utilisateurs. Vérifier en créant un fichier temporaire.
+
   ```shell
   umask 077 //aucun droits pour le groupe ni les autres utilisateurs
   ```
-  ![image-20191001115611603](/Users/haida/Library/Application Support/typora-user-images/image-20191001115611603.png)
+
+  ![image-20191001115611603](/Users/haida/Google Drive/img/image-20191001115611603.png)
 
   Quand l'on fait `chmod +x test_umask_2`
 
-  ![image-20191001115949894](/Users/haida/Library/Application Support/typora-user-images/image-20191001115949894.png)
+  ![image-20191001115949894](/Users/haida/Google Drive/img/image-20191001115949894.png)
 
   Ça signifie que même si l'on essayer d'ajouter le droit d'exécuter avec `+x`, le group et des autres utilisateurs ne peuvent pas l'exécuter.
 
@@ -163,9 +166,9 @@ The user can create new file in this folder but he can’t delete any other file
 
 - Créer un fichier temporaire avec l'utilisateur boule dans /tmp. Essayer d'effacer ce fichier avec l'utilisateur etu. Que constatez-vous ? Pourquoi ?
 
-  ![image-20191001151423466](/Users/haida/Library/Application Support/typora-user-images/image-20191001151423466.png)
+  ![image-20191001151423466](/Users/haida/Google Drive/img/image-20191001151423466.png)
 
-  ![image-20191001150209280](/Users/haida/Library/Application Support/typora-user-images/image-20191001150209280.png)
+  ![image-20191001150209280](/Users/haida/Google Drive/img/image-20191001150209280.png)
 
   On peut supprimer le fichier /tmp/temp avec l'utilisateur etu. 
 
@@ -175,9 +178,7 @@ The user can create new file in this folder but he can’t delete any other file
 
 - - find / -type d \ ( -perm -0002 -a \! -perm -1000 \ ) -print 2> /dev/null
   - ​		- find a folder with -0002 and without -1000 
-
   - ​		- start from root
-
   - ​		- ignore errors
 
 - Réécrire la commande sans utiliser les codes 0002 et 1000.
@@ -193,9 +194,9 @@ The user can create new file in this folder but he can’t delete any other file
   ls -l /
   ```
 
-  ![image-20191001141328739](/Users/haida/Library/Application Support/typora-user-images/image-20191001141328739.png)
+  ![image-20191001141328739](/Users/haida/Google Drive/img/image-20191001141328739.png)
 
-  ![image-20191001141651627](/Users/haida/Library/Application Support/typora-user-images/image-20191001141651627.png)
+  ![image-20191001141651627](/Users/haida/Google Drive/img/image-20191001141651627.png)
 
 L'utilisateur etu ne peut pas supprimer le fichier /tmp/temp
 
@@ -206,7 +207,6 @@ Cet exercice est à réaliser sur la machine virtuelle passoire. Il permet de co
 - Expliquer la commande suivante et son intérêt. Dans ce cas précis, quel risque encourt l'utilisateur etu ?
 
   - find / -type d -perm /o+w -a \! -uid 0 -print 2> /dev/null
-    
 
   -find folders which other users have write right and ???(J'ai pas le trouvé )
 
