@@ -1,5 +1,3 @@
-TD2
-
 ## **1. Configuration réseau de la machine virtuelle passoire**
 
  Nous commençons par adapter la configuration réseau de la machine virtuelle passoire.
@@ -93,21 +91,59 @@ Partant de la VM précédente, cet exercice permet de créer un réseau de deux 
 
 ### Couche 3
 
-- - Vérifier que les deux VM ont deux adresses IP différentes.
+* [x] Vérifier que les deux VM ont deux adresses IP différentes.
 
+​		passoire-TD —— 10.10.10.106
+
+​		passoire-TD-2 —— 10.10.10.141
+
+* [x] Installer le paquet ipcalc et vérifier jla nature des adresses IP :
+
+  * apt-get install ipcalc -> sudo apt install ipcalc
   
-* [ ] Installer le paquet ipcalc et vérifier jla nature des adresses IP :
-
-  - - apt-get install ipcalc -> sudo apt install ipcalc
-    - ipcalc adresse_IP.
-
-  - Ping
-
-  - - Réaliser un ping depuis passoire vers passoire-2. Expliquer.
+- ipcalc adresse_IP.
+  
+  passoire-TD
+  
+    ![image-20191002232535112](../img/image-20191002232535112.png)
+  
+  passoire-TD2
+  
+    ![image-20191002232914366](../img/image-20191002232914366.png)
+  
+  - Ping 
+  
+    - Réaliser un ping depuis passoire vers passoire-2. Expliquer.
+  
+      ```shell
+      ping 10.10.10.141 #dans passoire-TD
+      ping 10.10.10.106 #dans passoire-TD2
+      ```
+  
     - Modifier la configuration de la carte réseau dans proxmox en décochant la case "Firewall" et recommencer le ping. Expliquer.
+  
+      ❓ why we can still connect to each other??? 
+  
     - Comparer les champs TTL en réalisant un ping de passoire-2, de www.utc.fr et de www.google.fr. Expliquer.
-
+  
+      ```shell
+      ping www.utc.fr # ttl=62
+      ping www.google.fr # ttl=55
+      ```
+  
+      
+  
+      TTL —— Le TTL est une donnée placée au niveau de l'[en-tête](https://fr.wikipedia.org/wiki/Header) du [paquet](https://fr.wikipedia.org/wiki/Paquet_(réseau)) [IP](https://fr.wikipedia.org/wiki/Internet_Protocol) qui indique le nombre maximal de [routeurs](https://fr.wikipedia.org/wiki/Routeur) de transit.  (8 bits)
+  
   - Afficher la table de routage avec la commande route.
+  
+    ```shell
+    sudo route -n
+    ```
+  
+    
+  
+    
 
 ### Couche 4
 
