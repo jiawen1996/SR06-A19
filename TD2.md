@@ -77,8 +77,10 @@ Partant de la VM précédente, cet exercice permet de créer un réseau de deux 
 
 ### Couche 2
 
-- - Déterminer le type de carte réseau avec la commande suivante : lspci | grep -i eth.
-  
+- - Déterminer le type de carte réseau avec la commande suivante :
+    ```shell
+    lspci | grep -i eth.
+    ```
     ![image-20191001162126559](./img/image-20191001162126559.png)
   
   - Installer l'application lynx. A quoi sert-elle ?
@@ -93,9 +95,10 @@ Partant de la VM précédente, cet exercice permet de créer un réseau de deux 
 
 - - Vérifier que les deux VM ont deux adresses IP différentes.
 
-  - Installer le paquet ipcalc et vérifier jla nature des adresses IP :
+  
+* [ ] Installer le paquet ipcalc et vérifier jla nature des adresses IP :
 
-  - - apt-get install ipcalc
+  - - apt-get install ipcalc -> sudo apt install ipcalc
     - ipcalc adresse_IP.
 
   - Ping
