@@ -53,8 +53,8 @@
    - Suppression de l'interface réseau virb0
 
    - - Cette interface réseau virtuelle est ajoutée par ubuntu-serveur pour gérer la virtualisation. Elle est inutile ici.
-     - Enlever l'interface virbr0 temporairement avec  virsh net-destroy default. Vérifier avec ifconfig -a
-     - Empêcher sa création automatique au démarrage de la vm passoire avec virsh net-autostart default --disable.
+     - Enlever l'interface virbr0 temporairement avec  `virsh net-destroy default`. Vérifier avec ifconfig -a
+     - Empêcher sa création automatique au démarrage de la vm passoire avec `virsh net-autostart default --disable`.
        
 
 ### Vérifier vos connaissances sur :
@@ -138,18 +138,38 @@ Partant de la VM précédente, cet exercice permet de créer un réseau de deux 
   - Afficher la table de routage avec la commande route.
   
     ```shell
-    sudo route -n
+    sudo route -n		#sans DNS
     ```
   
-    
-  
-    
+    ![image-20191003000936123](../img/image-20191003000936123.png)
 
 ### Couche 4
 
 2. - Déterminer le port de telnet, ssh et http en consultant le fichier /etc/services.
-   - Dans la VM passoire-2, lancer la commande watch -n1 'netstat -napt --ip'. Expliquer ce qu'elle fait.
-   - Depuis la VM passoire, lancer la commande telnet et constater l'établissement de la socket ainsi que ses différents états.
+   
+     ```shell
+     cat /etc/services | grep -E '^ssh|telnet|http'
+     ```
+   
+     ![image-20191003003425342](../img/image-20191003003425342.png)
+   
+   - Dans la VM passoire-2, lancer la commande `watch -n1 'netstat -napt --ip'`. Expliquer ce qu'elle fait.
+   
+     ![image-20191003003822847](../img/image-20191003003822847.png)
+   
+     ❓We should use `-napt` or `-nat` ??
+   
+     While executing `watch -n1 'netstat -napt --ip`
+   
+     Execute `pring all the current connected address ip` periodically every 1 s
+   
+     https://blog.51cto.com/sadoc/1932028 (chinois...)
+   
+     ![image-20191003011155093](../img/image-20191003011155093.png)
+   
+   - Depuis la VM passoire, lancer la commande `telnet` et constater l'établissement de la socket ainsi que ses différents états.
+   
+     Telnet协议是TCP/IP协议家族中的一员，是Internet远程登陆服务的标准协议和主要方式。它为用户提供了在本地计算机上完成远程主机工作的能力。在终端使用者的电脑上使用telnet程序，用它连接到服务器。终端使用者可以在telnet程序中输入命令，这些命令会在服务器上运行，就像直接在服务器的控制台上输入一样。可以在本地就能控制服务器。要开始一个telnet会话，必须输入用户名和密码来登录服务器。Telnet是常用的远程控制Web服务器的方法。
 
 ### Vérifier vos connaissances sur :
 
