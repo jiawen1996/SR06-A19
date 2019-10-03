@@ -12,25 +12,32 @@ Ces actions sont à réaliser sur la machine virtuelle Windows 10 'sr06-win-10-1
 
 * [ ]  Démarrez la machine virtuelle Windows
 
-	* [x]  Ouvrez la session locale "formation" avec le mot de passe "formation"
+* [x]  Ouvrez la session locale "formation" avec le mot de passe "formation"
 
-	* [ ]  Sélectionnez l'icône du bureau "Ce PC", et par un clic droit dessus, affichez ses propriétés
+* [ ] Sélectionnez l'icône du bureau "Ce PC", et par un clic droit dessus, affichez ses propriétés
 
-	* [ ]  Renommez le nom de l'ordinateur en "W10" et le groupe de travail en "SR06-WIN10". Redémarrez ensuite la machine virtuelle comme demandé par Windows
+* [ ] Renommez le nom de l'ordinateur en "W10" et le groupe de travail en "SR06-WIN10". Redémarrez ensuite la machine virtuelle comme demandé par Windows
 
-6. Sur l'icône du bouton "Démarrer", faites un clic droit et sélectionnez "Gestion de l'ordinateur", puis "Gestion des disques"	
+* [x] Sur l'icône du bouton "Démarrer", faites un clic droit et sélectionnez "Gestion de l'ordinateur", puis "Gestion des disques"	
 
-   * [x] Initialiser le "Disque 1" avec une partition "GPT" (GUID Partition Table)
+ * [x] Initialiser le "Disque 1" avec une partition "GPT" (GUID Partition Table)
 
-        ​	boot pour démarage
+      ​	boot pour démarage
 
-        ​	pas trouver le Disque 1.... -> et reinitialiser et redémarrer
-        
-   * [x] Sélectionnez la zone non allouée du "Disque 1" et créez un nouveau "Volume simple" couvrant la taille de la zone non allouée, avec la lettre de lecteur "S", le système de fichier NTFS et le nom de volume "Stockage"
-   
-      * [x] Quittez le gestionnaire de disques et double-cliquez sur l'icône du bureau "Ce PC". Constatez la présence du nouveau disque dur "Stockage (S)"
-   
-        un stockage(S) -> 9.94G0
+      ​	pas trouver le Disque 1.... -> et reinitialiser et redémarrer
+
+ * [x] Sélectionnez la zone non allouée du "Disque 1" et créez un nouveau "Volume simple" couvrant la taille de la zone non allouée, avec la lettre de lecteur "S", le système de fichier NTFS et le nom de volume "Stockage"
+
+* [x] Quittez le gestionnaire de disques et double-cliquez sur l'icône du bureau "Ce PC". Constatez la présence du nouveau disque dur "Stockage (S)"
+
+  un stockage(S) -> 9.94G0
+
+### Connaissance:
+
+1. GPT
+2. Système de fichier
+   1. NTFS
+   2. 
 
 
 # II. Sécurisation de base
