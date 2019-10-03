@@ -1,20 +1,22 @@
 Ces actions sont à réaliser sur la machine virtuelle Windows 10 'sr06-win-10-1'
 
-I. Préparation et premier démarrage de la machine virtuelle Windows 10
+# I. Préparation et premier démarrage de la machine virtuelle Windows 10
 
-1. Localisez la machine virtuelle "Windows 10" fournie ('sr06-win10-1') :
 
-2. Clonez la machine virtuelle ('Full clone')
+* [ ]  Localisez la machine virtuelle "Windows 10" fournie ('sr06-win10-1') :
 
-3. Dans les préférences stockage de la machine virtuelle, sélectionnez 'Hard Disk' et ajoutez un nouvel espace de stockage virtuel disque dur de 10 Go
 
-4. Démarrez la machine virtuelle Windows
+* [ ]  Clonez la machine virtuelle ('Full clone')
 
-5. Ouvrez la session locale "formation" avec le mot de passe "formation"
+* [ ]  Dans les préférences stockage de la machine virtuelle, sélectionnez 'Hard Disk' et ajoutez un nouvel espace de stockage virtuel disque dur de 10 Go
 
-    Sélectionnez l'icône du bureau "Ce PC", et par un clic droit dessus, affichez ses propriétés
+* [ ]  Démarrez la machine virtuelle Windows
 
-    Renommez le nom de l'ordinateur en "W10" et le groupe de travail en "SR06-WIN10". Redémarrez ensuite la machine virtuelle comme demandé par Windows
+* [ ]  Ouvrez la session locale "formation" avec le mot de passe "formation"
+
+* [ ]  Sélectionnez l'icône du bureau "Ce PC", et par un clic droit dessus, affichez ses propriétés
+
+* [ ]  Renommez le nom de l'ordinateur en "W10" et le groupe de travail en "SR06-WIN10". Redémarrez ensuite la machine virtuelle comme demandé par Windows
 
 6. Sur l'icône du bouton "Démarrer", faites un clic droit et sélectionnez "Gestion de l'ordinateur", puis "Gestion des disques"
 
@@ -25,19 +27,19 @@ I. Préparation et premier démarrage de la machine virtuelle Windows 10
     Quittez le gestionnaire de disques et double-cliquez sur l'icône du bureau "Ce PC". Constatez la présence du nouveau disque dur "Stockage (S)"
     
 
-II. Sécurisation de base
+# II. Sécurisation de base
 
-1. Dans la barre de tâches, zone de notifications, vérifiez la présence de l'antivirus "Trend Micro OfficeScan"
+* [ ]  Dans la barre de tâches, zone de notifications, vérifiez la présence de l'antivirus "Trend Micro OfficeScan"
 
-2. Vérifiez les versions de ses composants et notamment ceux concernant les signatures
+* [ ]  Vérifiez les versions de ses composants et notamment ceux concernant les signatures
 
-3. A quel serveur maître est attaché ce client antivirus. Est-ce un serveur Internet ou un serveur de l'établissement. A votre avis, pourquoi un tel choix ?
+* [ ]  A quel serveur maître est attaché ce client antivirus. Est-ce un serveur Internet ou un serveur de l'établissement. A votre avis, pourquoi un tel choix ?
 
-4. Dans le doute, lancez une mise à jour de l'antivirus
+* [ ]  Dans le doute, lancez une mise à jour de l'antivirus
 
     Qu'est-ce qu'un bon antivirus et un bon antimalware selon vous et quelle est sa bonne utilisation ?
 
-5. Dans le menu "Démarrer", sélectionnez "Paramètres" (icône de la roue crantée), puis "Mise à jour et sécurité" et "Windows Update"
+* [ ]  Dans le menu "Démarrer", sélectionnez "Paramètres" (icône de la roue crantée), puis "Mise à jour et sécurité" et "Windows Update"
 
     Les mises à jour sont automatiques sur Windows 10. Elles peuvent être délivrées par un serveur local à l'établissement (serveur WSUS) où celui-ci pourra filtrer les mises à jour à délivrer au postes clients Windows
 
@@ -47,7 +49,7 @@ II. Sécurisation de base
 
 ​    Revenir sur "Windows Update" et sélectionnez "Options avancées", puis "Optimisation de livraison". Selon vous, vaut-il mieux activer ou désactiver la fonctionnalité "Autoriser les téléchargements à partir d'autres PC" ?
 
-\6. Revenir sur "Mise à jour et sécurité" et sélectionnez "Sauvegarde"
+* [ ]  Revenir sur "Mise à jour et sécurité" et sélectionnez "Sauvegarde"
 
 ​    Il est possible d'activer une sauvegarde régulière de vos fichiers par la fonction "Historique des fichiers". C'est un filet de sécurité simple à mettre en œuvre et dont le bénéfice est immense
 
