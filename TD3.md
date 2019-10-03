@@ -3,75 +3,93 @@ Ces actions sont à réaliser sur la machine virtuelle Windows 10 'sr06-win-10-1
 # I. Préparation et premier démarrage de la machine virtuelle Windows 10
 
 
-* [ ]  Localisez la machine virtuelle "Windows 10" fournie ('sr06-win10-1') :
+* [x]  Localisez la machine virtuelle "Windows 10" fournie ('sr06-win10-1') :
 
 
-* [ ]  Clonez la machine virtuelle ('Full clone')
+* [x]  Clonez la machine virtuelle ('Full clone')
 
-* [ ]  Dans les préférences stockage de la machine virtuelle, sélectionnez 'Hard Disk' et ajoutez un nouvel espace de stockage virtuel disque dur de 10 Go
+* [x]  Dans les préférences stockage de la machine virtuelle, sélectionnez 'Hard Disk' et ajoutez un nouvel espace de stockage virtuel disque dur de 10 Go
 
 * [ ]  Démarrez la machine virtuelle Windows
 
-* [ ]  Ouvrez la session locale "formation" avec le mot de passe "formation"
+	* [x]  Ouvrez la session locale "formation" avec le mot de passe "formation"
 
-* [ ]  Sélectionnez l'icône du bureau "Ce PC", et par un clic droit dessus, affichez ses propriétés
+	* [ ]  Sélectionnez l'icône du bureau "Ce PC", et par un clic droit dessus, affichez ses propriétés
 
-* [ ]  Renommez le nom de l'ordinateur en "W10" et le groupe de travail en "SR06-WIN10". Redémarrez ensuite la machine virtuelle comme demandé par Windows
+	* [ ]  Renommez le nom de l'ordinateur en "W10" et le groupe de travail en "SR06-WIN10". Redémarrez ensuite la machine virtuelle comme demandé par Windows
 
-6. Sur l'icône du bouton "Démarrer", faites un clic droit et sélectionnez "Gestion de l'ordinateur", puis "Gestion des disques"
+6. Sur l'icône du bouton "Démarrer", faites un clic droit et sélectionnez "Gestion de l'ordinateur", puis "Gestion des disques"	
 
-    Initialiser le "Disque 1" avec une partition "GPT" (GUID Partition Table)
+   * [x] Initialiser le "Disque 1" avec une partition "GPT" (GUID Partition Table)
 
-    Sélectionnez la zone non allouée du "Disque 1" et créez un nouveau "Volume simple" couvrant la taille de la zone non allouée, avec la lettre de lecteur "S", le système de fichier NTFS et le nom de volume "Stockage"
+        ​	boot pour démarage
 
-    Quittez le gestionnaire de disques et double-cliquez sur l'icône du bureau "Ce PC". Constatez la présence du nouveau disque dur "Stockage (S)"
-    
+        ​	pas trouver le Disque 1.... -> et reinitialiser et redémarrer
+        
+   * [x] Sélectionnez la zone non allouée du "Disque 1" et créez un nouveau "Volume simple" couvrant la taille de la zone non allouée, avec la lettre de lecteur "S", le système de fichier NTFS et le nom de volume "Stockage"
+   
+      * [x] Quittez le gestionnaire de disques et double-cliquez sur l'icône du bureau "Ce PC". Constatez la présence du nouveau disque dur "Stockage (S)"
+   
+        un stockage(S) -> 9.94G0
+
 
 # II. Sécurisation de base
 
-* [ ]  Dans la barre de tâches, zone de notifications, vérifiez la présence de l'antivirus "Trend Micro OfficeScan"
+* [x]  Dans la barre de tâches, zone de notifications, vérifiez la présence de l'antivirus "Trend Micro OfficeScan"
 
-* [ ]  Vérifiez les versions de ses composants et notamment ceux concernant les signatures
+* [x] Vérifiez les versions de ses composants et notamment ceux concernant les signatures
 
-* [ ]  A quel serveur maître est attaché ce client antivirus. Est-ce un serveur Internet ou un serveur de l'établissement. A votre avis, pourquoi un tel choix ?
+  15.403.00
 
-* [ ]  Dans le doute, lancez une mise à jour de l'antivirus
+* [x] A quel serveur maître est attaché ce client antivirus. Est-ce un serveur Internet ou un serveur de l'établissement. A votre avis, pourquoi un tel choix ?
+
+  Un serveur local
+
+* [x]  Dans le doute, lancez une mise à jour de l'antivirus
 
     Qu'est-ce qu'un bon antivirus et un bon antimalware selon vous et quelle est sa bonne utilisation ?
 
-* [ ]  Dans le menu "Démarrer", sélectionnez "Paramètres" (icône de la roue crantée), puis "Mise à jour et sécurité" et "Windows Update"
+​		1. Régulièrement à jour tout seul
+
+​		2. 
+
+* [x]  Dans le menu "Démarrer", sélectionnez "Paramètres" (icône de la roue crantée), puis "Mise à jour et sécurité" et "Windows Update"
 
     Les mises à jour sont automatiques sur Windows 10. Elles peuvent être délivrées par un serveur local à l'établissement (serveur WSUS) où celui-ci pourra filtrer les mises à jour à délivrer au postes clients Windows
 
-​    Forcez la mise à jour en sélectionnant "Rechercher les mises à jour"
+​		UTC a un serveur WSUS
 
-​    Sélectionnez "Affichez l'historique des mises à jour". Cliquez sur l'un des correctifs de cette liste pour en connaître les détails
+* [x] Forcez la mise à jour en sélectionnant "Rechercher les mises à jour"
 
-​    Revenir sur "Windows Update" et sélectionnez "Options avancées", puis "Optimisation de livraison". Selon vous, vaut-il mieux activer ou désactiver la fonctionnalité "Autoriser les téléchargements à partir d'autres PC" ?
+* [x] Sélectionnez "Affichez l'historique des mises à jour". Cliquez sur l'un des correctifs de cette liste pour en connaître les détails
+
+* [ ] Revenir sur "Windows Update" et sélectionnez "Options avancées", puis "Optimisation de distribution". Selon vous, vaut-il mieux activer ou désactiver la fonctionnalité "Autoriser les téléchargements à partir d'autres PC" ?
+
+  Desactiviter
 
 * [ ]  Revenir sur "Mise à jour et sécurité" et sélectionnez "Sauvegarde"
 
-​    Il est possible d'activer une sauvegarde régulière de vos fichiers par la fonction "Historique des fichiers". C'est un filet de sécurité simple à mettre en œuvre et dont le bénéfice est immense
+* [ ] Il est possible d'activer une sauvegarde régulière de vos fichiers par la fonction "Historique des fichiers". C'est un filet de sécurité simple à mettre en œuvre et dont le bénéfice est immense
 
-    Sélectionnez "Ajouter un lecteur" et sélectionnez le lecteur proposé qui doit être "Stockage (S)"
+ * [ ] Sélectionnez "Ajouter un lecteur" et sélectionnez le lecteur proposé qui doit être "Stockage (S)"
 
-    Sélectionnez "Plus d'options" et prenez connaissance de la liste des des dossiers sauvegardés par cette méthode. Que pensez-vous de cette liste par défaut ?
+* [ ]  Sélectionnez "Plus d'options" et prenez connaissance de la liste des des dossiers sauvegardés par cette méthode. Que pensez-vous de cette liste par défaut ?
 
-    Sur le bureau, créez un dossier "Data", puis, dedans un fichier texte "Versions.txt". Editez ce fichier et saisissez la chaîne de caractères "Version 1" puis enregistrez ce changement
+* [ ]   Sur le bureau, créez un dossier "Data", puis, dedans un fichier texte "Versions.txt". Editez ce fichier et saisissez la chaîne de caractères "Version 1" puis enregistrez ce changement
 
-    De retour dans "Plus d'options" (Options de sauvegarde), Sélectionnez "Sauvegarder les données maintenant" et attendre la fin de la sauvegarde. La date de la dernière sauvegarde s'affiche alors
+* [ ]    De retour dans "Plus d'options" (Options de sauvegarde), Sélectionnez "Sauvegarder les données maintenant" et attendre la fin de la sauvegarde. La date de la dernière sauvegarde s'affiche alors
 
-    De retour sur le bureau, rééditez le fichier "Data\Versions.txt" et remplacez la chaîne de caractères "Version 1" par "Version 2" puis enregistrez ce changement
+* [ ]    De retour sur le bureau, rééditez le fichier "Data\Versions.txt" et remplacez la chaîne de caractères "Version 1" par "Version 2" puis enregistrez ce changement
 
-    Sélectionner l'icône du fichier "Versions.txt" et, par un clic droit, sélectionnez "Restaurer les versions précédentes", puis le fichier "Versions" qui est listé. Restaurez-le sur le bureau, ouvrez-le et constatez qu'il contient bien la chaîne de caractères "Version 1"
+* [ ]    Sélectionner l'icône du fichier "Versions.txt" et, par un clic droit, sélectionnez "Restaurer les versions précédentes", puis le fichier "Versions" qui est listé. Restaurez-le sur le bureau, ouvrez-le et constatez qu'il contient bien la chaîne de caractères "Version 1"
 
-    De retour dans "Plus d'options" (Options de sauvegarde), quelle valeur de l'option "Conserver mes sauvegardes" choisiriez-vous personnellement et pourquoi ?
+* [ ]    De retour dans "Plus d'options" (Options de sauvegarde), quelle valeur de l'option "Conserver mes sauvegardes" choisiriez-vous personnellement et pourquoi ?
 
 7. Dans la barre de tâches, zone de notifications, lancez le "Sécurité Windows"
 
     "Sécurité Windows" présente un tableau de bord synthétique des services dédiés à la sécurité et au bon fonctionnement du système
 
-    Constatez que tous les voyants sont au vert
+* [ ]    Constatez que tous les voyants sont au vert
 
 8. Dans "Sécurité Windows", sélectionnez "Protection du compte" et "Gérer les options de connexion", puis, dans "Options de connexion", modifiez le mot de passe de votre compte.
 
@@ -81,7 +99,7 @@ Ces actions sont à réaliser sur la machine virtuelle Windows 10 'sr06-win-10-1
 
 9. Les mots de passe de Windows (poste hors domaine Active Directory) sont stockés dans le fichier SAM (Security Account Manager), dans "C:/Windows/system32/config/". Ils sont cryptés en NTLMv2.
 
-    Allez dans le dossier "C:/Windows/system32/config/" et copiez/collez le fichier "SAM" sur le bureau. Que constatez-vous ?
+* [ ]    Allez dans le dossier "C:/Windows/system32/config/" et copiez/collez le fichier "SAM" sur le bureau. Que constatez-vous ?
 
     Allez sur Internet et faites une recherche sur "John the ripper" et/ou "Hash suite". Que permettent ces outils spécialisés ? Que faut-il en retenir concernant le choix d'un bon mot de passe ?
 
