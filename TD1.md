@@ -7,10 +7,22 @@ TD1
 Cet exercice permet de comprendre la vulnérabilité que représente un mot de passe trop simple.
 
 - Utiliser unshadow pour préparer un fichier mypasswd : sudo unshadow /etc/passwd /etc/shadow > mypasswd
+
 - Lancer john sur le fichier mypasswd. Il est possible de restreindre la recherche à l'utilisateur etu via l'option -users:etu.
+
+  ```shell
+  sudo john /etc/shadow
+  john -show 
+  ```
+
+  
+
 - Retrouver les fichiers mis à jour dans le compte etu ; expliquer les droits des nouveaux fichiers.
+
 - Ajouter l'utilisateur boule, de mot-de-passe bill. Relancer john pour qu'il retrouve le mot de passe de boule tout en mesurant le temps nécessaire.
+
 - Sur passoire, vérifier les droits des fichiers /etc/passwd et /etc/shadow. Corriger-les ci-besoin.
+
 - Changer le mot de passe de l'utilisateur etu (retenir le mot de passe choisi !).
 
 

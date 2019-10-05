@@ -39,7 +39,7 @@
 
 	```shell
 	sudo groupadd <groupname>
-	sudo gpasswd <username> <groupname>
+	sudo gpasswd -a <username> <groupname>
 	```
 
 * Change file owner and group
