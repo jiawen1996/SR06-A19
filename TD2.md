@@ -215,7 +215,7 @@ https://blog.51cto.com/sadoc/1932028 (chinois...)
 
 Cet exercice permet de comprendre le nommage des machines.
 
-### 1. Nom de la machine locale -> 修改主机名
+### 1. Nom de la machine locale -> 本地主机名
 
 * [x] Que donnent les commandes `uname -a `et `hostname` ?
 
@@ -234,7 +234,7 @@ Cet exercice permet de comprendre le nommage des machines.
 
   * [x] Redémarrer la machine et vérifier le changement de nom.
 
-### 2. Nom des machines distantes -> 修改远程主机名
+### 2. Nom des machines distantes -> 远程主机名
 
 * [x] Ajouter une ligne "@IP passoire-2" dans le fichier `/etc/hosts`v de la machine passoire (remplacer @IP par l'adresse IP de passoire-2).
 
@@ -246,9 +246,10 @@ Cet exercice permet de comprendre le nommage des machines.
 
 * How to exit telnet:
 
-`ctrl + ]` and then `q`
+  `ctrl + ]` and then `q`
 
 * [x] Faîtes de même sur passoire-2.
+
 * [x] Vérifier les connexions avec `netstat -napt --ip` puis avec `netstat -apt --ip`.
 
 ![image-20191008142052222](/Users/haida/Library/Application Support/typora-user-images/image-20191008142052222.png)
@@ -264,7 +265,7 @@ Cet exercice permet de comprendre le nommage des machines.
 
 在VM-TD2上远程登录TD的账户，在该账户中使用`netstat`看到有与`10.10.10.92`（TD2的ip）的链接
 
-### 3. Configuration locale du serveur de nom -> 配置本地服务器的名字
+### 3. Configuration locale du serveur de nom -> 本地域名服务器的配置
 
 * [x] Retrouver les adresses IP des machines www.utc.fr et www.google.fr avec la commande `dig`.
 
@@ -276,52 +277,103 @@ Cet exercice permet de comprendre le nommage des machines.
 
   ![image-20191003120635603](/Users/haida/Library/Application Support/typora-user-images/image-20191003120635603.png)
 
-* [ ] Inversement, retrouver le nom d'une machine en partant d'une adresse IP avec la commande `dig -x`.
+* [x] Inversement, retrouver le nom d'une machine en partant d'une adresse IP avec la commande `dig -x`.
 
   ```shell
-  dig -x
+  dig -x <@ip>
   ```
 
-* [ ] Quel est le rôle des fichiers /etc/nsswitch.conf et /etc/resolv.conf ?
+* [x] Quel est le rôle des fichiers /etc/nsswitch.conf et /etc/resolv.conf ?
 
-  * `/etc/resolv.conf` 为了DNS
+  * /etc/hosts
 
-* [ ] Retrouver le programme en charge du service avec ps aux | grep resolv et noter son numéro (pid).
+    affecter DNS à la main
+
+  * `/etc/resolv.conf` 
+
+    qui indique quels serveurs de noms utiliser
+
+  * `/etc/nsswitch.conf` 
+
+    qui définit l'ordre de recherche des bases de données réseau.
+
+  https://www.xiebruce.top/1024.html
+
+* [x] Retrouver le programme en charge du service avec ps aux | grep resolv et noter son numéro (pid).
 
   ```shell
   ps | grep resolv???
   ps # just two processes are running???
+  #ps can't find resolv
   ```
 
-* [ ] Vérifier avec `netstat -nap --ip` (à lancer en tant qu'administrateur pour voir les programmes associés aux sockets).
+* [x] Vérifier avec `netstat -nap --ip` (à lancer en tant qu'administrateur pour voir les programmes associés aux sockets).
 
 ![image-20191008155352859](/Users/haida/Library/Application Support/typora-user-images/image-20191008155352859.png)
 
 ![image-20191008155415181](/Users/haida/Library/Application Support/typora-user-images/image-20191008155415181.png)
 
-* [ ] Stopper ce processus avec kill -STOP pid et recommencer les commandes dig ci-dessus. Que constatez-vous ?
-* [ ] Relancer le programme avec kill -CONT pid et vérifier que les commandes dig fonctionnent.
+* [x] Stopper ce processus avec kill -STOP pid et recommencer les commandes dig ci-dessus. Que constatez-vous ?
+
+  ```shell
+  kill -STOP <PID>
+  ```
+
+  ![image-20191009100506439](/Users/haida/Library/Application Support/typora-user-images/image-20191009100506439.png)
+
+  `dig -x <@ip>` has been stopped
+
+* [x] Relancer le programme avec kill -CONT pid et vérifier que les commandes dig fonctionnent.
+
+  `systemd-resolv`always changes PID, so it continues to run automatically when PID is changed.
 
 ### 4. Requête au serveur de nom
 
 * [x] Depuis passoire-2, se connecter sur passoire en telnet avec le compte etu.
-* [ ] Lancer la commande `sudo netstat -napuc` (alternativement, on pourra utiliser watch -1 'netstat -napu'). Expliquer cette commande et son résultat.
-* [ ] Réaliser ensuite des requêtes dig depuis passoire et constater l'évolution de l'affichage dans la commande précédente.
+
+* [x] Lancer la commande `sudo netstat -napuc` (alternativement, on pourra utiliser watch -1 'netstat -napu'). Expliquer cette commande et son résultat.
+
+  un tableau comme ci-dessus
+
+* [x] Réaliser ensuite des requêtes dig depuis passoire et constater l'évolution de l'affichage dans la commande précédente.
+
+  Il se passe tranquillement..... Mais le PID ne change plus.....
+
+  ![image-20191009102836745](/Users/haida/Library/Application Support/typora-user-images/image-20191009102836745.png)
 
 ### 5. Configuration à l'UTC
 
-* [ ] Retrouver la configuration du serveur de nom de la machine hôte.
-* [ ] Retrouver les serveurs de nom de l'UTC.
+* [x] Retrouver la configuration du serveur de nom de la machine hôte.
+
+  serveur de nom -> name server (ex: DNS)
+
+  ```shell
+  cat /etc/resolv.conf
+  ```
+
+  ![image-20191009104731431](/Users/haida/Library/Application Support/typora-user-images/image-20191009104731431.png)
+
+* [x] Retrouver les serveurs de nom de l'UTC.
+
+  ![image-20191009105631011](/Users/haida/Library/Application Support/typora-user-images/image-20191009105631011.png)
+
+  ![image-20191009105950281](/Users/haida/Library/Application Support/typora-user-images/image-20191009105950281.png)
 
 ### Vérifier vos connaissances sur :
 
 - uname
+
+  ![image-20191009005649095](/Users/haida/Library/Application Support/typora-user-images/image-20191009005649095.png)
+
 - hostname
+
 - /etc/hostname, /etc/hosts
+
 - dig
+
 - /etc/resolv.conf, /etc/nsswitch.conf
 
-
+  
 
 ## **4. Nouvelle interface réseau**
 
