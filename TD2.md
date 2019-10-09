@@ -242,7 +242,7 @@ Cet exercice permet de comprendre le nommage des machines.
 
   Il nous permet de connecter sur `passoire-TD2` avec la VM `passoire-TD`
 
-![image-20191008141151104](/Users/haida/Library/Application Support/typora-user-images/image-20191008141151104.png)
+![image-20191008141151104](./img/image-20191008141151104.png)
 
 * How to exit telnet:
 
@@ -252,7 +252,7 @@ Cet exercice permet de comprendre le nommage des machines.
 
 * [x] Vérifier les connexions avec `netstat -napt --ip` puis avec `netstat -apt --ip`.
 
-![image-20191008142052222](/Users/haida/Library/Application Support/typora-user-images/image-20191008142052222.png)
+![image-20191008142052222](./img/image-20191008142052222.png)
 
 | netstat |                                   |
 | :-----: | :-------------------------------: |
@@ -271,11 +271,11 @@ Cet exercice permet de comprendre le nommage des machines.
 
   www.utc.fr
 
-![image-20191003101443218](/Users/haida/Library/Application Support/typora-user-images/image-20191003101443218.png)
+![image-20191003101443218](./img/image-20191003101443218.png)
 
 * www.google.fr
 
-  ![image-20191003120635603](/Users/haida/Library/Application Support/typora-user-images/image-20191003120635603.png)
+  ![image-20191003120635603](./img/image-20191003120635603.png)
 
 * [x] Inversement, retrouver le nom d'une machine en partant d'une adresse IP avec la commande `dig -x`.
 
@@ -309,9 +309,9 @@ Cet exercice permet de comprendre le nommage des machines.
 
 * [x] Vérifier avec `netstat -nap --ip` (à lancer en tant qu'administrateur pour voir les programmes associés aux sockets).
 
-![image-20191008155352859](/Users/haida/Library/Application Support/typora-user-images/image-20191008155352859.png)
+![image-20191008155352859](./img/image-20191008155352859.png)
 
-![image-20191008155415181](/Users/haida/Library/Application Support/typora-user-images/image-20191008155415181.png)
+![image-20191008155415181](./img/image-20191008155415181.png)
 
 * [x] Stopper ce processus avec kill -STOP pid et recommencer les commandes dig ci-dessus. Que constatez-vous ?
 
@@ -319,7 +319,7 @@ Cet exercice permet de comprendre le nommage des machines.
   kill -STOP <PID>
   ```
 
-  ![image-20191009100506439](/Users/haida/Library/Application Support/typora-user-images/image-20191009100506439.png)
+  ![image-20191009100506439](./img/image-20191009100506439.png)
 
   `dig -x <@ip>` has been stopped
 
@@ -339,7 +339,7 @@ Cet exercice permet de comprendre le nommage des machines.
 
   Il se passe tranquillement..... Mais le PID ne change plus.....
 
-  ![image-20191009102836745](/Users/haida/Library/Application Support/typora-user-images/image-20191009102836745.png)
+  ![image-20191009102836745](./img/image-20191009102836745.png)
 
 ### 5. Configuration à l'UTC
 
@@ -351,19 +351,19 @@ Cet exercice permet de comprendre le nommage des machines.
   cat /etc/resolv.conf
   ```
 
-  ![image-20191009104731431](/Users/haida/Library/Application Support/typora-user-images/image-20191009104731431.png)
+  ![image-20191009104731431](./img/image-20191009104731431.png)
 
 * [x] Retrouver les serveurs de nom de l'UTC.
 
-  ![image-20191009105631011](/Users/haida/Library/Application Support/typora-user-images/image-20191009105631011.png)
+  ![image-20191009105631011](./img/image-20191009105631011.png)
 
-  ![image-20191009105950281](/Users/haida/Library/Application Support/typora-user-images/image-20191009105950281.png)
+  ![image-20191009105950281](./img/image-20191009105950281.png)
 
 ### Vérifier vos connaissances sur :
 
 - uname
 
-  ![image-20191009005649095](/Users/haida/Library/Application Support/typora-user-images/image-20191009005649095.png)
+  ![image-20191009005649095](./img/image-20191009005649095.png)
 
 - hostname
 
