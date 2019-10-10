@@ -1,37 +1,38 @@
-
 ## **1. Configuration réseau de la machine virtuelle passoire**
 
  Nous commençons par adapter la configuration réseau de la machine virtuelle passoire.
 
 ### Configuration actuelle
 
-   - Consulter la configuration réseau de la machine virtuelle dans la section Configuration/Hardware/Network Device de proxmox.
+* [x] Consulter la configuration réseau de la machine virtuelle dans la section Configuration/Hardware/Network Device de proxmox.
+* [x] Dans la console de passoire, consulter la configuration réseau avec
 
-   - Dans la console de passoire, consulter la configuration réseau avec
+```shell
+ifconfig ip address show
+```
 
-     ```shell
-     ifconfig ip address show
-     ```
+* [x] Consulter les fichiers `/etc/network/interfaces` et `/etc/netplan/50-cloud-init.yaml`. Que peut-on en déduire ?
 
-   - Consulter les fichiers /etc/network/interfaces et /etc/netplan/50-cloud-init.yaml. Que peut-on en déduire ?
+![image-20191001161722063](./img/image-20191001161722063.png)
 
-     ![image-20191001161722063](./img/image-20191001161722063.png)
+* [x] Vérifier en comparant les commandes suivantes ; expliquer :
+  * dpkg -l | grep ifupdown
 
-   - Vérifier en comparant les commandes suivantes ; expliquer :
+    dpkg ne peut pas trouver la commande `ifupdown`
 
-        - dpkg -l | grep ifupdown
-          
-          dpkg ne peut pas trouver la commande `ifupdown`
-          
-     - dpkg -l | grep netplan
+  * dpkg -l | grep netplan
 
 ### Modification de la configuration réseau
 
-4. - En consultant /etc/netplan/50-cloud-init.yaml, déterminer la méthode utilisée pour l'attribution de l'adresse IP à passoire.
+4. - En consultant `/etc/netplan/50-cloud-init.yaml`, déterminer la méthode utilisée pour l'attribution de l'adresse IP à passoire.
 
    - Relever l'adresse IP actuelle ; comparer avec un binôme voisin. Expliquer.
 
-   - Consulter /etc/machine-id et comparer avec un binôme voisin.
+     ```shell
+  ip address show
+     ```
+
+   - Consulter `/etc/machine-id` et comparer avec un binôme voisin.
 
    - Modifier l'ID de la machine virtuelle :
 
@@ -39,20 +40,20 @@
 
        删除machine_id
 
-     - Générer un nouvel ID avec systemd-machine-id-setup.
+     - Générer un nouvel ID avec `systemd-machine-id-setup`.
 
        产生一个新的machine_id
 
-     - Vérifier en consultant à nouveau /etc/machine-id. Comparer avec le binôme voisin.
-
+     - Vérifier en consultant à nouveau `/etc/machine-id`. Comparer avec le binôme voisin.
+   
    - Renouveler l'adresse IP :
 
    - - dhclient -r
-     - Vérifier avec dhclient -v ou ifconfig ou ip address show.
+  - Vérifier avec dhclient -v ou ifconfig ou ip address show.
      - Comparer avec le binôme voisin.
-
+   
    - Suppression de l'interface réseau virb0
-
+   
    - - Cette interface réseau virtuelle est ajoutée par ubuntu-serveur pour gérer la virtualisation. Elle est inutile ici.
      - Enlever l'interface virbr0 temporairement avec  `virsh net-destroy default`. Vérifier avec ifconfig -a
      - Empêcher sa création automatique au démarrage de la vm passoire avec `virsh net-autostart default --disable`.
@@ -379,21 +380,34 @@ Cet exercice permet de comprendre le nommage des machines.
 
 Dans cet exercice, on complète la vm passoire avec une nouvelle interface réseau.
 
-* [ ] Dans la configuration de la machine virtuelle passoire (onglet Configuration/Hardware de proxmox), ajouter une interface réseau :
+* [x] Dans la configuration de la machine virtuelle passoire (onglet Configuration/Hardware de proxmox), ajouter une interface réseau :
 
-- - Bridge : vmbr1 (ie. valeur différente de l'interface réseau déjà présente)
-    * [ ] VLAN Tag : no VLAN
-    * [ ] Model : VirtIO
-    * [ ] Mac address : auto
-    * [ ] Firewall : ne pas cocher la case.
+  Bridge : vmbr1 (ie. valeur différente de l'interface réseau déjà présente)
 
-- Relancer passoire et récupérer le nom de l'interface réseau ainsi créée avec dmesg | grep -i eth.
+  * [x] VLAN Tag : no VLAN
+  * [x] Model : VirtIO
+  * [x] Mac address : auto
+  * [x] Firewall : ne pas cocher la case.
 
-- Editer le fichier /etc/netplan/50-cloud-init.yaml afin d'ajouter la configuration de cette nouvelle interface. La configuration est similaire à la première. Attention à ne pas utiliser de tabulations.
+- [x] Relancer passoire et récupérer le nom de l'interface réseau ainsi créée avec `dmesg | grep -i eth`.
 
-- Demander l'attribution d'une IP avec dhclient et vérifier avec ifconfig ou ip address show.
+  ![image-20191009235516054](./img/image-20191009235516054.png)
 
+- [x] Editer le fichier `/etc/netplan/50-cloud-init.yaml` afin d'ajouter la configuration de cette nouvelle interface. La configuration est similaire à la première. Attention à ne pas utiliser de tabulations.
 
+  ![image-20191010001120896](./img/image-20191010001120896.png)
+
+  ```shell
+  sudo netplan apply
+  ```
+
+- [x] Demander l'attribution d'une IP avec `dhclient` et vérifier avec ifconfig ou ip address show.
+
+  ```shell
+  dhclient -r
+  ```
+
+  ![image-20191010002631547](./img/image-20191010002631547.png)
 
 ## **5. Sécurité des communications**
 
@@ -401,10 +415,15 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
 ### Capture de trafic avec tcpdump
 
-2. 1. Sur passoire-2, lancer la commande suivante : ping passoire.
-   2. Via quelle interface réseau la machine virtuelle passoire reçoit-elle les paquets ping en provenance de passoire-bis ?
-   3. Sur passoire, lancer la commande suivante en adaptant le nom de l'interface : sudo tcpdump -n -i interface.
-   4. Expliquer la commande et les résultats obtenus.
+* [x] Sur passoire-2, lancer la commande suivante : `ping passoire-TD`.
+
+* [x] Via quelle interface réseau la machine virtuelle passoire reçoit-elle les paquets ping en provenance de passoire-bis ?
+
+  ![image-20191010003242402](./img/image-20191010003242402.png)
+
+* [x] Sur passoire, lancer la commande suivante en adaptant le nom de l'interface : `sudo tcpdump -n -i interface`.
+
+* [ ] Expliquer la commande et les résultats obtenus.
 
 ### Capture de contenu avec tcpdump
 
