@@ -31,7 +31,7 @@
 
 **ls -l**
 
-![image-20190923152322589](/Users/haida/Library/Application Support/typora-user-images/image-20190923152322589.png)
+![image-20190923152322589](./img/image-20190923152322589.png)
 
 
 

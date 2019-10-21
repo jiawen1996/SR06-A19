@@ -29,7 +29,7 @@ ifconfig ip address show
    - Relever l'adresse IP actuelle ; comparer avec un binôme voisin. Expliquer.
 
      ```shell
-  ip address show
+    ip address show
      ```
 
    - Consulter `/etc/machine-id` et comparer avec un binôme voisin.
@@ -222,7 +222,7 @@ Cet exercice permet de comprendre le nommage des machines.
 
   `uname`: print system information
 
-![image-20191003091159161](/Users/haida/Library/Application Support/typora-user-images/image-20191003091159161.png)
+![image-20191003091159161](./img/image-20191003091159161.png)
 
 * [x] Renommer la VM passoire-2 en passoire-2 :
 
@@ -253,6 +253,8 @@ Cet exercice permet de comprendre le nommage des machines.
 
 * [x] Vérifier les connexions avec `netstat -napt --ip` puis avec `netstat -apt --ip`.
 
+  https://linux.cn/article-2434-1.html
+
 ![image-20191008142052222](./img/image-20191008142052222.png)
 
 | netstat |                                   |
@@ -263,6 +265,7 @@ Cet exercice permet de comprendre le nommage des machines.
 |   -p    | show info of process (using root) |
 |   -u    |             only UPD              |
 |   -c    |          keeping output           |
+|   -l    |             listening             |
 
 在VM-TD2上远程登录TD的账户，在该账户中使用`netstat`看到有与`10.10.10.92`（TD2的ip）的链接
 
@@ -401,7 +404,7 @@ Dans cet exercice, on complète la vm passoire avec une nouvelle interface rése
   sudo netplan apply
   ```
 
-- [x] Demander l'attribution d'une IP avec `dhclient` et vérifier avec ifconfig ou ip address show.
+- [x] Demander l'attribution d'une IP avec `dhclient` et vérifier avec `ifconfig` ou ip address show.
 
   ```shell
   dhclient -r
@@ -423,31 +426,83 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
 * [x] Sur passoire, lancer la commande suivante en adaptant le nom de l'interface : `sudo tcpdump -n -i interface`.
 
-* [ ] Expliquer la commande et les résultats obtenus.
+* [x] Expliquer la commande et les résultats obtenus.
+
+  ![image-20191010080830608](./img/image-20191010080830608.png)
+
+  Même si eth1 a déjà été existant.
+
+  Ok, fine. It should run
+
+  ```shell
+  sudo tcpdump -n -i ens19
+  ```
+
+  ![image-20191010091102185](./img/image-20191010091102185.png)
+  
+  ​		Résponse de `ens18`
+  
+  ![image-20191015160734376](/Users/haida/Library/Application Support/typora-user-images/image-20191015160734376.png)
+  
+  
 
 ### Capture de contenu avec tcpdump
 
-4. 1. Sur passoire, lancer la commande suivante : sudo tcpdump -n -i interface 'port 23' -X.
-   2. Sur passoire-bis, lancer la commande suivante : telnet passoire -l etu.
-   3. Expliquer les commandes et les résultats obtenus. Retrouver l'information sensible.
+* [x] Sur passoire, lancer la commande suivante : `sudo tcpdump -n -i interface 'port 23' -X`.
+
+  ![image-20191010081051411](./img/image-20191010081051411.png)
+
+  It seems that we should restart networking device... So I installed `network-manager`
+
+  ![image-20191010083030534](./img/image-20191010083030534.png)
+
+  Ok, I'm fine :)
+
+  ....Remplacer `interface` par `ens19`
+
+  ![image-20191015155618401](/Users/haida/Library/Application Support/typora-user-images/image-20191015155618401.png)
+
+* [x] Sur `passoire-bis`, lancer la commande suivante : `telnet passoire -l etu`.
+
+  ⚠️: @ip de 2 VM vont être changés périodiquement.
+
+* [ ] Expliquer les commandes et les résultats obtenus. Retrouver l'information sensible.
+
+  ![image-20191015160922015](/Users/haida/Library/Application Support/typora-user-images/image-20191015160922015.png)
 
 ### Visualisation graphique avec Wireshark
 
-6. 1. Sur le système hôte, identifier les adresses IP et notamment celle le connectant à la machine virtuelle passoire.
-   2. Sur passoire, lancer la commande suivante : sudo tcpdump -s0 -n -U -w - -i interface 'not port 3000' | nc @IP_hôte 3000.
-   3. Sur le système hôte, lancer ensuite la commande : nc -k -l 3000 | wireshark -k -i -
-   4. Expliquer les différentes commandes. Que constatez-vous ?
-   5. Observer l'encapsulation des paquets dans Wireshark et les différents champs des entêtes (adresses MAC, adresses IP, drapeaux IP, numéros de port et options TCP...).
-   6. Ajouter un trafic ping entre passoire et passoire-bis.
-   7. Via un clic droit sur l'un des paquets du flux TCP, afficher le contenu du flux (menu Follow TCP stream). Que constatez-vous
+* [x] Sur le système hôte, identifier les adresses IP et notamment celle le connectant à la machine virtuelle passoire.
+
+  @ip_host: 10.10.10.179
+
+* [x] Sur passoire, lancer la commande suivante : `sudo tcpdump -s0 -n -U -w - -i interface 'not port 3000' | nc @IP_hôte 3000`.
+
+  ![image-20191015161431000](/Users/haida/Library/Application Support/typora-user-images/image-20191015161431000.png)
+
+* [ ] Sur le système hôte, lancer ensuite la commande : `nc -k -l 3000 | wireshark -k -i -`?????❓
+
+* [ ] Expliquer les différentes commandes. Que constatez-vous ?
+
+* [ ] Observer l'encapsulation des paquets dans Wireshark et les différents champs des entêtes (adresses MAC, adresses IP, drapeaux IP, numéros de port et options TCP...).
+
+* [ ] Ajouter un trafic ping entre passoire et passoire-bis.
+
+* [ ] Via un clic droit sur l'un des paquets du flux TCP, afficher le contenu du flux (menu Follow TCP stream). Que constatez-vous
 
 ### Connexion ssh
 
-8. 1. Depuis passoire, se connecter en ssh sur passoire-bis.
-   2. Suivre la communication avec Wireshark. Que constatez-vous ?
-   3. Corriger passoire afin d'interdire les communications non chiffrées.
+* [ ] Depuis passoire, se connecter en ssh sur passoire-bis.
 
+  ```shell
+  ssh etu@10.10.10.128
+  ```
 
+  
+
+* [ ] Suivre la communication avec Wireshark. Que constatez-vous ?
+
+* [ ] Corriger passoire afin d'interdire les communications non chiffrées.
 
 ### Vérifier vos connaissances sur :
 
@@ -463,11 +518,11 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
 Cet exercice porte sur la détection à distance de services réseaux. Attention à bien respecter les consignes. Relire l'article [323-3-1](https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000028345220&cidTexte=LEGITEXT000006070719) du code pénal au préalable.
 
-1. Installer le paquet nmap sur passoire-2. Consulter ensuite le man de la commande nmap. Comment classer cette commande ?
+* [ ] Installer le paquet `nmap` sur passoire-2. Consulter ensuite le man de la commande nmap. Comment classer cette commande ?
 
 2. Isolation du réseau.
 
-3. 1. Afin de rester dans le réseau privé d'hôte, démonter l'interface réseau en NAT sur passoire-bis avec la commande : sudo ip link set ens18 down. Adapter si besoin le nom de l'interface.
+3. 1. Afin de rester dans le réseau privé d'hôte, démonter l'interface réseau en NAT sur passoire-bis avec la commande : `sudo ip link set ens18 down`. Adapter si besoin le nom de l'interface.
    2. Vérifier avec ifconfig qu'il ne reste plus que l'interface connectée au réseau vmbr1.
    3. Est-il encore possible de télécharger un paquet logiciel sur la machine virtuelle ?
 

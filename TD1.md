@@ -233,17 +233,21 @@ L'utilisateur etu ne peut pas supprimer le fichier /tmp/temp
 
 Cet exercice est à réaliser sur la machine virtuelle passoire. Il permet de comprendre quelques vulnérabilités et de corriger la machine virtuelle passoire.
 
-- Expliquer la commande suivante et son intérêt. Dans ce cas précis, quel risque encourt l'utilisateur etu ?
+* [ ] Expliquer la commande suivante et son intérêt. Dans ce cas précis, quel risque encourt l'utilisateur etu ?
 
-  - find / -type d -perm /o+w -a \! -uid 0 -print 2> /dev/null
+  ```shell
+  find / -type d -perm /o+w -a \! -uid 0 -print 2> /dev/null
+  ```
 
-  -find folders which other users have write right and ???(J'ai pas le trouvé )
+  * find folders which other users have write right and ???(J'ai pas le trouvé )
 
-- Supprimer l'utilisateur boule avec la commande deluser boule. Expliquer la commande suivante et corriger l'anomalie trouvée :
+* [ ] Supprimer l'utilisateur boule avec la commande deluser boule. Expliquer la commande suivante et corriger l'anomalie trouvée :
 
-  - find / -type f \ ( -nouser -o -nogroup \ ) -print 2> /dev/null
-  - (pour gagner du temps, il est possible de restreindre la recherche aux répertoires /home et /tmp).
+  ```shell
+  find / -type f \ ( -nouser -o -nogroup \ ) -print 2> /dev/null
+  #(pour gagner du temps, il est possible de restreindre la recherche aux répertoires /home et /tmp)
+  ```
 
-- Expliquer la commande suivante et l'anomalie trouvée. Corrigez-la.
+* Expliquer la commande suivante et l'anomalie trouvée. Corrigez-la.
 
   - find / -type f -perm /u+x -perm /o+w -print 2> /dev/null
