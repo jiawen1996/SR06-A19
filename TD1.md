@@ -26,7 +26,7 @@ Cet exercice permet de comprendre la vulnérabilité que représente un mot de p
   ```shell
   ls -altr
   ```
-
+Un répertoire .john a été créé : il appartient à etu qui est le seul a en avoir les droits d'écriture lecture et exécution.
   
 
 - Ajouter l'utilisateur boule, de mot-de-passe bill. Relancer john pour qu'il retrouve le mot de passe de boule tout en mesurant le temps nécessaire.
@@ -34,13 +34,64 @@ Cet exercice permet de comprendre la vulnérabilité que représente un mot de p
   ```shell
   sudo useradd boule
   sudo passwd <password>
+  
+  time john mypasswd -users:boule
+  >real 0m17.145s
   ```
-
+John arrive a craquer le mot de passe de Boule (bill) en 17 secondes.
   
 
 - Sur passoire, vérifier les droits des fichiers /etc/passwd et /etc/shadow. Corriger-les ci-besoin.
 
+```shell
+ls -l /etc/passwd
+ls -l /etc/shadow
+```
+Il est normal que /etc/passwd soit lisible par tous mais modifiable uniquement par `root` car il contient des données utiles à tous.
+
+Par contre il n'est pas normal que que `/etc/shadow` soit lisible par tous car dans ce cas n'importe qui peut lancer john ou autre pour décripter des mots de passes.
+Démonstration :
+
+```shell
+rm .john/*
+time john /etc/shadow -users:boule
+
+>bill (boule)
+>real 0m27.557s
+```
+
+Les droits de `/etc/shadow` doivent donc être modifiés :
+
+```shell
+chmod go-rwx /etc/shadow 
+```
+ou 
+
+```shell
+chmod 600 /etc/shadow 
+```
+Pour gérer les acl (access control list)     i.e. les permissions spéciales
+
 - Changer le mot de passe de l'utilisateur etu (retenir le mot de passe choisi !).
+
+```shell
+passwd
+>ascefbth,
+
+time john mypasswd -users:etu
+>session aborted 
+>real 25m16.154s 
+
+john --restore
+>session aborted 
+>real 11m44.597s
+
+john --restore
+
+>session aborted 
+>real 96m27.404s
+```
+Mot de passe plus sécurisé mais plus dur à retenir --> préférer une phrase longue (sinon banque de mots) ?
 
 
 
@@ -65,26 +116,95 @@ u —— user		g —— group		o —— other
 
 - Créer deux utilisateurs remus et romulus sur passoire. On suppose que leurs répertoires courants sont /home/remus et /home/romulus.
 
+```shell
+sudo useradd remus
+
+grep remus /etc/passwd
+>remus:x:1003:1003::/home/remus:/bin/sh
+
+ls -a /home/remus
+>No such file or directory
+
+cd ~remus
+
+sudo passwd remus
+>remus
+
+sudo mkdir /home/remus
+sudo chown remus:remus /home/remus
+```
+
+```shell
+sudo adduser romulus
+
+grep romulus /etc/passwd
+>romulus:x:1004:1004::/home/romulus:/bin/bash
+
+ls -a /home/romulus
+>.bash_logout .bashrc .profile
+
+cd /home.romulus
+```
+
 - En tant qu'utilisateur remus, créer un fichier update.sh dans /home/remus, contenant l'instruction suivante : date >> /home/remus/log.txt
+
+```shell
+su - remus
+
+echo 'date >> /home/remus/log.txt' > update.sh
+```
 
 - Ajouter les droits d'exécution à ce fichier.
 
   ```shell
   	chmod +x <filename>
   ```
+  remarque : +x va considérer que c'est comme un a+x mais en applicant le mask alors que a+x n'applique pas le mask.
 
 - Lancer en tant que remus update.sh. Que constatez-vous ?
 
+```shell
+./update.sh
+```
+Crée le fichier ``log.tx`` 
+
+```shell
+cat log.txt
+><date du jour>
+```
+Comme prévu...
+
 - Adapter les droits des fichiers update.sh et log.txt de sorte que l'utilisateur romulus puisse également exécuter update.sh.
 
+```shell
+su - romulus
+/home/remus/update.sh
+> access denied : log.txt
+```
+--> changer les droits de log.txt pour que les autres (donc romulus compris) puissent écrire dedans.
 
+```shell
+exit
+remus@passoire:~$ chmod o+w log.txt
+/home/remus/log.txt
+> <1er date>
+> <2e date>
+```
 
 - Vérifier en vous connectant en tant que romulus et en lançant la commande udpdate.sh de remus.
+
 - En tant que remus, enlever les droits de lecture, d'écriture et d'exécution pour 'other' sur le fichier log.txt. Refaire les étapes 4 et 6. Que constatez-vous ?
 
 
 
 - En tant que etu, créer un groupe rome et y ajouter les utilisateurs remus et romulus.
+```shell
+etu@passoire:~$ sudo addgroup rome
+sudo adduser remus rome
+sudo adduser romulus rome
+grep rome /etc/group
+> rome:x:1005:remus, romulus
+```
 - En tant que remus, changer les groupes des fichiers update.sh et log.txt de sorte qu'ils appartiennent au groupe rome.
 - Recommencer les étapes 4 et 6. Que constatez-vous ?
 - Faire en sorte que tous les fichiers dorénavant créés par remus appartiennent au groupe rome. Tester à nouveau l'étape 6.
