@@ -76,18 +76,20 @@ Pour gérer les acl (access control list)     i.e. les permissions spéciales
 
 ```shell
 passwd
-
 >ascefbth,
 
 time john mypasswd -users:etu
-
 >session aborted 
 >real 25m16.154s 
 
 john --restore
-
 >session aborted 
 >real 11m44.597s
+
+john --restore
+
+>session aborted 
+>real 96m27.404s
 ```
 Mot de passe plus sécurisé mais plus dur à retenir --> préférer une phrase longue (sinon banque de mots) ?
 
@@ -130,7 +132,9 @@ sudo passwd remus
 
 sudo mkdir /home/remus
 sudo chown remus:remus /home/remus
+```
 
+```shell
 sudo adduser romulus
 
 grep romulus /etc/passwd
@@ -155,19 +159,52 @@ echo 'date >> /home/remus/log.txt' > update.sh
   ```shell
   	chmod +x <filename>
   ```
+  remarque : +x va considérer que c'est comme un a+x mais en applicant le mask alors que a+x n'applique pas le mask.
 
 - Lancer en tant que remus update.sh. Que constatez-vous ?
 
+```shell
+./update.sh
+```
+Crée le fichier ``log.tx`` 
+
+```shell
+cat log.txt
+><date du jour>
+```
+Comme prévu...
+
 - Adapter les droits des fichiers update.sh et log.txt de sorte que l'utilisateur romulus puisse également exécuter update.sh.
 
+```shell
+su - romulus
+/home/remus/update.sh
+> access denied : log.txt
+```
+--> changer les droits de log.txt pour que les autres (donc romulus compris) puissent écrire dedans.
 
+```shell
+exit
+remus@passoire:~$ chmod o+w log.txt
+/home/remus/log.txt
+> <1er date>
+> <2e date>
+```
 
 - Vérifier en vous connectant en tant que romulus et en lançant la commande udpdate.sh de remus.
+
 - En tant que remus, enlever les droits de lecture, d'écriture et d'exécution pour 'other' sur le fichier log.txt. Refaire les étapes 4 et 6. Que constatez-vous ?
 
 
 
 - En tant que etu, créer un groupe rome et y ajouter les utilisateurs remus et romulus.
+```shell
+etu@passoire:~$ sudo addgroup rome
+sudo adduser remus rome
+sudo adduser romulus rome
+grep rome /etc/group
+> rome:x:1005:remus, romulus
+```
 - En tant que remus, changer les groupes des fichiers update.sh et log.txt de sorte qu'ils appartiennent au groupe rome.
 - Recommencer les étapes 4 et 6. Que constatez-vous ?
 - Faire en sorte que tous les fichiers dorénavant créés par remus appartiennent au groupe rome. Tester à nouveau l'étape 6.
