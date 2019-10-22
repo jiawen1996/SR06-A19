@@ -442,7 +442,7 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
   
   ​		Résponse de `ens18`
   
-  ![image-20191015160734376](/Users/haida/Library/Application Support/typora-user-images/image-20191015160734376.png)
+  ![image-20191015160734376](./img/image-20191015160734376.png)
   
   
 
@@ -460,7 +460,7 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
   Donc il doit remplacer `interface` par `ens19`
 
-  ![image-20191015155618401](/Users/haida/Library/Application Support/typora-user-images/image-20191015155618401.png)
+  ![image-20191015155618401](./img/image-20191015155618401.png)
 
 * [x] **Sur `passoire-bis`, lancer la commande suivante : `telnet passoire -l etu`.**
 
@@ -468,7 +468,7 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
 * [x] **Expliquer les commandes et les résultats obtenus. Retrouver l'information sensible.**
 
-  ![image-20191015160922015](/Users/haida/Library/Application Support/typora-user-images/image-20191015160922015.png)
+  ![image-20191015160922015](./img/image-20191015160922015.png)
 
 ### Visualisation graphique avec Wireshark
 
@@ -497,7 +497,7 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
   -n -> not transform address from number to name
 
-  ![image-20191015161431000](/Users/haida/Library/Application Support/typora-user-images/image-20191015161431000.png)
+  ![image-20191015161431000](./img/image-20191015161431000.png)
 
 * [ ] **Sur le système hôte, lancer ensuite la commande : **
 
@@ -559,7 +559,7 @@ Cet exercice porte sur la détection à distance de services réseaux. Attention
 
 * [x] Installer le paquet `nmap` sur passoire-2. Consulter ensuite le man de la commande nmap. Comment classer cette commande ?
 
-  ![image-20191021212537220](/Users/haida/Library/Application Support/typora-user-images/image-20191021212537220.png)
+  ![image-20191021212537220](./img/image-20191021212537220.png)
 
 ### Isolation du réseau
 
@@ -571,7 +571,7 @@ Cet exercice porte sur la détection à distance de services réseaux. Attention
 
   non
 
-  ![image-20191021215130795](/Users/haida/Library/Application Support/typora-user-images/image-20191021215130795.png)
+  ![image-20191021215130795](./img/image-20191021215130795.png)
 
 * [ ] **Depuis passoire-2, lancer la commande suivante : nmap passoire.**
 
@@ -604,17 +604,17 @@ Cet exercice porte sur les comptes de service et la séparation des privilèges.
   wc -l /etc/passwd
   ```
 
-  ![image-20191021233814014](/Users/haida/Library/Application Support/typora-user-images/image-20191021233814014.png)
+  ![image-20191021233814014](./img/image-20191021233814014.png)
 
 * [x] **Que font les commandes `nologin` et `false` ?**
 
   * **nologin**
 
-  ![image-20191021233943859](/Users/haida/Library/Application Support/typora-user-images/image-20191021233943859.png)
+  ![image-20191021233943859](./img/image-20191021233943859.png)
 
   * false
 
-    ![image-20191021234041956](/Users/haida/Library/Application Support/typora-user-images/image-20191021234041956.png)
+    ![image-20191021234041956](./img/image-20191021234041956.png)
 
   * When `/sbin/nologin` is set as the shell, if user with that shell logs in, they'll get a polite message saying 'This account is currently not available.' This message can be changed with the file `/etc/nologin.txt`.
 
@@ -629,9 +629,9 @@ Cet exercice porte sur les comptes de service et la séparation des privilèges.
   #find users who can login successfully
   ```
 
-  ![image-20191021234429621](/Users/haida/Library/Application Support/typora-user-images/image-20191021234429621.png)
+  ![image-20191021234429621](./img/image-20191021234429621.png)
 
-  ![image-20191021234549290](/Users/haida/Library/Application Support/typora-user-images/image-20191021234549290.png)
+  ![image-20191021234549290](./img/image-20191021234549290.png)
 
 * [ ] **Corriger l'anomalie trouvée.**
 
@@ -639,13 +639,13 @@ Cet exercice porte sur les comptes de service et la séparation des privilèges.
 
 * [x] **Que fait la commande `apache2ctl` ?**
 
-  ![image-20191022000631580](/Users/haida/Library/Application Support/typora-user-images/image-20191022000631580.png)
+  ![image-20191022000631580](./img/image-20191022000631580.png)
 
 * [x] **Vérifier que les utilisateurs `remus` et `romulus` ne peuvent relancer le serveur web de passoire.**
 
 * [x] **Ouvrir un autre terminal et lancer la commande suivante pour constater les essais infructueux de remus et romulus : `tail -f /var/log/auth.log`.**
 
-  ![image-20191022004219034](/Users/haida/Library/Application Support/typora-user-images/image-20191022004219034.png)
+  ![image-20191022004219034](./img/image-20191022004219034.png)
 
 * [x] **En tant qu'utilisateur etu, éditer le fichier /etc/sudoers avec la commande : `sudo vi /etc/sudoers`.**
 

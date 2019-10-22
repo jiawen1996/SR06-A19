@@ -38,7 +38,7 @@ Cette machine virtuelle est issue de la machine virtuelle *passoire* fournie en 
 
   Dans le fichier `/etc/services`, on a commenté `port 23`
 
-  ![image-20191021232832922](/Users/haida/Library/Application Support/typora-user-images/image-20191021232832922.png)
+  ![image-20191021232832922](./img/image-20191021232832922.png)
 
 ### 3. Services
 
