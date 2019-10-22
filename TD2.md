@@ -448,7 +448,7 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
 ### Capture de contenu avec tcpdump
 
-* [x] Sur passoire, lancer la commande suivante : `sudo tcpdump -n -i interface 'port 23' -X`.
+* [x] **Sur passoire, lancer la commande suivante : `sudo tcpdump -n -i interface 'port 23' -X`.**
 
   ![image-20191010081051411](./img/image-20191010081051411.png)
 
@@ -458,47 +458,76 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
   Ok, I'm fine :)
 
-  ....Remplacer `interface` par `ens19`
+  Donc il doit remplacer `interface` par `ens19`
 
   ![image-20191015155618401](/Users/haida/Library/Application Support/typora-user-images/image-20191015155618401.png)
 
-* [x] Sur `passoire-bis`, lancer la commande suivante : `telnet passoire -l etu`.
+* [x] **Sur `passoire-bis`, lancer la commande suivante : `telnet passoire -l etu`.**
 
   ⚠️: @ip de 2 VM vont être changés périodiquement.
 
-* [ ] Expliquer les commandes et les résultats obtenus. Retrouver l'information sensible.
+* [x] **Expliquer les commandes et les résultats obtenus. Retrouver l'information sensible.**
 
   ![image-20191015160922015](/Users/haida/Library/Application Support/typora-user-images/image-20191015160922015.png)
 
 ### Visualisation graphique avec Wireshark
 
-* [x] Sur le système hôte, identifier les adresses IP et notamment celle le connectant à la machine virtuelle passoire.
+* [x] **Sur le système hôte, identifier les adresses IP et notamment celle le connectant à la machine virtuelle passoire.**
 
   @ip_host: 10.10.10.179
 
-* [x] Sur passoire, lancer la commande suivante : `sudo tcpdump -s0 -n -U -w - -i interface 'not port 3000' | nc @IP_hôte 3000`.
+* [x] **Sur passoire, lancer la commande suivante : **
 
-  ![image-20191015161431000](/Users/haida/Library/Application Support/typora-user-images/image-20191015161431000.png)
+  **`sudo tcpdump -s0 -n -U -w - -i <interface> 'not port 3000' | nc @IP_hôte 3000`.**
 
-* [ ] Sur le système hôte, lancer ensuite la commande : `nc -k -l 3000 | wireshark -k -i -`?????❓
+  不确定会不会生成一个文件，通过pipeline自动转发给@ip_host的3000端口 
 
-* [ ] Expliquer les différentes commandes. Que constatez-vous ?
+  -s0 -> the default length of captured traffic is 68k
 
-* [ ] Observer l'encapsulation des paquets dans Wireshark et les différents champs des entêtes (adresses MAC, adresses IP, drapeaux IP, numéros de port et options TCP...).
-
-* [ ] Ajouter un trafic ping entre passoire et passoire-bis.
-
-* [ ] Via un clic droit sur l'un des paquets du flux TCP, afficher le contenu du flux (menu Follow TCP stream). Que constatez-vous
-
-### Connexion ssh
-
-* [ ] Depuis passoire, se connecter en ssh sur passoire-bis.
+  -w -> save as cap file(for wireshark)
 
   ```shell
-  ssh etu@10.10.10.128
+  tcpdump -i eth0 -s 0 -w a.cap #infos have been saved in a.cap
+  tcpdump -r a.cap #read a.cap
   ```
 
   
+
+  -U -> each packet will be saved in the file in time
+
+  -n -> not transform address from number to name
+
+  ![image-20191015161431000](/Users/haida/Library/Application Support/typora-user-images/image-20191015161431000.png)
+
+* [ ] **Sur le système hôte, lancer ensuite la commande : **
+
+  **`nc -k -l 3000 | wireshark -k -i -`?????❓**
+
+  在host machine上持续监听
+
+  -k -> 当客户端从服务端断开连接后，过一段时间服务端也会停止监听。 但通过选项 `-k` 我们可以强制服务器保持连接并继续监听端口。
+
+  -l -> 可以进入监听模式，使我们可以在指定端口监听入站连接
+
+* [ ] **Expliquer les différentes commandes. Que constatez-vous ?**
+
+  En fait, dans notre VM, il n'y a pas de GUI pour tcpdump. et puis tcpdump et wireshark ils sont presque pareils. Donc ce que l'on fait c'est pour  transférer des trafics que l'on a capturé depuis VM vers notre machine réelle.
+
+* [ ] **Observer l'encapsulation des paquets dans Wireshark et les différents champs des entêtes (adresses MAC, adresses IP, drapeaux IP, numéros de port et options TCP...).**
+
+* [ ] **Ajouter un trafic ping entre passoire et passoire-bis.**
+
+* [ ] **Via un clic droit sur l'un des paquets du flux TCP, afficher le contenu du flux (menu Follow TCP stream). Que constatez-vous**
+
+### Connexion ssh
+
+* [x] Depuis passoire, se connecter en ssh sur passoire-bis.
+
+  ```shell
+  ssh etu@10.10.10.128
+  
+logout #for exiting ssh
+  ```
 
 * [ ] Suivre la communication avec Wireshark. Que constatez-vous ?
 
@@ -507,9 +536,19 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 ### Vérifier vos connaissances sur :
 
 - tcpdump
+
+  dump the traffic on the network
+
+- nc(ncat)
+
+  用于监听、远程登录
+
 - wireshark
+
 - telnet
+
 - ssh
+
 - confidentialité des communications
 
 
@@ -518,23 +557,31 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
 Cet exercice porte sur la détection à distance de services réseaux. Attention à bien respecter les consignes. Relire l'article [323-3-1](https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000028345220&cidTexte=LEGITEXT000006070719) du code pénal au préalable.
 
-* [ ] Installer le paquet `nmap` sur passoire-2. Consulter ensuite le man de la commande nmap. Comment classer cette commande ?
+* [x] Installer le paquet `nmap` sur passoire-2. Consulter ensuite le man de la commande nmap. Comment classer cette commande ?
 
-2. Isolation du réseau.
+  ![image-20191021212537220](/Users/haida/Library/Application Support/typora-user-images/image-20191021212537220.png)
 
-3. 1. Afin de rester dans le réseau privé d'hôte, démonter l'interface réseau en NAT sur passoire-bis avec la commande : `sudo ip link set ens18 down`. Adapter si besoin le nom de l'interface.
-   2. Vérifier avec ifconfig qu'il ne reste plus que l'interface connectée au réseau vmbr1.
-   3. Est-il encore possible de télécharger un paquet logiciel sur la machine virtuelle ?
+### Isolation du réseau
 
-4. Depuis passoire-2, lancer la commande suivante : nmap passoire.
+* [x] **Afin de rester dans le réseau privé d'hôte, démonter l'interface réseau en NAT sur passoire-bis avec la commande : `sudo ip link set ens18 down`. Adapter si besoin le nom de l'interface.**
 
-5. A l'aide de tcpdump ou wireshark (cf. exercice précédent), observer le trafic généré par nmap.
+* [x] **Vérifier avec ifconfig qu'il ne reste plus que l'interface connectée au réseau vmbr1.**
 
-6. Réaliser un scan UDP sur passoire.
+* [x] **Est-il encore possible de télécharger un paquet logiciel sur la machine virtuelle ?**
 
-7. Réaliser une découverte d'OS sur passoire et sur l'adresse 192.168.56.1
+  non
 
-8. Pour réactiver l'interface réseau qui avait été désactiver, utiliser sudo ip link set eth1 up.
+  ![image-20191021215130795](/Users/haida/Library/Application Support/typora-user-images/image-20191021215130795.png)
+
+* [ ] **Depuis passoire-2, lancer la commande suivante : nmap passoire.**
+
+* [ ] **A l'aide de tcpdump ou wireshark (cf. exercice précédent), observer le trafic généré par nmap.**
+
+* [ ] **Réaliser un scan UDP sur passoire.**
+
+* [ ] **Réaliser une découverte d'OS sur passoire et sur l'adresse 192.168.56.1**
+
+* [ ] **Pour réactiver l'interface réseau qui avait été désactiver, utiliser `sudo ip link set eth1 up`.**
 
 
 
@@ -549,38 +596,68 @@ Cet exercice porte sur la détection à distance de services réseaux. Attention
 
 Cet exercice porte sur les comptes de service et la séparation des privilèges.
 
-1. Comptes de service
+### Comptes de service
 
-2. 1. Compter le nombre d'utilisateurs définis dans le fichier /etc/passwd. Expliquer.
+* [ ] **Compter le nombre d'utilisateurs définis dans le fichier /etc/passwd. Expliquer.**
 
-   2. Que font les commandes nologin et false ?
+  ```shell
+  wc -l /etc/passwd
+  ```
 
-   3. Expliquer les commandes suivantes et leur résultat.
+  ![image-20191021233814014](/Users/haida/Library/Application Support/typora-user-images/image-20191021233814014.png)
 
-   4. 1. grep -v home /etc/passwd | grep bash
-      2. grep -v nologin /etc/passwd | grep -v false
+* [x] **Que font les commandes `nologin` et `false` ?**
 
-   5. Corriger l'anomalie trouvée.
+  * **nologin**
 
-3. Droit spécifique pour relancer Apache
+  ![image-20191021233943859](/Users/haida/Library/Application Support/typora-user-images/image-20191021233943859.png)
 
-4. 1. Que fait la commande apache2ctl ?
+  * false
 
-   2. Vérifier que les utilisateurs remus et romulus ne peuvent relancer le serveur web de passoire.
+    ![image-20191021234041956](/Users/haida/Library/Application Support/typora-user-images/image-20191021234041956.png)
 
-   3. Ouvrir un autre terminal et lancer la commande suivante pour constater les essais infructueux de remus et romulus : tail -f /var/log/auth.log.
+  * When `/sbin/nologin` is set as the shell, if user with that shell logs in, they'll get a polite message saying 'This account is currently not available.' This message can be changed with the file `/etc/nologin.txt`.
 
-   4. En tant qu'utilisateur etu, éditer le fichier /etc/sudoers avec la commande : sudo vi /etc/sudoers.
+    `/bin/false` is just a binary that immediately exits, returning false, when it's called, so when someone who has `false` as shell logs in, they're immediately logged out when `false` exits. Setting the shell to `/bin/true` has the same effect of not allowing someone to log in but `false` is probably used as a convention over `true` since it's much better at conveying the concept that person doesn't have a shell.
 
-   5. 1. Dans la section *User alias specification*, ajouter la ligne : User_Alias ROMAINS=remus,romulus
-      2. Dans la section *Cmnd alias specification,* ajouter la ligne : Cmnd_Alias APACHE=/usr/sbin/apache2ctl
-      3. A la fin de la section *User privilege specification*, ajouter la ligne : ROMAINS ALL=APACHE
+* [x] **Expliquer les commandes suivantes et leur résultat.**
 
-   6. Vérifier que les utilisateurs remus et romulus peuvent maintenant relancer le site web.
+  ```bash
+  grep -v home /etc/passwd | grep bash
+  #find the user who has bash but don't has home
+  grep -v nologin /etc/passwd | grep -v false
+  #find users who can login successfully
+  ```
 
-5. Droit spécifique pour éditer le site web
+  ![image-20191021234429621](/Users/haida/Library/Application Support/typora-user-images/image-20191021234429621.png)
 
-6. 1. A qui appartient la page web par défaut du site web de passoire ?
+  ![image-20191021234549290](/Users/haida/Library/Application Support/typora-user-images/image-20191021234549290.png)
+
+* [ ] **Corriger l'anomalie trouvée.**
+
+### Droit spécifique pour relancer Apache
+
+* [x] **Que fait la commande `apache2ctl` ?**
+
+  ![image-20191022000631580](/Users/haida/Library/Application Support/typora-user-images/image-20191022000631580.png)
+
+* [x] **Vérifier que les utilisateurs `remus` et `romulus` ne peuvent relancer le serveur web de passoire.**
+
+* [x] **Ouvrir un autre terminal et lancer la commande suivante pour constater les essais infructueux de remus et romulus : `tail -f /var/log/auth.log`.**
+
+  ![image-20191022004219034](/Users/haida/Library/Application Support/typora-user-images/image-20191022004219034.png)
+
+* [x] **En tant qu'utilisateur etu, éditer le fichier /etc/sudoers avec la commande : `sudo vi /etc/sudoers`.**
+
+  * [x] **Dans la section *User alias specification*, ajouter la ligne : `User_Alias ROMAINS=remus,romulus`**
+  * [x] **Dans la section *Cmnd alias specification,* ajouter la ligne : `Cmnd_Alias APACHE=/usr/sbin/apache2ctl`**
+  * [x] **A la fin de la section *User privilege specification*, ajouter la ligne :` ROMAINS ALL=APACHE`**
+
+* [ ] **Vérifier que les utilisateurs remus et romulus peuvent maintenant relancer le site web.**
+
+### Droit spécifique pour éditer le site web
+
+1. 1. A qui appartient la page web par défaut du site web de passoire ?
 
    2. En tant qu'utilisateur etu, changer récursivement le user et le group du répertoire /var/www/html de sorte qu'il appartienne à www-data.
 
@@ -607,23 +684,23 @@ Cet exercice porte sur les comptes de service et la séparation des privilèges.
 
 Cet exercice porte sur l'isolation d'un utilisateur à l'aide de chroot. La même technique peut être appliquée pour isoler un service.
 
-1. Construction de l'isolation minimale
+### Construction de l'isolation minimale
 
-2. 1. Créer le répertoire /var/isoler qui servira de "cage" pour notre isolation. Ajouter le répertoire /var/isoler/bin.
-   2. Copier /bin/bash dans /var/isoler/bin.
-   3. Rechercher les bibliothèques partagées utilisées par bash avec la commande suivante : ldd /bin/bash.
-   4. Copier ces bibliothèques dans la cage ; créer pour cela les répertoires /var/isoler/lib, /var/isoler/lib64, /var/isoler/lib/x86_64-linux-gnu. On veillera à ne copier que les bibliothèques nécessaires à l'exécution de bash.
+* [ ] Créer le répertoire `/var/isoler` qui servira de "cage" pour notre isolation. Ajouter le répertoire `/var/isoler/bin`.
+* [ ] Copier /bin/bash dans /var/isoler/bin.
+* [ ] Rechercher les bibliothèques partagées utilisées par bash avec la commande suivante : ldd /bin/bash.
+* [ ] Copier ces bibliothèques dans la cage ; créer pour cela les répertoires /var/isoler/lib, /var/isoler/lib64, /var/isoler/lib/x86_64-linux-gnu. On veillera à ne copier que les bibliothèques nécessaires à l'exécution de bash.
 
-3. Utilisation de la cage construite
+### Utilisation de la cage construite
 
 4. 1. Lancer l'environnement isolé avec la commande suivante : chroot /var/isoler.
    2. Exécuter les commandes suivantes : pwd, echo *, cd bin, echo *, pwd
    3. Pourquoi ces commandes sont acceptées ?
    4. Essayer d'autres commandes telles que ls, vi, df...
 
-5. Compléments
+### Compléments
 
-6. 1. Ajout des commandes ps et ls avec la même méthode que pour bash ci-dessus :
+1. 1. Ajout des commandes ps et ls avec la même méthode que pour bash ci-dessus :
 
    2. 1. Copie des exécutables.
       2. Recherche des bibliothèques partagées nécessaires.
@@ -642,9 +719,9 @@ Cet exercice porte sur l'isolation d'un utilisateur à l'aide de chroot. La mêm
       2. Monter le pseudo système de fichier une seconde fois (il l'est déjà dans /proc) : mount --bind /proc /var/isoler/proc
       3. Au sein de l'environnement isolé, examiner les informations relatives aux processus auxquelles /var/isoler/proc donne accès.
 
-7. Création d'un utilisateur ayant un shell isolé
+### Création d'un utilisateur ayant un shell isolé
 
-8. 1. Ecrire un shell-script /usr/local/bin/isoler.sh contenant les lignes suivantes :
+1. 1. Ecrire un shell-script /usr/local/bin/isoler.sh contenant les lignes suivantes :
 
    2. 1. \#!/bin/bash
       2. echo "Bienvenue dans ce shell isolé par chroot"

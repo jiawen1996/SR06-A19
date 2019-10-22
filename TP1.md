@@ -30,9 +30,15 @@ Cette machine virtuelle est issue de la machine virtuelle *passoire* fournie en 
 
 ### 2. Configuration réseau vue au TD.R2 :
 
-* [ ] Suppression de l'interface virb0.
-* [ ] Renommage de la vm en "vm-web".
-* [ ] Désactivation de telnet.
+* [x] Suppression de l'interface virb0.
+
+* [x] Renommage de la vm en "vm-web".
+
+* [x] Désactivation de telnet.
+
+  Dans le fichier `/etc/services`, on a commenté `port 23`
+
+  ![image-20191021232832922](/Users/haida/Library/Application Support/typora-user-images/image-20191021232832922.png)
 
 ### 3. Services
 
