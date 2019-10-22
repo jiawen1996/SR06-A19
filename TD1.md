@@ -87,7 +87,6 @@ john --restore
 >real 11m44.597s
 
 john --restore
-
 >session aborted 
 >real 96m27.404s
 ```
@@ -178,7 +177,7 @@ Comme prévu...
 
 ```shell
 su - romulus
-/home/remus/update.sh
+romulus@passoire:~$ /home/remus/update.sh
 > access denied : log.txt
 ```
 --> changer les droits de log.txt pour que les autres (donc romulus compris) puissent écrire dedans.
@@ -206,10 +205,31 @@ grep rome /etc/group
 > rome:x:1005:remus, romulus
 ```
 - En tant que remus, changer les groupes des fichiers update.sh et log.txt de sorte qu'ils appartiennent au groupe rome.
+
+```shell
+remus@passoire:~$ chown :rome update.sh log.txt
+```
+
 - Recommencer les étapes 4 et 6. Que constatez-vous ?
+
+Ca marche.
+
 - Faire en sorte que tous les fichiers dorénavant créés par remus appartiennent au groupe rome. Tester à nouveau l'étape 6.
+
+```shell
+remus@passoire:~$ newgrp rome
+id
+>gid = 1005 (rome) groups = 1005 (rome), 1003 (remus)
+```
+
 - Faire en sorte que ce comportement soit le comportement par défaut des utilisateurs remus et romulus. ❓
 
+```shell
+etu@passoire:~$ sudo usermod -g rome remus
+grep remus /etc/passwd
+>remus:x:1003:1005,,,:/home/remus:/bin/bash
+```
+Commentaire : remus n'est pas un sudoer il faut passer par le compte etu.
 
 
 ## **4. Configuration des droits : setuid**
@@ -237,29 +257,42 @@ http://www.linux-france.org/article/memo/node19.html#461
 
 - Sur la machine virtuelle passoire, ajouter le setuid bit au script update.sh de l'utilisateur remus (cf. exercice 3). En tant que utilisateur etu, lancer le script. Que constatez-vous ? Pourquoi ?
 
+  ```shell
+  remus@passoire:~$ chmod u+s update.sh
+  ```
+En tant que etu on ne peut pas lancer l'execution du fichier car les others n'ont aucun droit, donc il faudrait au moins rajouter les droits rx sur o. 
+MAIS "on Linux, things that require an interpreter, including bytecode, can't make use of the setuid bit unless it is set on the interpreter (which would be very very stupid)." https://unix.stackexchange.com/questions/166817/using-the-setuid-bit-properly
+
 - Expliquer les commandes suivantes : on pourra s'aider de man 2 stat (et du fichier /usr/include/linux/stat.h)
 
-- - find / -user root -perm /u+s 2> /dev/null
+- -``` find / -user root -perm /u+s 2> /dev/null```
 
   chercher à partir de la racine? —— /
 
   find the file whose owner is root —— -user root
 
   find the file with setuid
+  Remarque : -perm pour les permissions 
 
   2> /dev/null —— make stdeer redirect to /dev/null
+  Remarque : équivalent à 2>&-
 
-  On peut rediriger les messages d'erreur vers le ``trou noir'' (le périphérique /dev/null)
+  On peut rediriger les messages d'erreur vers le "trou noir" (le périphérique /dev/null)
 
-  ❓ -perm /u+s pourquoi on ajoute « /« 
+  ❓ -perm /u+s pourquoi on ajoute  "/"
+  _For example -perm g=w will only match files which have mode 0020 (that is, ones for **which group write permission is the only permission set**). It is more likely that you will want to use the '/' or '-' forms, for example -perm -g=w, which matches **any file with group write permission**._
 
-- - find / -type f \ ( -perm -2000 -o -perm -4000 \ ) -print 2 > /dev/null
+- - ```find / -type f \( -perm -2000 -o -perm -4000 \) -print 2 > /dev/null```
 
-  ​			-  \ ( -perm -2000 -o -perm -4000 \ ) —— find the file with setuid or setgid
+  ​			-  ```\( -perm -2000 -o -perm -4000 \)``` —— find the file with setuid or setgid
+            - ```-o``` : ou
+            - les parenthèses servent à grouper
 
-  ​			- 2000 —— setgid only for floder, in this case we have indicated that it’s file (-type f)
+  ​			- 2000 —— ❓ setgid only for floder,❓ , in this case we have indicated that it’s file (-type f) -> setgid est affectable pour les fichiers exécutables aussi (mais ne fait pas la même chose que sur les répertoires)
+            - 2000 pour le setgid
+            - 4000 pour le setuid
 
-- - find / -type f -perm /u-s -perm /g+s -print 2> /dev/null
+- - ```find / -type f -perm /u-s -perm /g+s -print 2> /dev/null```
 
   ​			- find the file with setgid but without setuid
 
