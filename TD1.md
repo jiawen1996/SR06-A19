@@ -298,6 +298,11 @@ MAIS "on Linux, things that require an interpreter, including bytecode, can't ma
 
 - Estimer l'intérêt de ce bit selon les exécutables trouvés et au regard de l'usage de la machine. Enlever le *setuid bit* aux commandes qui ne sont pas utiles dans notre contexte.
 
+❓ 
+
+J'ai noté dans le cours du mardi : à enlever : chfn, chsh, pppd, 
+Mais je ne sais pas pourquoi ?
+
 ## **5. Configuration des droits : umask** 
 
 Cet exercice permet de comprendre les droits par défaut des fichiers et de corriger la machine virtuelle passoire.
@@ -312,12 +317,13 @@ Cet exercice permet de comprendre les droits par défaut des fichiers et de corr
 
   <img src="./img/image-20191001113743242.png" alt="image-20191001113743242" style="zoom:50%;" />
 
-  Il semble que le droit "x" ne peut être mis pour un nouveau fichier. 
+  Il semble que le droit "x" ne peut être mis pour un nouveau fichier. Il faut le rajouter manuellement pour que le fichier devienne exécutable (si le mask l'autorise).
 
 - Changer la valeur du masque de sorte que les fichiers créés aient aucun droits pour le groupe ni les autres utilisateurs. Vérifier en créant un fichier temporaire.
 
   ```shell
   umask 077 //aucun droits pour le groupe ni les autres utilisateurs
+  umask g-rwx,o-rwx
   ```
 
   ![image-20191001115611603](./img/image-20191001115611603.png)
@@ -326,19 +332,58 @@ Cet exercice permet de comprendre les droits par défaut des fichiers et de corr
 
   ![image-20191001115949894](./img/image-20191001115949894.png)
 
-  Ça signifie que même si l'on essayer d'ajouter le droit d'exécuter avec `+x`, le group et des autres utilisateurs ne peuvent pas l'exécuter.
-
-
+  Ça signifie que même si l'on essayait d'ajouter le droit d'exécuter avec `+x`, le groupe et des autres utilisateurs ne peuvent pas l'exécuter. 
+  Par contre si l'on fait `o+x` ou `a+x` en précisant explicitement à qui (u, g, o ou a ) alors le mask n'est pas pris en compte.
 
 - Rendre cette configuration permanente pour l'utilisateur etu. Vérifier en ouvrant une nouvelle session pour l'utilisateur etu.
 
+```shell
+grep umask .* 
+```
+. pour regarder dans les fichiers cachés (car les fichiers automatiquement lancés au démarage de bash sont cachés)
+
+On voit alors que l'on peut modifier le mask dans .profile (même s'il est en commentaire donc on ne sait pas où il est défini de base ><')
+
+```shell
+emacs .profile
+>#umask 002
+```
+On décommente et change la valeur.
+
+```shell
+>umask 077
+```
+
+Et il faut ensuite relancer le script
+
+```shell
+source .profile
+```
+
+Remarque : on utilise ```source``` pour que ce soit fait dans le même shell (et non pas dans un sous-shell fork() comme habituellement). 
+
 - Changer la valeur du masque du système de sorte que le groupe ait uniquement le droit de lecture et les autres utilisateurs aucun droit.
 
-  ```
-  umask 057
-  ```
+Pour les **nouveaux utilisateurs crées** :
 
-  
+```shell
+vim /etc/skel/.profile
+```
+même chose que précédement
+  ```
+  umask 037
+  ```
+Pour les autres changer manuellement ? 
+
+
+Ou alors : Modifier directement le fichier /etc/profile (le premier utilisé quand on se log)
+
+```shell
+sudo vim /etc/profile
+
+># force umask for all users
+>umask 037
+```  
 
 ## **6. Configuration des droits : sticky bit** 
 
