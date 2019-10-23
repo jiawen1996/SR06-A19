@@ -19,8 +19,6 @@ Cet exercice permet de comprendre la vulnérabilité que représente un mot de p
   sudo john -show mypasswd
   ```
 
-  
-
 - Retrouver les fichiers mis à jour dans le compte etu ; expliquer les droits des nouveaux fichiers.
 
   ```shell
@@ -74,6 +72,7 @@ Pour gérer les acl (access control list)     i.e. les permissions spéciales
 
 - Changer le mot de passe de l'utilisateur etu (retenir le mot de passe choisi !).
 
+Sur **Erell-passoire**
 ```shell
 passwd
 >ascefbth,
@@ -90,6 +89,8 @@ john --restore
 >session aborted 
 >real 96m27.404s
 ```
+etc. je ne suis pas allée jusqu'au bout 
+
 Mot de passe plus sécurisé mais plus dur à retenir --> préférer une phrase longue (sinon banque de mots) ?
 
 
@@ -288,7 +289,7 @@ MAIS "on Linux, things that require an interpreter, including bytecode, can't ma
             - ```-o``` : ou
             - les parenthèses servent à grouper
 
-  ​			- 2000 —— ❓ setgid only for floder,❓ , in this case we have indicated that it’s file (-type f) -> setgid est affectable pour les fichiers exécutables aussi (mais ne fait pas la même chose que sur les répertoires)
+  ​			- 2000 —— ❓ setgid only for floder,❓ , in this case we have indicated that it’s file (-type f) -> setgid est affectable pour les fichiers exécutables aussi (mais ne fait pas la même chose que sur les répertoires) --> pour les fichiers non exécutables ça empêche d'être à plus d'un a travailler dessus, --> pour un répertoire : tous ce qui va être crée en dessous aura le même groupe que le répertoire.
             - 2000 pour le setgid
             - 4000 pour le setuid
 
@@ -348,6 +349,7 @@ On voit alors que l'on peut modifier le mask dans .profile (même s'il est en co
 emacs .profile
 >#umask 002
 ```
+
 On décommente et change la valeur.
 
 ```shell
@@ -376,7 +378,7 @@ même chose que précédement
 Pour les autres changer manuellement ? 
 
 
-Ou alors : Modifier directement le fichier /etc/profile (le premier utilisé quand on se log)
+Ou alors **pour les actuels et les futures** : Modifier directement le fichier /etc/profile (le premier utilisé quand on se log)
 
 ```shell
 sudo vim /etc/profile
@@ -410,9 +412,9 @@ The user can create new file in this folder but he can’t delete any other file
 
 - Réécrire la commande sans utiliser les codes 0002 et 1000.
 
-  ​	0002  —— o+w
+  ​	-0002  —— /o+w ou -o+w
 
-  ​	1000 —— sticky bit (SBIT)  personne ne peut le modifier
+  ​	-1000 —— /o+t -o+t sticky bit (SBIT)  personne ne peut le modifier
 
 - Ajouter le sticky bit sur le répertoire /tmp et recommencer les opérations 1 et 2. Que constatez-vous ?
 
@@ -431,21 +433,56 @@ L'utilisateur etu ne peut pas supprimer le fichier /tmp/temp
 
 Cet exercice est à réaliser sur la machine virtuelle passoire. Il permet de comprendre quelques vulnérabilités et de corriger la machine virtuelle passoire.
 
-* [ ] Expliquer la commande suivante et son intérêt. Dans ce cas précis, quel risque encourt l'utilisateur etu ?
+* [x] Expliquer la commande suivante et son intérêt. Dans ce cas précis, quel risque encourt l'utilisateur etu ?
 
   ```shell
   find / -type d -perm /o+w -a \! -uid 0 -print 2> /dev/null
+  >/home/etu/bin
   ```
+Find folders which other users have write right and not belonging to root
 
-  * find folders which other users have write right and ???(J'ai pas le trouvé )
+uid 0 = root
+
+N'importe qui peut modifier les droits des fichiers qui sont dedans et les supprimer et remplacer par ses propres fichiers. En plus le nom du répertoire (bin pour binary) suggère qu'il va y avoir des répertoires.
+
 
 * [ ] Supprimer l'utilisateur boule avec la commande deluser boule. Expliquer la commande suivante et corriger l'anomalie trouvée :
+
+* [x] fait pour Erell-passoire
+      
+    ```shell
+    sudo deluser boule
+    >Removing user `boule' ...
+    >Warning: group `boule' hase no members.
+    >Done.
+    ```
+Supprimer l'utilisateur boule ET le groupe boule
 
   ```shell
   find / -type f \ ( -nouser -o -nogroup \ ) -print 2> /dev/null
   #(pour gagner du temps, il est possible de restreindre la recherche aux répertoires /home et /tmp)
+  >/tmp/temporaire
+  >/home/boule/.profile
+  >/home/boule/.bash_history
+  >/home/boule/.bash_logout
+  >/home/boule/.bashrc
   ```
+On se retrouve donc avec des fichiers crée par boule ou crée pour boule qui n'ont plus d'utilisateur et de groupe connu.
+Pour ne pas se retrouver dans ce cas : --remove-all-files ou --remove-home.
+
+ ```shell
+  find / -type f \( -nouser -o -nogroup \) -print 2> /dev/null | sudo xargs rm
+ ```
 
 * Expliquer la commande suivante et l'anomalie trouvée. Corrigez-la.
 
-  - find / -type f -perm /u+x -perm /o+w -print 2> /dev/null
+  ```shell
+  find / -type f -perm /u+x -perm /o+w -print 2> /dev/null
+  >/bin/ls
+  ```
+Recherche tout les fichiers depuis la racine ayant un droit d'exécution pour l'utilisateur et un droit de modification des autres. 
+Le risque est que l'utilisateur exécute son fichier ayant préalablement été modifié par un tiers pour faire ce qu'il veut.
+    
+    ```shell
+    find / -type f -perm /u+x -perm /o+w -print 2> /dev/null | sudo xargs chmod o-w
+    ```
