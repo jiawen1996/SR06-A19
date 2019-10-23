@@ -8,7 +8,8 @@
 * [x] Dans la console de passoire, consulter la configuration réseau avec
 
 ```shell
-ifconfig ip address show
+ifconfig 
+ip address show
 ```
 
 * [x] Consulter les fichiers `/etc/network/interfaces` et `/etc/netplan/50-cloud-init.yaml`. Que peut-on en déduire ?
@@ -24,40 +25,37 @@ ifconfig ip address show
 
 ### Modification de la configuration réseau
 
-4. - En consultant `/etc/netplan/50-cloud-init.yaml`, déterminer la méthode utilisée pour l'attribution de l'adresse IP à passoire.
+* [ ] **En consultant `/etc/netplan/50-cloud-init.yaml`, déterminer la méthode utilisée pour l'attribution de l'adresse IP à passoire.**
 
-   - Relever l'adresse IP actuelle ; comparer avec un binôme voisin. Expliquer.
+* [ ] **Relever l'adresse IP actuelle ; comparer avec un binôme voisin. Expliquer.**
 
-     ```shell
-    ip address show
-     ```
+```shell
+ ip address show
+```
 
-   - Consulter `/etc/machine-id` et comparer avec un binôme voisin.
+* [ ] **Consulter `/etc/machine-id` et comparer avec un binôme voisin.**
 
-   - Modifier l'ID de la machine virtuelle :
+* [ ] **Modifier l'ID de la machine virtuelle :**
 
-   - - Supprimer le fichier /etc/machine-id.
+  * [ ] **Supprimer le fichier `/etc/machine-id`.**
+  * [ ] **Générer un nouvel ID avec `systemd-machine-id-setup`.**
+  * [ ] **Vérifier en consultant à nouveau `/etc/machine-id`. Comparer avec le binôme voisin.**
 
-       删除machine_id
+* [ ] **Renouveler l'adresse IP :**
 
-     - Générer un nouvel ID avec `systemd-machine-id-setup`.
+  ```bash
+  dhclient -r
+  ```
 
-       产生一个新的machine_id
+* [ ] **Vérifier avec `dhclient -v` ou `ifconfig` ou `ip address show`. Comparer avec le binôme voisin.**
 
-     - Vérifier en consultant à nouveau `/etc/machine-id`. Comparer avec le binôme voisin.
-   
-   - Renouveler l'adresse IP :
+* [ ] **Suppression de l'interface réseau virb0**
 
-   - - dhclient -r
-  - Vérifier avec dhclient -v ou ifconfig ou ip address show.
-     - Comparer avec le binôme voisin.
-   
-   - Suppression de l'interface réseau virb0
-   
-   - - Cette interface réseau virtuelle est ajoutée par ubuntu-serveur pour gérer la virtualisation. Elle est inutile ici.
-     - Enlever l'interface virbr0 temporairement avec  `virsh net-destroy default`. Vérifier avec ifconfig -a
-     - Empêcher sa création automatique au démarrage de la vm passoire avec `virsh net-autostart default --disable`.
-       
+  **Cette interface réseau virtuelle est ajoutée par ubuntu-serveur pour gérer la virtualisation. Elle est inutile ici.**
+
+  * [x] **Enlever l'interface virbr0 temporairement avec  `virsh net-destroy default`. Vérifier avec `ifconfig -a`**
+
+  * [x] **Empêcher sa création automatique au démarrage de la vm passoire avec `virsh net-autostart default --disable`.**
 
 ### Vérifier vos connaissances sur :
 
@@ -72,7 +70,7 @@ ifconfig ip address show
 
 Partant de la VM précédente, cet exercice permet de créer un réseau de deux VM et de réviser certaines connaissances en réseaux.
 
-- Cloner la machine virtuelle passoire en réalisant un clone lié, appelé passoire-2bis".
+- Cloner la machine virtuelle passoire en réalisant `un clone lié`, appelé passoire-2bis".
 - Lancer les deux VM passoire et passoire-2 et s'y connecter en tant qu'utilisateur etu.
 
 ### Couche 2
@@ -96,9 +94,9 @@ Partant de la VM précédente, cet exercice permet de créer un réseau de deux 
 
 * [x] Vérifier que les deux VM ont deux adresses IP différentes.
 
-​		passoire-TD —— 10.10.10.106
+​		passoire-TD —— 172.23.3.20/16
 
-​		passoire-TD-2 —— 10.10.10.141
+​		passoire-TD-2 —— 172.23.3.21/16
 
 * [x] Installer le paquet ipcalc et vérifier jla nature des adresses IP :
 
@@ -110,9 +108,7 @@ Partant de la VM précédente, cet exercice permet de créer un réseau de deux 
   
     ![image-20191002232535112](./img/image-20191002232535112.png)
   
-  passoire-TD2
-  
-    ![image-20191002232914366](./img/image-20191002232914366.png)
+  passoire-TD2  ![image-20191002232914366](./img/image-20191002232914366.png)
   
   - Ping 
   
@@ -133,8 +129,6 @@ Partant de la VM précédente, cet exercice permet de créer un réseau de deux 
       ping www.utc.fr # ttl=62
       ping www.google.fr # ttl=55
       ```
-  
-      
   
       TTL —— Le TTL est une donnée placée au niveau de l'[en-tête](https://fr.wikipedia.org/wiki/Header) du [paquet](https://fr.wikipedia.org/wiki/Paquet_(réseau)) [IP](https://fr.wikipedia.org/wiki/Internet_Protocol) qui indique le nombre maximal de [routeurs](https://fr.wikipedia.org/wiki/Routeur) de transit.  (8 bits)
   
@@ -525,10 +519,9 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
   ```shell
   ssh etu@10.10.10.128
-  
 logout #for exiting ssh
-  ```
-
+	```
+  
 * [ ] Suivre la communication avec Wireshark. Que constatez-vous ?
 
 * [ ] Corriger passoire afin d'interdire les communications non chiffrées.
@@ -598,7 +591,7 @@ Cet exercice porte sur les comptes de service et la séparation des privilèges.
 
 ### Comptes de service
 
-* [ ] **Compter le nombre d'utilisateurs définis dans le fichier /etc/passwd. Expliquer.**
+* [x] **Compter le nombre d'utilisateurs définis dans le fichier /etc/passwd. Expliquer.**
 
   ```shell
   wc -l /etc/passwd
@@ -641,11 +634,64 @@ Cet exercice porte sur les comptes de service et la séparation des privilèges.
 
   ![image-20191022000631580](./img/image-20191022000631580.png)
 
+  ```bash
+  sudo apt-get install apache2
+  sudo apache2ctl start #it should add sudo
+  ```
+
+  ![image-20191022224301522](./img/image-20191022224301522.png)
+
+  First time start apache failed
+
+  ```bash
+  sudo netstat -tulpn | grep : 80
+  ```
+
+  ![image-20191022224501215](./img/image-20191022224501215.png)
+
+  ```bash
+  fuser -k -n tcp 80 #kill all the processes running at port 80
+  sudo systemctl status apache2 #watching apache server's status
+  sudo service apache2 stop/start
+  ```
+
+  ```bash
+  sudo a2dissite #to disenable some sites in /apache2/sites-available
+  sudo service apache2 restart #reload apache2 config
+  sudo vim /etc/apache2/sites-available/mysite.conf
+  ```
+
+  ```html
+  <VirtualHost *:80> -> declare that it's a virtual host and it will occupy port 80
+  
+  		ServerName www.mysite.com -> 域名
+  
+  		ServerAdmin <mail_address>
+  
+  		DocumentRoot /var/www/mysite ->本地网站的目录
+  
+  		ErrorLog ${APACHE_LOG_DIR}/mysite_error.log
+  
+  		CustomLog ${APACHE_LOG_DIR}/mysite_access.log combined
+  
+  </VirtualHost>
+  ```
+
+  ```bash
+  sudo mkdir /var/www/mysite #build the main dir for site
+  sudo chown etu:etu -R /var/www/mysite
+  cd /var/www/mysite
+  sudo vim index.html
+  sudo a2ensite
+  ```
+
 * [x] **Vérifier que les utilisateurs `remus` et `romulus` ne peuvent relancer le serveur web de passoire.**
+
+  ![image-20191023150254662](./img/image-20191023150254662.png)
 
 * [x] **Ouvrir un autre terminal et lancer la commande suivante pour constater les essais infructueux de remus et romulus : `tail -f /var/log/auth.log`.**
 
-  ![image-20191022004219034](./img/image-20191022004219034.png)
+  ❌ ça marche pas 
 
 * [x] **En tant qu'utilisateur etu, éditer le fichier /etc/sudoers avec la commande : `sudo vi /etc/sudoers`.**
 
@@ -653,32 +699,75 @@ Cet exercice porte sur les comptes de service et la séparation des privilèges.
   * [x] **Dans la section *Cmnd alias specification,* ajouter la ligne : `Cmnd_Alias APACHE=/usr/sbin/apache2ctl`**
   * [x] **A la fin de la section *User privilege specification*, ajouter la ligne :` ROMAINS ALL=APACHE`**
 
-* [ ] **Vérifier que les utilisateurs remus et romulus peuvent maintenant relancer le site web.**
+* [x] **Vérifier que les utilisateurs remus et romulus peuvent maintenant relancer le site web.**
+
+  ![image-20191023151042989](./img/image-20191023151042989.png)
+
+  Sur `remus` je peux relancer apache2, mais je peux utiliser ni `service` , ni `systemctl`, mais `apache2ctl` marche bien.
+
+  ![image-20191023151344052](./img/image-20191023151344052.png)
 
 ### Droit spécifique pour éditer le site web
 
-1. 1. A qui appartient la page web par défaut du site web de passoire ?
+* [x] **A qui appartient la page web par défaut du site web de passoire ?**
 
-   2. En tant qu'utilisateur etu, changer récursivement le user et le group du répertoire /var/www/html de sorte qu'il appartienne à www-data.
+![image-20191023152901295](./img/image-20191023152901295.png)
 
-   3. Vérifier que l'utilisateur etu peut éditer le fichier index.html sans modifier ses droits avec la commande : sudo -u www-data vi /var/www/html/index.html.
+​		C'est root
 
-   4. Modifier ce fichier pour qu'il affiche simplement "Bienvenue" aux visiteurs. Vérifier depuis passoire-2 avec la commande lynx.
+* [x] **En tant qu'utilisateur etu, changer récursivement le user et le group du répertoire `/var/www/html` de sorte qu'il appartienne à `www-data`.**
 
-   5. Ajouter un utilisateur cesar et faire en sorte qu'il puisse éditer le fichier index.html de deux manières différentes :
+  ```bash
+  sudo chown www-data:www-data -R /var/www/html
+  ```
 
-   6. 1. En modifiant le fichier sudo
-      2. En utilisant les groupes.
+  ![image-20191023153756177](./img/image-20191023153756177.png)
 
+* [x] **Vérifier que l'utilisateur etu peut éditer le fichier index.html sans modifier ses droits avec la commande : `sudo -u www-data vi /var/www/html/index.html`.**
 
+  ![image-20191023153951063](./img/image-20191023153951063.png)
+
+  Oui, je peux le faire.
+
+* [x] **Modifier ce fichier pour qu'il affiche simplement "Bienvenue" aux visiteurs. Vérifier depuis passoire-2 avec la commande `lynx`.**
+
+  Sur passoire-TD2, lance `curl 10.10.10.106:80` failed
+
+  ![image-20191023161111342](./img/image-20191023161111342.png)
+
+  .....It changed @ip secretly -> I add new interfaces Internet
+
+  And then lance `lynx 172.23.3.20:80` success
+
+  ![image-20191023161622025](./img/image-20191023161622025.png)
+
+  Sur passoire, lance `lynx http://127.0.0.1` -> success
+
+  ![image-20191023161416614](./img/image-20191023161416614.png)
+
+* [x] **Ajouter un utilisateur `cesar` et faire en sorte qu'il puisse éditer le fichier index.html de deux manières différentes :**
+
+  * [x] **En modifiant le fichier sudo**
+  
+    ![image-20191023171300109](./img/image-20191023171300109.png)
+  
+    ```bash
+    sudo adduser cesar sudo
+    sudo -u www-data vi /var/www/html/index.html
+    ```
+  
+  * [x] **En utilisant les groupes.**
+  
+    ```bash
+    sudo gpasswd -a cesar www-data
+    sudo chmod 660 /var/www/html/index.html
+    ```
 
 ### Vérifier vos connaissances sur :
 
 - La configuration des comptes de service
 - La commande sudo et le fichier /etc/sudoers
 - La page par défaut du serveur web Apache
-
-
 
 ## **7. Isolation d'un utilisateur** 
 
