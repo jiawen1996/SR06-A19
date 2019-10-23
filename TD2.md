@@ -18,13 +18,17 @@ ifconfig ip address show
 * [x] Vérifier en comparant les commandes suivantes ; expliquer :
   * dpkg -l | grep ifupdown
 
-    dpkg ne peut pas trouver la commande `ifupdown`
+    dpkg ne trouve pas le package `ifupdown` dans ceux installés
 
   * dpkg -l | grep netplan
+    
+    netplan est installé
 
 ### Modification de la configuration réseau
 
 4. - En consultant `/etc/netplan/50-cloud-init.yaml`, déterminer la méthode utilisée pour l'attribution de l'adresse IP à passoire.
+
+    Attribution de l'adresse IP par le protocole DHCP4 pour ens18.
 
    - Relever l'adresse IP actuelle ; comparer avec un binôme voisin. Expliquer.
 
