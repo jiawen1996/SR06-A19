@@ -77,74 +77,69 @@ Partant de la VM précédente, cet exercice permet de créer un réseau de deux 
 
 ### Couche 2
 
-- - Déterminer le type de carte réseau avec la commande suivante :
-    ```shell
-    lspci | grep -i eth.
-    ```
-    ![image-20191001162126559](./img/image-20191001162126559.png)
-  
-  - Installer l'application lynx. A quoi sert-elle ?
-  
-  - Isoler les adresses MAC de la VM à l'aide d'une commande. On pourra utiliser les commandes ifconfig, grep, tr et cut.
-  
-  - Interroger le site hwaddress.com avec lynx et la commande précédente en argument sur le modèle : lynx hwaddress.com/?q=`ifconfig ... `. Expliquer le résultat.
-  
-  - Est-ce qu'un contrôle d'accès réseau par adresse MAC représente une sécurité satisfaisante ?
+* **Déterminer le type de carte réseau avec la commande suivante :**
+
+```shell
+lspci | grep -i eth.
+```
+![image-20191001162126559](./img/image-20191001162126559.png)
+
+- **Installer l'application lynx. A quoi sert-elle ?**
+
+- **Isoler les adresses MAC de la VM à l'aide d'une commande. On pourra utiliser les commandes ifconfig, grep, tr et cut.**
+
+- **Interroger le site hwaddress.com avec lynx et la commande précédente en argument sur le modèle : `lynx hwaddress.com/?q=ifconfig ... `. Expliquer le résultat.**
+
+- **Est-ce qu'un contrôle d'accès réseau par adresse MAC représente une sécurité satisfaisante ?**
 
 ### Couche 3
 
 
-* [x] Vérifier que les deux VM ont deux adresses IP différentes.
+* [x] **Vérifier que les deux VM ont deux adresses IP différentes.**
 
 ​		passoire-TD —— 172.23.3.20/16
 
 ​		passoire-TD-2 —— 172.23.3.21/16
 
-* [x] Installer le paquet ipcalc et vérifier jla nature des adresses IP :
+* [x] **Installer le paquet ipcalc et vérifier la nature des adresses IP :**
 
   * apt-get install ipcalc -> sudo apt install ipcalc
   
-- ipcalc adresse_IP.
+  * ipcalc adresse_IP (il doit remplacer vrai @ip ici......)
   
   passoire-TD
   
-    ![image-20191002232535112](./img/image-20191002232535112.png)
+  ![image-20191002232535112](./img/image-20191002232535112.png)
   
   passoire-TD2  ![image-20191002232914366](./img/image-20191002232914366.png)
-  
-  - Ping 
-  
-    - Réaliser un ping depuis passoire vers passoire-2. Expliquer.
-  
-      ```shell
-      ping 10.10.10.141 #dans passoire-TD
-      ping 10.10.10.106 #dans passoire-TD2
-      ```
-  
-    - Modifier la configuration de la carte réseau dans proxmox en décochant la case "Firewall" et recommencer le ping. Expliquer.
-  
-      ❓ why we can still connect to each other??? 
-  
-    - Comparer les champs TTL en réalisant un ping de passoire-2, de www.utc.fr et de www.google.fr. Expliquer.
-  
-      ```shell
-      ping www.utc.fr # ttl=62
-      ping www.google.fr # ttl=55
-      ```
-  
-      TTL —— Le TTL est une donnée placée au niveau de l'[en-tête](https://fr.wikipedia.org/wiki/Header) du [paquet](https://fr.wikipedia.org/wiki/Paquet_(réseau)) [IP](https://fr.wikipedia.org/wiki/Internet_Protocol) qui indique le nombre maximal de [routeurs](https://fr.wikipedia.org/wiki/Routeur) de transit.  (8 bits)
-  
-  - Afficher la table de routage avec la commande route.
-  
-    ```shell
-    sudo route -n		#sans DNS
-    ```
-  
-    ![image-20191003000936123](./img/image-20191003000936123.png)
+
+* **Ping** 
+
+  * [ ] **Réaliser un ping depuis passoire vers passoire-2. Expliquer.**
+
+  * [ ] **Modifier la configuration de la carte réseau dans proxmox en décochant la case "Firewall" et recommencer le ping. Expliquer.**
+
+    ❓ why we can still connect to each other??? 
+
+  * [ ] **Comparer les champs TTL en réalisant un ping de passoire-2, de www.utc.fr et de www.google.fr. Expliquer.**
+
+  ```shell
+  ping www.utc.fr # ttl=62
+  ping www.google.fr # ttl=55
+  ```
+
+  ​		TTL —— Le TTL est une donnée placée au niveau de l'[en-tête](https://fr.wikipedia.org/wiki/Header) du [paquet](https://fr.wikipedia.org/wiki/Paquet_(réseau)) [IP](https://fr.wikipedia.org/wiki/Internet_Protocol) qui indique le nombre maximal de [routeurs](https://fr.wikipedia.org/wiki/Routeur) de transit.  (8 bits)
+  * [ ] **Afficher la table de routage avec la commande route.**
+
+  ```shell
+  sudo route -n		#sans DNS
+  ```
+
+  ![image-20191003000936123](./img/image-20191003000936123.png)
 
 ### Couche 4
 
-* [x] Déterminer le port de telnet, ssh et http en consultant le fichier /etc/services.
+* [x] **Déterminer le port de telnet, ssh et http en consultant le fichier /etc/services.**
 
 ```shell
 cat /etc/services | grep -E '^ssh|telnet|http'
@@ -152,23 +147,23 @@ cat /etc/services | grep -E '^ssh|telnet|http'
 
 ![image-20191003003425342](./img/image-20191003003425342.png)
 
-* [x] Dans la VM passoire-2, lancer la commande `watch -n1 'netstat -napt --ip'`. Expliquer ce qu'elle fait.
+* [x] **Dans la VM passoire-2, lancer la commande `watch -n1 'netstat -napt --ip'`. Expliquer ce qu'elle fait.**
 
 ![image-20191003003822847](./img/image-20191003003822847.png)
 
-❓We should use `-napt` or `-nat` ??
+​	❓We should use `-napt` or `-nat` ??
 
-While executing `watch -n1 'netstat -napt --ip`
+​	While executing `watch -n1 'netstat -napt --ip`
 
-Execute `pring all the current connected address ip` periodically every 1 s
+​	Execute `pring all the current connected address ip` periodically every 1 s
 
-https://blog.51cto.com/sadoc/1932028 (chinois...)
+​	https://blog.51cto.com/sadoc/1932028 (chinois...)
 
 ![image-20191003011155093](./img/image-20191003011155093.png)
 
-- Depuis la VM passoire, lancer la commande `telnet` et constater l'établissement de la socket ainsi que ses différents états. ❓
+* [ ] **Depuis la VM passoire, lancer la commande `telnet` et constater l'établissement de la socket ainsi que ses différents états.** ❓
 
-  Telnet协议是TCP/IP协议家族中的一员，是Internet远程登陆服务的标准协议和主要方式。它为用户提供了在本地计算机上完成远程主机工作的能力。在终端使用者的电脑上使用telnet程序，用它连接到服务器。终端使用者可以在telnet程序中输入命令，这些命令会在服务器上运行，就像直接在服务器的控制台上输入一样。可以在本地就能控制服务器。要开始一个telnet会话，必须输入用户名和密码来登录服务器。Telnet是常用的远程控制Web服务器的方法。
+Telnet协议是TCP/IP协议家族中的一员，是Internet远程登陆服务的标准协议和主要方式。它为用户提供了在本地计算机上完成远程主机工作的能力。在终端使用者的电脑上使用telnet程序，用它连接到服务器。终端使用者可以在telnet程序中输入命令，这些命令会在服务器上运行，就像直接在服务器的控制台上输入一样。可以在本地就能控制服务器。要开始一个telnet会话，必须输入用户名和密码来登录服务器。Telnet是常用的远程控制Web服务器的方法。
 
 ### Vérifier vos connaissances sur :
 
@@ -214,28 +209,28 @@ Cet exercice permet de comprendre le nommage des machines.
 
 ### 1. Nom de la machine locale -> 本地主机名
 
-* [x] Que donnent les commandes `uname -a `et `hostname` ?
+* [x] **Que donnent les commandes `uname -a `et `hostname` ?**
 
   `uname`: print system information
 
 ![image-20191003091159161](./img/image-20191003091159161.png)
 
-* [x] Renommer la VM passoire-2 en passoire-2 :
+* [x] **Renommer la VM passoire-2 en passoire-2 :**
 
-  * [x] Utiliser la commande suivante : `hostnamectl set-hostname passoire-2`.
-  * [x] Ajouter la ligne "127.0.01 passoire-2" au fichier /etc/hosts
+  * [x] **Utiliser la commande suivante : `hostnamectl set-hostname passoire-2`.**
+  * [x] **Ajouter la ligne "127.0.01 passoire-2" au fichier /etc/hosts**
 
   ```shell
   sudo echo "127.0.01 passoire-2" >> /etc/hosts # permission denied ??
   ```
 
-  * [x] Redémarrer la machine et vérifier le changement de nom.
+  * [x] **Redémarrer la machine et vérifier le changement de nom.**
 
 ### 2. Nom des machines distantes -> 远程主机名
 
-* [x] Ajouter une ligne "@IP passoire-2" dans le fichier `/etc/hosts`v de la machine passoire (remplacer @IP par l'adresse IP de passoire-2).
+* [x] **Ajouter une ligne "@IP passoire-2" dans le fichier `/etc/hosts`v de la machine passoire (remplacer @IP par l'adresse IP de passoire-2).**
 
-* [x] Vérifier avec la commande suivante, lancée depuis passoire : `telnet passoire-2 -l etu`.
+* [x] **Vérifier avec la commande suivante, lancée depuis passoire : `telnet passoire-2 -l etu`.**
 
   Il nous permet de connecter sur `passoire-TD2` avec la VM `passoire-TD`
 
@@ -245,9 +240,9 @@ Cet exercice permet de comprendre le nommage des machines.
 
   `ctrl + ]` and then `q`
 
-* [x] Faîtes de même sur passoire-2.
+* [x] **Faîtes de même sur passoire-2.**
 
-* [x] Vérifier les connexions avec `netstat -napt --ip` puis avec `netstat -apt --ip`.
+* [x] **Vérifier les connexions avec `netstat -napt --ip` puis avec `netstat -apt --ip`.**
 
   https://linux.cn/article-2434-1.html
 
@@ -267,7 +262,7 @@ Cet exercice permet de comprendre le nommage des machines.
 
 ### 3. Configuration locale du serveur de nom -> 本地域名服务器的配置
 
-* [x] Retrouver les adresses IP des machines www.utc.fr et www.google.fr avec la commande `dig`.
+* [x] **Retrouver les adresses IP des machines www.utc.fr et www.google.fr avec la commande `dig`.**
 
   www.utc.fr
 
@@ -277,13 +272,13 @@ Cet exercice permet de comprendre le nommage des machines.
 
   ![image-20191003120635603](./img/image-20191003120635603.png)
 
-* [x] Inversement, retrouver le nom d'une machine en partant d'une adresse IP avec la commande `dig -x`.
+* [x] **Inversement, retrouver le nom d'une machine en partant d'une adresse IP avec la commande `dig -x`.**
 
   ```shell
   dig -x <@ip>
   ```
 
-* [x] Quel est le rôle des fichiers /etc/nsswitch.conf et /etc/resolv.conf ?
+* [x] **Quel est le rôle des fichiers /etc/nsswitch.conf et /etc/resolv.conf ?**
 
   * /etc/hosts
 
@@ -299,7 +294,7 @@ Cet exercice permet de comprendre le nommage des machines.
 
   https://www.xiebruce.top/1024.html
 
-* [x] Retrouver le programme en charge du service avec ps aux | grep resolv et noter son numéro (pid).
+* [x] **Retrouver le programme en charge du service avec ps aux | grep resolv et noter son numéro (pid).**
 
   ```shell
   ps | grep resolv???
@@ -307,13 +302,13 @@ Cet exercice permet de comprendre le nommage des machines.
   #ps can't find resolv
   ```
 
-* [x] Vérifier avec `netstat -nap --ip` (à lancer en tant qu'administrateur pour voir les programmes associés aux sockets).
+* [x] **Vérifier avec `netstat -nap --ip` (à lancer en tant qu'administrateur pour voir les programmes associés aux sockets).**
 
 ![image-20191008155352859](./img/image-20191008155352859.png)
 
 ![image-20191008155415181](./img/image-20191008155415181.png)
 
-* [x] Stopper ce processus avec kill -STOP pid et recommencer les commandes dig ci-dessus. Que constatez-vous ?
+* [x] **Stopper ce processus avec kill -STOP pid et recommencer les commandes dig ci-dessus. Que constatez-vous ?**
 
   ```shell
   kill -STOP <PID>
@@ -323,27 +318,27 @@ Cet exercice permet de comprendre le nommage des machines.
 
   `dig -x <@ip>` has been stopped
 
-* [x] Relancer le programme avec kill -CONT pid et vérifier que les commandes dig fonctionnent.
+* [x] **Relancer le programme avec kill -CONT pid et vérifier que les commandes dig fonctionnent.**
 
-  `systemd-resolv`always changes PID, so it continues to run automatically when PID is changed.
+  **`systemd-resolv`always changes PID, so it continues to run automatically when PID is changed.**
 
 ### 4. Requête au serveur de nom
 
-* [x] Depuis passoire-2, se connecter sur passoire en telnet avec le compte etu.
+* [x] **Depuis passoire-2, se connecter sur passoire en telnet avec le compte etu.**
 
-* [x] Lancer la commande `sudo netstat -napuc` (alternativement, on pourra utiliser watch -1 'netstat -napu'). Expliquer cette commande et son résultat.
+* [x] **Lancer la commande `sudo netstat -napuc` (alternativement, on pourra utiliser watch -1 'netstat -napu'). Expliquer cette commande et son résultat.**
 
   un tableau comme ci-dessus
 
-* [x] Réaliser ensuite des requêtes dig depuis passoire et constater l'évolution de l'affichage dans la commande précédente.
+* [x] **Réaliser ensuite des requêtes dig depuis passoire et constater l'évolution de l'affichage dans la commande précédente.**
 
-  Il se passe tranquillement..... Mais le PID ne change plus.....
+  ​	Il se passe tranquillement..... Mais le PID ne change plus.....
 
   ![image-20191009102836745](./img/image-20191009102836745.png)
 
 ### 5. Configuration à l'UTC
 
-* [x] Retrouver la configuration du serveur de nom de la machine hôte.
+* [x] **Retrouver la configuration du serveur de nom de la machine hôte.**
 
   serveur de nom -> name server (ex: DNS)
 
@@ -353,7 +348,7 @@ Cet exercice permet de comprendre le nommage des machines.
 
   ![image-20191009104731431](./img/image-20191009104731431.png)
 
-* [x] Retrouver les serveurs de nom de l'UTC.
+* [x] **Retrouver les serveurs de nom de l'UTC.**
 
   ![image-20191009105631011](./img/image-20191009105631011.png)
 
@@ -379,7 +374,7 @@ Cet exercice permet de comprendre le nommage des machines.
 
 Dans cet exercice, on complète la vm passoire avec une nouvelle interface réseau.
 
-* [x] Dans la configuration de la machine virtuelle passoire (onglet Configuration/Hardware de proxmox), ajouter une interface réseau :
+* [x] **Dans la configuration de la machine virtuelle passoire (onglet Configuration/Hardware de proxmox), ajouter une interface réseau :**
 
   Bridge : vmbr1 (ie. valeur différente de l'interface réseau déjà présente)
 
@@ -388,11 +383,11 @@ Dans cet exercice, on complète la vm passoire avec une nouvelle interface rése
   * [x] Mac address : auto
   * [x] Firewall : ne pas cocher la case.
 
-- [x] Relancer passoire et récupérer le nom de l'interface réseau ainsi créée avec `dmesg | grep -i eth`.
+- [x] **Relancer passoire et récupérer le nom de l'interface réseau ainsi créée avec `dmesg | grep -i eth`.**
 
   ![image-20191009235516054](./img/image-20191009235516054.png)
 
-- [x] Editer le fichier `/etc/netplan/50-cloud-init.yaml` afin d'ajouter la configuration de cette nouvelle interface. La configuration est similaire à la première. Attention à ne pas utiliser de tabulations.
+- [x] **Editer le fichier `/etc/netplan/50-cloud-init.yaml` afin d'ajouter la configuration de cette nouvelle interface. La configuration est similaire à la première. Attention à ne pas utiliser de tabulations.**
 
   ![image-20191010001120896](./img/image-20191010001120896.png)
 
@@ -400,7 +395,7 @@ Dans cet exercice, on complète la vm passoire avec une nouvelle interface rése
   sudo netplan apply
   ```
 
-- [x] Demander l'attribution d'une IP avec `dhclient` et vérifier avec `ifconfig` ou ip address show.
+- [x] **Demander l'attribution d'une IP avec `dhclient` et vérifier avec `ifconfig` ou ip address show.**
 
   ```shell
   dhclient -r
@@ -414,15 +409,15 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
 ### Capture de trafic avec tcpdump
 
-* [x] Sur passoire-2, lancer la commande suivante : `ping passoire-TD`.
+* [x] **Sur passoire-2, lancer la commande suivante : `ping passoire-TD`.**
 
-* [x] Via quelle interface réseau la machine virtuelle passoire reçoit-elle les paquets ping en provenance de passoire-bis ?
+* [x] **Via quelle interface réseau la machine virtuelle passoire reçoit-elle les paquets ping en provenance de passoire-bis ?**
 
   ![image-20191010003242402](./img/image-20191010003242402.png)
 
-* [x] Sur passoire, lancer la commande suivante en adaptant le nom de l'interface : `sudo tcpdump -n -i interface`.
+* [x] **Sur passoire, lancer la commande suivante en adaptant le nom de l'interface : `sudo tcpdump -n -i interface`.**
 
-* [x] Expliquer la commande et les résultats obtenus.
+* [x] **Expliquer la commande et les résultats obtenus.**
 
   ![image-20191010080830608](./img/image-20191010080830608.png)
 
@@ -487,8 +482,6 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
   tcpdump -r a.cap #read a.cap
   ```
 
-  
-
   -U -> each packet will be saved in the file in time
 
   -n -> not transform address from number to name
@@ -517,16 +510,16 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
 ### Connexion ssh
 
-* [x] Depuis passoire, se connecter en ssh sur passoire-bis.
+* [x] **Depuis passoire, se connecter en ssh sur passoire-bis.**
 
   ```shell
   ssh etu@10.10.10.128
 logout #for exiting ssh
 	```
   
-* [ ] Suivre la communication avec Wireshark. Que constatez-vous ?
+* [ ] **Suivre la communication avec Wireshark. Que constatez-vous ?**
 
-* [ ] Corriger passoire afin d'interdire les communications non chiffrées.
+* [ ] **Corriger passoire afin d'interdire les communications non chiffrées.**
 
 ### Vérifier vos connaissances sur :
 
@@ -552,7 +545,7 @@ logout #for exiting ssh
 
 Cet exercice porte sur la détection à distance de services réseaux. Attention à bien respecter les consignes. Relire l'article [323-3-1](https://www.legifrance.gouv.fr/affichCodeArticle.do;?idArticle=LEGIARTI000028345220&cidTexte=LEGITEXT000006070719) du code pénal au préalable.
 
-* [x] Installer le paquet `nmap` sur passoire-2. Consulter ensuite le man de la commande nmap. Comment classer cette commande ?
+* [x] **Installer le paquet `nmap` sur passoire-2. Consulter ensuite le man de la commande nmap. Comment classer cette commande ?**
 
   ![image-20191021212537220](./img/image-20191021212537220.png)
 
