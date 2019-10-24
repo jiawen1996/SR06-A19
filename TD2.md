@@ -166,7 +166,7 @@ Entre passoire 1 et google il y en a 9.
 * [x] **Déterminer le port de telnet, ssh et http en consultant le fichier /etc/services.**
 
 ```shell
-cat /etc/services | grep -E '^ssh|telnet|http'
+grep -E '^(ssh|telnet|http)\s' /etc/services
 ```
 
 ![image-20191003003425342](./img/image-20191003003425342.png)
@@ -175,7 +175,7 @@ cat /etc/services | grep -E '^ssh|telnet|http'
 
 ![image-20191003003822847](./img/image-20191003003822847.png)
 
-​	❓We should use `-napt` or `-nat` ??
+​	❓We should use `-napt` or `-nat` ??  le p sert à savoir le nom du programme qui utilise le port mais n'est visible que si l'on est en sudo 
 
 ​	While executing `watch -n1 'netstat -napt --ip`
 
@@ -183,11 +183,21 @@ cat /etc/services | grep -E '^ssh|telnet|http'
 
 ​	https://blog.51cto.com/sadoc/1932028 (chinois...)
 
+ça permet de voir toutes les connections aux ports réseaux (netsat -napt --ip) toute les secondes (-n1).
+Ici ssh (22), telnet (23) et le dns (53) sont en écoute.
+
 ![image-20191003011155093](./img/image-20191003011155093.png)
 
-* [ ] **Depuis la VM passoire, lancer la commande `telnet` et constater l'établissement de la socket ainsi que ses différents états.** ❓
+* [x] **Depuis la VM passoire, lancer la commande `telnet` et constater l'établissement de la socket ainsi que ses différents états.** ❓
 
 Telnet协议是TCP/IP协议家族中的一员，是Internet远程登陆服务的标准协议和主要方式。它为用户提供了在本地计算机上完成远程主机工作的能力。在终端使用者的电脑上使用telnet程序，用它连接到服务器。终端使用者可以在telnet程序中输入命令，这些命令会在服务器上运行，就像直接在服务器的控制台上输入一样。可以在本地就能控制服务器。要开始一个telnet会话，必须输入用户名和密码来登录服务器。Telnet是常用的远程控制Web服务器的方法。
+
+```shell
+telnet <adresse_ip d'où l'on veut se connecter>
+```
+
+On remarque bien que passoire 1 s'est connectée à passoire 2 en telnet car il y aune connexion etablie ayant pour adresse locale l'ip de passoire 1 et en foreign adresse celle de passoire 2 avec pour programme in.telnetd. 
+
 
 ### Vérifier vos connaissances sur :
 
