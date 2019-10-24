@@ -257,6 +257,11 @@ Cet exercice permet de comprendre le nommage des machines.
   ```shell
   sudo echo "127.0.01 passoire-2" >> /etc/hosts # permission denied ??
   ```
+  ça ne marche par car la redirection est faites par le shell (de etu) avant de lancer le sudo. (le shell essaie d'ouvrir le fichier /etc/hosts en écriture et de rediriger la sortie du sudo dessus et donc avant de lancer le sudo)
+  
+  J'ai modifié directement le fichier avec vim.
+  
+  On cherche l'addresse ip d'un nom d'abord dans /etc/hosts localement dans lequel il n'y a en général que la propre ip du serveur avant de demander au dns (le fichier /etc/nsswitch.conf définit l'ordre).
 
   * [x] **Redémarrer la machine et vérifier le changement de nom.**
 
@@ -273,6 +278,8 @@ Cet exercice permet de comprendre le nommage des machines.
 * How to exit telnet:
 
   `ctrl + ]` and then `q`
+  
+  ou `ctrl + d` ou `exit` pour faire arrêter le shell distant d'abord
 
 * [x] **Faîtes de même sur passoire-2.**
 
@@ -316,7 +323,7 @@ Cet exercice permet de comprendre le nommage des machines.
 
   * /etc/hosts
 
-    affecter DNS à la main
+    ~affecter DNS à la main
 
   * `/etc/resolv.conf` 
 
@@ -331,9 +338,9 @@ Cet exercice permet de comprendre le nommage des machines.
 * [x] **Retrouver le programme en charge du service avec ps aux | grep resolv et noter son numéro (pid).**
 
   ```shell
-  ps | grep resolv???
-  ps # just two processes are running???
-  #ps can't find resolv
+  ps aux | grep resolv #il faut `aux` parce que sinon il n'afficherai que les process appartenant à etu (a) et ceux associé à un terminal (x) sans afficher l'utilisateur (u)
+  ps # just two processes are running??? I suppose
+  #ps can't find resolv : parce que tu ne vois que les process de etu ( il faut l'option -A ou aux)
   ```
 
 * [x] **Vérifier avec `netstat -nap --ip` (à lancer en tant qu'administrateur pour voir les programmes associés aux sockets).**
@@ -341,6 +348,8 @@ Cet exercice permet de comprendre le nommage des machines.
 ![image-20191008155352859](./img/image-20191008155352859.png)
 
 ![image-20191008155415181](./img/image-20191008155415181.png)
+
+systemd-resolve écoute sur le port 53 en tcp et udp.
 
 * [x] **Stopper ce processus avec kill -STOP pid et recommencer les commandes dig ci-dessus. Que constatez-vous ?**
 
@@ -351,8 +360,14 @@ Cet exercice permet de comprendre le nommage des machines.
   ![image-20191009100506439](./img/image-20191009100506439.png)
 
   `dig -x <@ip>` has been stopped
+  
+ça ne marche pas car il ne sait pas à qui aller demander ?
+
+Mais il s'est remit en route tout seul ? par le process qui gère les services
 
 * [x] **Relancer le programme avec kill -CONT pid et vérifier que les commandes dig fonctionnent.**
+
+ça marche ..
 
   **`systemd-resolv`always changes PID, so it continues to run automatically when PID is changed.**
 
