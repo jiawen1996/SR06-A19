@@ -122,7 +122,7 @@ Non car on peut forcer l'adresse mac.
 
   * apt-get install ipcalc -> sudo apt install ipcalc
   
-  * ipcalc adresse_IP (il doit remplacer vrai @ip ici......)
+  * ipcalc adresse_IP (il doit remplacer vrai @ip ici......) --> je pense qu'il faut plutôt remplacer adresse_IP par la vrai adresse ip
   
   passoire-TD
   
@@ -132,20 +132,27 @@ Non car on peut forcer l'adresse mac.
 
 * **Ping** 
 
-  * [ ] **Réaliser un ping depuis passoire vers passoire-2. Expliquer.**
+  * [x] **Réaliser un ping depuis passoire vers passoire-2. Expliquer.**
+
+Ca marche. On est sous le même sous-réseau ?
 
   * [ ] **Modifier la configuration de la carte réseau dans proxmox en décochant la case "Firewall" et recommencer le ping. Expliquer.**
 
     ❓ why we can still connect to each other??? 
 
   * [ ] **Comparer les champs TTL en réalisant un ping de passoire-2, de www.utc.fr et de www.google.fr. Expliquer.**
-
+  
   ```shell
   ping www.utc.fr # ttl=62
   ping www.google.fr # ttl=55
   ```
 
-  ​		TTL —— Le TTL est une donnée placée au niveau de l'[en-tête](https://fr.wikipedia.org/wiki/Header) du [paquet](https://fr.wikipedia.org/wiki/Paquet_(réseau)) [IP](https://fr.wikipedia.org/wiki/Internet_Protocol) qui indique le nombre maximal de [routeurs](https://fr.wikipedia.org/wiki/Routeur) de transit.  (8 bits)
+  ​		TTL —— Le TTL est une donnée placée au niveau de l'[en-tête](https://fr.wikipedia.org/wiki/Header) du [paquet](https://fr.wikipedia.org/wiki/Paquet_(réseau)) [IP](https://fr.wikipedia.org/wiki/Internet_Protocol) qui indique le nombre maximal de [routeurs](https://fr.wikipedia.org/wiki/Routeur) de transit. La valeur recommandée par le RFC 17002 est de 64. (8 bits) 
+
+Entre passoire 1 et 2 il n'y a aucun routeur de transit donc il reste 64 d'acceptable.
+Ce qui implique que entre passoire 1 et utc il y en a 2.
+Entre passoire 1 et google il y en a 9. 
+
   * [ ] **Afficher la table de routage avec la commande route.**
 
   ```shell
