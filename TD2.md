@@ -27,16 +27,16 @@ ip address show
 
 ### Modification de la configuration réseau
 
-* [ ] **En consultant `/etc/netplan/50-cloud-init.yaml`, déterminer la méthode utilisée pour l'attribution de l'adresse IP à passoire.**
+* [x] **En consultant `/etc/netplan/50-cloud-init.yaml`, déterminer la méthode utilisée pour l'attribution de l'adresse IP à passoire.**
 
     Attribution de l'adresse IP par le protocole DHCP4 pour ens18.
-* [ ] **Relever l'adresse IP actuelle ; comparer avec un binôme voisin. Expliquer.**
+* [x] **Relever l'adresse IP actuelle ; comparer avec un binôme voisin. Expliquer.**
 
 ```shell
  ip address show
 ```
 
-* [ ] **Consulter `/etc/machine-id` et comparer avec un binôme voisin.**
+* [x] **Consulter `/etc/machine-id` et comparer avec un binôme voisin.**
 
 * [ ] **Modifier l'ID de la machine virtuelle :**
 
@@ -47,12 +47,12 @@ ip address show
 * [ ] **Renouveler l'adresse IP :**
 
   ```bash
-  dhclient -r
+  sudo dhclient -r
   ```
 
 * [ ] **Vérifier avec `dhclient -v` ou `ifconfig` ou `ip address show`. Comparer avec le binôme voisin.**
 
-* [ ] **Suppression de l'interface réseau virb0**
+* [x] **Suppression de l'interface réseau virb0**
 
   **Cette interface réseau virtuelle est ajoutée par ubuntu-serveur pour gérer la virtualisation. Elle est inutile ici.**
 
@@ -86,11 +86,28 @@ lspci | grep -i eth.
 
 - **Installer l'application lynx. A quoi sert-elle ?**
 
+Un browser en mode text.
+
 - **Isoler les adresses MAC de la VM à l'aide d'une commande. On pourra utiliser les commandes ifconfig, grep, tr et cut.**
 
-- **Interroger le site hwaddress.com avec lynx et la commande précédente en argument sur le modèle : `lynx hwaddress.com/?q=ifconfig ... `. Expliquer le résultat.**
+```shell
+ifconfig  | grep ether
+>  ether   ae:35etc.   twqueuelen   1000   (ethernet)
+ifconfig  | grep ether | tr -s ' ' '/' #remplacer les espaces successifs par un seul / pour le cut
+>/ether/ae:35etc./twqueuelen/1000/(ethernet)
+ifconfig  | grep ether | tr -s ' ' '/' | cut -d/ -f3 #d=delimiteur --> crée des champs f=field et on prend le troisième
+```
+
+- **Interroger le site hwaddress.com avec lynx et la commande précédente en argument sur le modèle : lynx hwaddress.com/?q=`ifconfig ... `. Expliquer le résultat.**
+
+```shell
+lynx hwaddress.com/?q=`ifconfig  | grep ether | tr -s ' ' '/' | cut -d/ -f3` #au lieu des ` on peut mettre $( )
+```
+L'adresse mac n'existe pas "No records found matching ae:35etc. " --> c'est une machine virtuelle ?
 
 - **Est-ce qu'un contrôle d'accès réseau par adresse MAC représente une sécurité satisfaisante ?**
+ 
+Non car on peut forcer l'adresse mac.
 
 ### Couche 3
 
