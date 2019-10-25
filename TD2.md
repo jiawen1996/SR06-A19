@@ -323,7 +323,7 @@ Cet exercice permet de comprendre le nommage des machines.
 
   * /etc/hosts
 
-    ~affecter DNS à la main
+    affecter DNS à la main
 
   * `/etc/resolv.conf` 
 
@@ -402,7 +402,7 @@ Mais il s'est remit en route tout seul ? par le process qui gère les services
   ![image-20191009105631011](./img/image-20191009105631011.png)
 
   ![image-20191009105950281](./img/image-20191009105950281.png)
-
+  
 ### Vérifier vos connaissances sur :
 
 - uname
@@ -510,13 +510,15 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
   ![image-20191015160922015](./img/image-20191015160922015.png)
 
-### Visualisation graphique avec Wireshark
+Après que passoire 1 ai envoyé le message contenant "Password: ", passoire 2 envoie une série de messages de longueur 1 contenant le mot de passe caractère par caractère : on peut donc le lire.
+
+### Visualisation graphique avec Wireshark -- **pas fait**
 
 * [x] **Sur le système hôte, identifier les adresses IP et notamment celle le connectant à la machine virtuelle passoire.**
 
   @ip_host: 10.10.10.179
 
-* [x] **Sur passoire, lancer la commande suivante : **
+* [x] **Sur passoire, lancer la commande suivante :**
 
   **`sudo tcpdump -s0 -n -U -w - -i <interface> 'not port 3000' | nc @IP_hôte 3000`.**
 
@@ -537,7 +539,7 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
   ![image-20191015161431000](./img/image-20191015161431000.png)
 
-* [ ] **Sur le système hôte, lancer ensuite la commande : **
+* [ ] **Sur le système hôte, lancer ensuite la commande :**
 
   **`nc -k -l 3000 | wireshark -k -i -`?????❓**
 
@@ -563,8 +565,8 @@ Cet exercice porte sur la confidentialité des communications et l'intérêt du 
 
   ```shell
   ssh etu@10.10.10.128
-logout #for exiting ssh
-	```
+  logout #for exiting ssh
+```
   
 * [ ] **Suivre la communication avec Wireshark. Que constatez-vous ?**
 
@@ -611,15 +613,50 @@ Cet exercice porte sur la détection à distance de services réseaux. Attention
   ![image-20191021215130795](./img/image-20191021215130795.png)
 
 * [ ] **Depuis passoire-2, lancer la commande suivante : nmap passoire.**
+  * [x] Erell 
 
 * [ ] **A l'aide de tcpdump ou wireshark (cf. exercice précédent), observer le trafic généré par nmap.**
+  * [x] Erell 
+      On voit qu'il test tout les ports (plus de 900) et n'en trouve que 2 ouvert (ssh et telnet).
 
 * [ ] **Réaliser un scan UDP sur passoire.**
+    * [x] Erell 
+
+```shell
+etu@passoire-erell-2:~$ sudo nmap @ip-passoire-1 -sU
+```
+Long, pas de résultat ?
+
 
 * [ ] **Réaliser une découverte d'OS sur passoire et sur l'adresse 192.168.56.1**
+   * [x] Erell 
+
+```shell
+etu@passoire-erell-2:~$ sudo nmap @ip-passoire-1 -O
+
+>Running: Linux 3.X|4.X
+>OS details: Linux 3.2 - 4.8
+```
+Donc il dit que passoire-1 est sous Linux 3.2-4.8.
+Pourtant :
+
+```shell
+etu@passoire-erell-1:~$ uname -r
+
+>4.15.0-66-generic
+```
+
+Donc on serai en 4.15 ?
 
 * [ ] **Pour réactiver l'interface réseau qui avait été désactiver, utiliser `sudo ip link set eth1 up`.**
+   * [x] Erell 
+   Faire plutôt :
 
+   ```shell
+etu@passoire-erell-1:~$ sudo ip link set ens18 up
+
+```
+  non ?
 
 
 ### Vérifier vos connaissances sur :
@@ -642,6 +679,20 @@ Cet exercice porte sur les comptes de service et la séparation des privilèges.
   ```
 
   ![image-20191021233814014](./img/image-20191021233814014.png)
+
+ ```shell
+ cut -d: -f2,1,7 /etc/passwd | sort -n -t: -k2n #pour trier les utilisateur selon leur id
+  ```
+
+On remarque qu'il n'y que 4 utilisateurs dans les 1000 qui sont de 'vrais' utilisateurs.
+
+Les utilisateurs ayant des id plus petits sont probablement utiliser pour des daemon ou des services du système. La plupart n'ont pas de vrai shell (`usr/sbin/nologin` ou `/bin/false` ) les seuls a avoir un vrai shell sont (`grep -v nologin /etc/passwd | grep -v false`) root, sync?, www-data, et les quatres sités plus haut.
+
+Les deux autres (
+`libvirt-qemu:64055` 
+et 
+`nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin`
+) je ne sais pas.
 
 * [x] **Que font les commandes `nologin` et `false` ?**
 
@@ -671,6 +722,8 @@ Cet exercice porte sur les comptes de service et la séparation des privilèges.
   ![image-20191021234549290](./img/image-20191021234549290.png)
 
 * [ ] **Corriger l'anomalie trouvée.**
+
+  Supprimer tournesol ?
 
 ### Droit spécifique pour relancer Apache
 
