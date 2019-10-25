@@ -785,9 +785,10 @@ et
 
   ![image-20191023150254662](./img/image-20191023150254662.png)
 
-* [x] **Ouvrir un autre terminal et lancer la commande suivante pour constater les essais infructueux de remus et romulus : `tail -f /var/log/auth.log`.**
+* [x] **Ouvrir un autre terminal et lancer la commande suivante pour constater les essais infructueux de remus et romulus : `sudo tail -f /var/log/auth.log`.**
 
   ❌ ça marche pas 
+  Moi ça marche (lance le en taâche de fond pour le voir bien `sudo tail -f /var/log/auth.log &` et retest avec Remus par exemple).
 
 * [x] **En tant qu'utilisateur etu, éditer le fichier /etc/sudoers avec la commande : `sudo vi /etc/sudoers`.**
 
@@ -848,14 +849,23 @@ et
     ![image-20191023171300109](./img/image-20191023171300109.png)
   
     ```bash
-    sudo adduser cesar sudo
+    sudo adduser cesar sudo # DANGER cesar a tout les droits sur tout
     sudo -u www-data vi /var/www/html/index.html
+    ```
+
+    ```bash
+    sudo visudo
+    # Ajout dans le document de :
+
+    cesar ALL= (www-data) /usr/bin/vi /var/www/html/index.html
+    cesar@passoire-erell-1:~$ sudo -u www-data vi /var/www/html/index.html
     ```
   
   * [x] **En utilisant les groupes.**
   
     ```bash
     sudo gpasswd -a cesar www-data
+    # j'ai fait : sudo adduser cesar www-data
     sudo chmod 660 /var/www/html/index.html
     ```
 
