@@ -652,9 +652,8 @@ Donc on serai en 4.15 ?
    * [x] Erell 
    Faire plutôt :
 
-   ```shell
+```shell
 etu@passoire-erell-1:~$ sudo ip link set ens18 up
-
 ```
   non ?
 
