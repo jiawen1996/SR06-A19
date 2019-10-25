@@ -563,9 +563,9 @@ Après que passoire 1 ai envoyé le message contenant "Password: ", passoire 2 e
 
 * [x] **Depuis passoire, se connecter en ssh sur passoire-bis.**
 
-  ```shell
-  ssh etu@10.10.10.128
-  logout #for exiting ssh
+```shell
+ssh etu@10.10.10.128
+logout #for exiting ssh
 ```
   
 * [ ] **Suivre la communication avec Wireshark. Que constatez-vous ?**
