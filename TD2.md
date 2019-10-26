@@ -880,42 +880,73 @@ et
 Cet exercice porte sur l'isolation d'un utilisateur à l'aide de chroot. La même technique peut être appliquée pour isoler un service.
 
 ### Construction de l'isolation minimale
-
-* [ ] Créer le répertoire `/var/isoler` qui servira de "cage" pour notre isolation. Ajouter le répertoire `/var/isoler/bin`.
-* [ ] Copier /bin/bash dans /var/isoler/bin.
-* [ ] Rechercher les bibliothèques partagées utilisées par bash avec la commande suivante : ldd /bin/bash.
-* [ ] Copier ces bibliothèques dans la cage ; créer pour cela les répertoires /var/isoler/lib, /var/isoler/lib64, /var/isoler/lib/x86_64-linux-gnu. On veillera à ne copier que les bibliothèques nécessaires à l'exécution de bash.
+* [x] Erell
+  * [ ] Créer le répertoire `/var/isoler` qui servira de "cage" pour notre isolation. Ajouter le répertoire `/var/isoler/bin`.
+```bash
+sudo mkdir -p /var/isoler/bin
+```
+  * [ ] Copier /bin/bash dans /var/isoler/bin.
+```bash
+sudo cp /bin/bash /var/isoler/bin
+```
+  * [ ] Rechercher les bibliothèques partagées utilisées par bash avec la commande suivante : `ldd /bin/bash`.
+  * [ ] Copier ces bibliothèques dans la cage ; créer pour cela les répertoires /var/isoler/lib, /var/isoler/lib64, /var/isoler/lib/x86_64-linux-gnu. On veillera à ne copier que les bibliothèques nécessaires à l'exécution de bash.
 
 ### Utilisation de la cage construite
-
+* [x] Erell
 4. 1. Lancer l'environnement isolé avec la commande suivante : chroot /var/isoler.
+`chroot` = ça change la racine de fichier, ça cache et protège tout le reste car on ne peut accéder à aucun fichier en dehors de cet environement.
    2. Exécuter les commandes suivantes : pwd, echo *, cd bin, echo *, pwd
    3. Pourquoi ces commandes sont acceptées ?
+Car ce sont des shell builtin (`type pwd`) i.e. gérés directement par bash (et vu que dans la cage le seul excutable est bash d'autres type de commandes ne marcheraient pas cf. 4. ).
    4. Essayer d'autres commandes telles que ls, vi, df...
+```bash
+type ls
+>/bin/ls
+type vi
+>usr/bin/vi
+type df
+>/bin/df
+```
 
 ### Compléments
-
+* [x] Erell
 1. 1. Ajout des commandes ps et ls avec la même méthode que pour bash ci-dessus :
 
    2. 1. Copie des exécutables.
       2. Recherche des bibliothèques partagées nécessaires.
       3. Copie des bibliothèques partagées.
+
+```shell
+ldd /bin/ps | grep \> | cut -d\> -f2 | while read l unused; do printf "sudo cp %s /var/isoler%s\n" "$l" "$l"; done | bash
+```
       4. Vérifier au sein de l'environnement isolé.
+Ps ne marche pas ?
+`Error, do this: mount -t proc proc /proc`
 
    3. Ajout du périphérique spécial null :
 
    4. 1. Créer le répertoire pour les *devices* : mkdir /var/isoler/dev
       2. Créer le périphérique null : mknod /var/isoler/dev/null c 1 3
       3. Vérifier avec la commande suivante dans l'environnement isolé : ls bin toto 2> /dev/null
+  En gros on crée le trou noir.
 
    5. Ajout du pseudo système de fichier /proc qui contient des informations sur (tout) le système en exécution :
 
    6. 1. Créer le point de montage : mkdir /var/isoler/proc
-      2. Monter le pseudo système de fichier une seconde fois (il l'est déjà dans /proc) : mount --bind /proc /var/isoler/proc
+      2. Monter le pseudo système de fichier une seconde fois (il l'est déjà dans /proc) : `mount --bind /proc /var/isoler/proc`
+Monter = donner un point dans l'arborescence du fichier qui permet d'accéder à un autre disque ou système de fichier "spécial". (ex. clé USB n'est pas naturellement dans / sauf si on la Monte en un point)
+
+Ici : `/var/isoler/proc` va pointer au même endroit que `/proc` (qui pointe vers le système de fichiers spécial `proc`)
+
+```shell
+mount | grep proc
+>proc on /proc type proc
+```
       3. Au sein de l'environnement isolé, examiner les informations relatives aux processus auxquelles /var/isoler/proc donne accès.
 
 ### Création d'un utilisateur ayant un shell isolé
-
+* [x] Erell
 1. 1. Ecrire un shell-script /usr/local/bin/isoler.sh contenant les lignes suivantes :
 
    2. 1. \#!/bin/bash
@@ -924,10 +955,12 @@ Cet exercice porte sur l'isolation d'un utilisateur à l'aide de chroot. La mêm
 
    3. Ajouter les droits d'exécution à ce script.
 
-   4. Ajouter l'utilisateur de login *minus* qui aura pour *home directory* le répertoire /var/isoler et pour shell /usr/local/bin/isoler.sh via la commande suivante : useradd -c minus -d /var/isoler -s /usr/local/bin/isoler.sh
+   4. Ajouter l'utilisateur de login *minus* qui aura pour *home directory* le répertoire /var/isoler et pour shell /usr/local/bin/isoler.sh via la commande suivante : `useradd -c minus -d /var/isoler -s /usr/local/bin/isoler.sh`
+`useradd -c minus -d /var/isoler -s /usr/local/bin/isoler.sh minus` je pense plutôt
 
    5. Attribuer un mot de passe à minus avec la commande passwd.
 
    6. Ajouter le setuid bit à chroot.
 
    7. Tester en se connectant en tant que utilisateur minus.
+Il faut donner les droit a+rx à /usr/local/bin/isoler.sh et a+x à /var/isoler pour que ça marche.
