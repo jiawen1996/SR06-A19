@@ -98,15 +98,24 @@ Ces actions sont à réaliser sur la machine virtuelle Windows 10 'sr06-win-10-1
 
 * [ ]    Constatez que tous les voyants sont au vert
 
+    Erell - Pas pour moi : pas la "protection du compte" ni les "performances et intégrité de l'appareil"
+
 8. Dans "Sécurité Windows", sélectionnez "Protection du compte" et "Gérer les options de connexion", puis, dans "Options de connexion", modifiez le mot de passe de votre compte.
 
     Attention à bien choisir et à bien retenir ce mot de passe. Il ne sera pas possible de le retrouver une fois en place. Et heureusement !
 
     Qu'est-ce qu'un bon mot de passe selon vous et quelle est sa bonne utilisation ?
+    
+    Long, sans mot du dico, comportant des caractères spéciaux
+    un mot de passe différent pour chaque chose (pas utilisé deux fois)
+    en changer régulièrement
+    pas gardé quelque part d'autre que la tête du propriétaire 
 
 9. Les mots de passe de Windows (poste hors domaine Active Directory) sont stockés dans le fichier SAM (Security Account Manager), dans "C:/Windows/system32/config/". Ils sont cryptés en NTLMv2.
 
 * [ ]    Allez dans le dossier "C:/Windows/system32/config/" et copiez/collez le fichier "SAM" sur le bureau. Que constatez-vous ?
+
+    "Cette action ne peut être réalisée car le fichier est ouvert dans System"
 
     Allez sur Internet et faites une recherche sur "John the ripper" et/ou "Hash suite". Que permettent ces outils spécialisés ? Que faut-il en retenir concernant le choix d'un bon mot de passe ?
 
