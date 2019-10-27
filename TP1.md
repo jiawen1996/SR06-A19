@@ -42,7 +42,7 @@ Cette machine virtuelle est issue de la machine virtuelle *passoire* fournie en 
 
 ### 3. Services
 
-* [ ] Mettre en oeuvre le serveur Apache ; il n'est pas demandé de configurer https à ce stade ;
+* [x] Mettre en oeuvre le serveur Apache ; il n'est pas demandé de configurer https à ce stade ;
 * [ ] Développer un formulaire le plus simple possible qui permette de saisir des noms et de les stocker dans un fichier.
 * [ ] S'assurer qu'il n'y ait pas de service inutile lancé avec un scan de port local.
 * [ ] Désinstaller les applications non nécessaires pour cette machine virtuelle destinée à héberger un serveur web (eg. lynx).

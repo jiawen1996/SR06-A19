@@ -106,7 +106,7 @@ lynx hwaddress.com/?q=`ifconfig  | grep ether | tr -s ' ' '/' | cut -d/ -f3` #au
 L'adresse mac n'existe pas "No records found matching ae:35etc. " --> c'est une machine virtuelle ?
 
 - **Est-ce qu'un contrôle d'accès réseau par adresse MAC représente une sécurité satisfaisante ?**
- 
+
 Non car on peut forcer l'adresse mac.
 
 ### Couche 3
@@ -141,7 +141,7 @@ Ca marche. On est sous le même sous-réseau ?
     ❓ why we can still connect to each other??? 
 
   * [ ] **Comparer les champs TTL en réalisant un ping de passoire-2, de www.utc.fr et de www.google.fr. Expliquer.**
-  
+
   ```shell
   ping www.utc.fr # ttl=62
   ping www.google.fr # ttl=55
@@ -190,13 +190,11 @@ Ici ssh (22), telnet (23) et le dns (53) sont en écoute.
 
 * [x] **Depuis la VM passoire, lancer la commande `telnet` et constater l'établissement de la socket ainsi que ses différents états.** ❓
 
-Telnet协议是TCP/IP协议家族中的一员，是Internet远程登陆服务的标准协议和主要方式。它为用户提供了在本地计算机上完成远程主机工作的能力。在终端使用者的电脑上使用telnet程序，用它连接到服务器。终端使用者可以在telnet程序中输入命令，这些命令会在服务器上运行，就像直接在服务器的控制台上输入一样。可以在本地就能控制服务器。要开始一个telnet会话，必须输入用户名和密码来登录服务器。Telnet是常用的远程控制Web服务器的方法。
-
 ```shell
 telnet <adresse_ip d'où l'on veut se connecter>
 ```
 
-On remarque bien que passoire 1 s'est connectée à passoire 2 en telnet car il y aune connexion etablie ayant pour adresse locale l'ip de passoire 1 et en foreign adresse celle de passoire 2 avec pour programme in.telnetd. 
+On remarque bien que passoire 1 s'est connectée à passoire 2 en telnet car il y a une connexion etablie ayant pour adresse locale l'ip de passoire 1 et en foreign adresse celle de passoire 2 avec pour programme in.telnetd. 
 
 
 ### Vérifier vos connaissances sur :
@@ -361,6 +359,7 @@ systemd-resolve écoute sur le port 53 en tcp et udp.
 
   `dig -x <@ip>` has been stopped
   
+
 ça ne marche pas car il ne sait pas à qui aller demander ?
 
 Mais il s'est remit en route tout seul ? par le process qui gère les services
@@ -514,7 +513,7 @@ Après que passoire 1 ai envoyé le message contenant "Password: ", passoire 2 e
 
 ### Visualisation graphique avec Wireshark -- **pas fait**
 
-* [x] **Sur le système hôte, identifier les adresses IP et notamment celle le connectant à la machine virtuelle passoire.**
+* [ ] **Sur le système hôte, identifier les adresses IP et notamment celle le connectant à la machine virtuelle passoire.**
 
   @ip_host: 10.10.10.179
 
@@ -567,7 +566,7 @@ Après que passoire 1 ai envoyé le message contenant "Password: ", passoire 2 e
 ssh etu@10.10.10.128
 logout #for exiting ssh
 ```
-  
+
 * [ ] **Suivre la communication avec Wireshark. Que constatez-vous ?**
 
 * [ ] **Corriger passoire afin d'interdire les communications non chiffrées.**
@@ -613,13 +612,15 @@ Cet exercice porte sur la détection à distance de services réseaux. Attention
   ![image-20191021215130795](./img/image-20191021215130795.png)
 
 * [ ] **Depuis passoire-2, lancer la commande suivante : nmap passoire.**
-  * [x] Erell 
-
+  
+* [x] Erell 
+  
 * [ ] **A l'aide de tcpdump ou wireshark (cf. exercice précédent), observer le trafic généré par nmap.**
   * [x] Erell 
       On voit qu'il test tout les ports (plus de 900) et n'en trouve que 2 ouvert (ssh et telnet).
 
 * [ ] **Réaliser un scan UDP sur passoire.**
+  
     * [x] Erell 
 
 ```shell
@@ -681,11 +682,11 @@ Cet exercice porte sur les comptes de service et la séparation des privilèges.
 
  ```shell
  cut -d: -f2,1,7 /etc/passwd | sort -n -t: -k2n #pour trier les utilisateur selon leur id
-  ```
+ ```
 
 On remarque qu'il n'y que 4 utilisateurs dans les 1000 qui sont de 'vrais' utilisateurs.
 
-Les utilisateurs ayant des id plus petits sont probablement utiliser pour des daemon ou des services du système. La plupart n'ont pas de vrai shell (`usr/sbin/nologin` ou `/bin/false` ) les seuls a avoir un vrai shell sont (`grep -v nologin /etc/passwd | grep -v false`) root, sync?, www-data, et les quatres sités plus haut.
+Les utilisateurs ayant des id plus petits sont probablement utiliser pour des demon ou des services du système. La plupart n'ont pas de vrai shell (`usr/sbin/nologin` ou `/bin/false` ) les seuls a avoir un vrai shell sont (`grep -v nologin /etc/passwd | grep -v false`) root, sync?, www-data, et les quatres sités plus haut.
 
 Les deux autres (
 `libvirt-qemu:64055` 
@@ -881,25 +882,63 @@ Cet exercice porte sur l'isolation d'un utilisateur à l'aide de chroot. La mêm
 
 ### Construction de l'isolation minimale
 * [x] Erell
-  * [ ] Créer le répertoire `/var/isoler` qui servira de "cage" pour notre isolation. Ajouter le répertoire `/var/isoler/bin`.
+  * [x] **Créer le répertoire `/var/isoler` qui servira de "cage" pour notre isolation. Ajouter le répertoire `/var/isoler/bin`.**
 ```bash
 sudo mkdir -p /var/isoler/bin
 ```
-  * [ ] Copier /bin/bash dans /var/isoler/bin.
+  * [x] **Copier /bin/bash dans /var/isoler/bin.**
 ```bash
 sudo cp /bin/bash /var/isoler/bin
 ```
-  * [ ] Rechercher les bibliothèques partagées utilisées par bash avec la commande suivante : `ldd /bin/bash`.
-  * [ ] Copier ces bibliothèques dans la cage ; créer pour cela les répertoires /var/isoler/lib, /var/isoler/lib64, /var/isoler/lib/x86_64-linux-gnu. On veillera à ne copier que les bibliothèques nécessaires à l'exécution de bash.
+  * [x] **Rechercher les bibliothèques partagées utilisées par bash avec la commande suivante : `ldd /bin/bash`.**
+
+    ![image-20191026235655854](./img/image-20191026235655854.png)
+
+      * [x] **Copier ces bibliothèques dans la cage ; créer pour cela les répertoires `/var/isoler/lib`, `/var/isoler/lib64`, `/var/isoler/lib/x86_64-linux-gnu`. On veillera à ne copier que les bibliothèques nécessaires à l'exécution de bash.**
+
+        ```bash
+        sudo mkdir /var/isoler/lib
+        sudo mkdir /var/isoler/lib/x86_64-linux-gnu
+        sudo mkdir /var/isoler/lib64
+        sudo cp /lib/x86_64-linux-gnu/libtinfo.so.5 /var/isoler/lib/x86_64-linux-gnu
+        ...
+        sudo cp /lib64/ld-linux-x86-64.so.2 /var/isoler/lib64
+        ```
+
+        
 
 ### Utilisation de la cage construite
 * [x] Erell
-4. 1. Lancer l'environnement isolé avec la commande suivante : chroot /var/isoler.
-`chroot` = ça change la racine de fichier, ça cache et protège tout le reste car on ne peut accéder à aucun fichier en dehors de cet environement.
-   2. Exécuter les commandes suivantes : pwd, echo *, cd bin, echo *, pwd
-   3. Pourquoi ces commandes sont acceptées ?
-Car ce sont des shell builtin (`type pwd`) i.e. gérés directement par bash (et vu que dans la cage le seul excutable est bash d'autres type de commandes ne marcheraient pas cf. 4. ).
-   4. Essayer d'autres commandes telles que ls, vi, df...
+* [x] **Lancer l'environnement isolé avec la commande suivante : `chroot /var/isoler`.**
+  `chroot` = ça change la racine de fichier, ça cache et protège tout le reste car on ne peut accéder à aucun fichier en dehors de cet environement.
+
+  ![image-20191027001737692](./img/image-20191027001737692.png)
+
+* [x] **Exécuter les commandes suivantes : pwd, echo *, cd bin, echo *, pwd**
+
+  * pwd
+
+    ![image-20191027001830596](./img/image-20191027001830596.png)
+
+  * echo *
+
+    ![image-20191027001905539](./img/image-20191027001905539.png)
+
+  * cd bin, echo *
+
+    ![image-20191027001942986](./img/image-20191027001942986.png)
+
+  * pwd
+
+    ![image-20191027001959201](./img/image-20191027001959201.png)
+
+* [x] Pourquoi ces commandes sont acceptées ?
+  Car ce sont des shell builtin (`type pwd`) i.e. gérés directement par bash (et vu que dans la cage le seul excutable est bash d'autres type de commandes ne marcheraient pas cf. 4. ).
+
+* [x] Essayer d'autres commandes telles que ls, vi, df...
+
+  ![image-20191027003634415](./img/image-20191027003634415.png)
+
 ```bash
 type ls
 >/bin/ls
@@ -911,16 +950,15 @@ type df
 
 ### Compléments
 * [x] Erell
-1. 1. Ajout des commandes ps et ls avec la même méthode que pour bash ci-dessus :
-
-   2. 1. Copie des exécutables.
-      2. Recherche des bibliothèques partagées nécessaires.
-      3. Copie des bibliothèques partagées.
+* [ ] Ajout des commandes `ps` et `ls` avec la même méthode que pour bash ci-dessus :
+* [ ] Copie des exécutables.
+* [ ] Recherche des bibliothèques partagées nécessaires.
+* [ ] Copie des bibliothèques partagées.
 
 ```shell
 ldd /bin/ps | grep \> | cut -d\> -f2 | while read l unused; do printf "sudo cp %s /var/isoler%s\n" "$l" "$l"; done | bash
 ```
-      4. Vérifier au sein de l'environnement isolé.
+4. Vérifier au sein de l'environnement isolé.
 Ps ne marche pas ?
 `Error, do this: mount -t proc proc /proc`
 
@@ -929,7 +967,7 @@ Ps ne marche pas ?
    4. 1. Créer le répertoire pour les *devices* : mkdir /var/isoler/dev
       2. Créer le périphérique null : mknod /var/isoler/dev/null c 1 3
       3. Vérifier avec la commande suivante dans l'environnement isolé : ls bin toto 2> /dev/null
-  En gros on crée le trou noir.
+      En gros on crée le trou noir.
 
    5. Ajout du pseudo système de fichier /proc qui contient des informations sur (tout) le système en exécution :
 
