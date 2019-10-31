@@ -43,15 +43,40 @@ Cette machine virtuelle est issue de la machine virtuelle *passoire* fournie en 
 ### 3. Services
 
 * [x] Mettre en oeuvre le serveur Apache ; il n'est pas demandé de configurer https à ce stade ;
-* [ ] Développer un formulaire le plus simple possible qui permette de saisir des noms et de les stocker dans un fichier.
+
+* [x] Développer un formulaire le plus simple possible qui permette de saisir des noms et de les stocker dans un fichier.
+
 * [ ] S'assurer qu'il n'y ait pas de service inutile lancé avec un scan de port local.
+
+  ```bash
+  nmap 127.0.0.1
+  ```
+
+  maintenant il reste ssh et http
+
+  je pense qu'on doit tuer ssh?
+
 * [ ] Désinstaller les applications non nécessaires pour cette machine virtuelle destinée à héberger un serveur web (eg. lynx).
+
+  
 
 ### 4. Utilisateurs
 
-* [ ] Créer autant de comptes utilisateurs privilégiés que d'étudiants dans votre groupe (ne pas partager un compte utilisateur privilégié) ;
+* [x] Créer autant de comptes utilisateurs privilégiés que d'étudiants dans votre groupe (ne pas partager un compte utilisateur privilégié) ;
+
+  * compte privilégié -> UID=0
+
+  ```bash
+  sudo useradd -o -u 0 -g 0 -M -d /root -s /bin/bash <username>
+  sudo passwd <username>
+  ```
+
+  ![image-20191027130252089](/Users/haida/Library/Application Support/typora-user-images/image-20191027130252089.png)
+
 * [ ] Créer un compte utilisateur non privilégié *publie* qui ait le droit d'arrêter et de relancer le serveur web (utiliser sudo) :
+
 * [ ] Créer un compte utilisateur non privilégié *edite* qui ait le droit de modifier la page web (contenant le formulaire PHP).
+
 * [ ] Optionnel : créer un compte utilisateur *controle* en cage (avec chroot), qui ait uniquement le droit d'afficher les processus en cours d'exécution ;
 
 ### 5. Ajout de disques et de partition (optionnel)

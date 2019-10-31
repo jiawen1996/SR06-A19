@@ -515,11 +515,22 @@ Après que passoire 1 ai envoyé le message contenant "Password: ", passoire 2 e
 
 * [ ] **Sur le système hôte, identifier les adresses IP et notamment celle le connectant à la machine virtuelle passoire.**
 
-  @ip_host: 10.10.10.179
+  @ip_host: 172.23.2.12
 
 * [x] **Sur passoire, lancer la commande suivante :**
 
   **`sudo tcpdump -s0 -n -U -w - -i <interface> 'not port 3000' | nc @IP_hôte 3000`.**
+
+  ```bash
+  #dans la machine virtuel
+  sudo tcpdump -i ens20 -w capture1.cap
+  chmod 644 capture1.cap
+  
+  
+  #dans la machine host
+  scp etu@172.23.3.20:capture1.cap .
+  wireshark capture1.cap
+  ```
 
   不确定会不会生成一个文件，通过pipeline自动转发给@ip_host的3000端口 
 
