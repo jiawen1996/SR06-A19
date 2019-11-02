@@ -18,6 +18,9 @@ Ces actions sont à réaliser sur la machine virtuelle Windows 10 'sr06-win-10-1
 
 * [ ] Renommez le nom de l'ordinateur en "W10" et le groupe de travail en "SR06-WIN10". Redémarrez ensuite la machine virtuelle comme demandé par Windows
 
+
+     * [x] Erell
+
 * [x] Sur l'icône du bouton "Démarrer", faites un clic droit et sélectionnez "Gestion de l'ordinateur", puis "Gestion des disques"	
 
  * [x] Initialiser le "Disque 1" avec une partition "GPT" (GUID Partition Table)
@@ -78,19 +81,31 @@ Ces actions sont à réaliser sur la machine virtuelle Windows 10 'sr06-win-10-1
 
 * [ ] Il est possible d'activer une sauvegarde régulière de vos fichiers par la fonction "Historique des fichiers". C'est un filet de sécurité simple à mettre en œuvre et dont le bénéfice est immense
 
- * [ ] Sélectionnez "Ajouter un lecteur" et sélectionnez le lecteur proposé qui doit être "Stockage (S)"
+ * [ ] Sélectionnez "Ajouter un lecteur" et sélectionnez le lecteur proposé qui doit être "Stockage (S)"
+   
+* [x] Erell
+  
+* [ ] Sélectionnez "Plus d'options" et prenez connaissance de la liste des des dossiers sauvegardés par cette méthode. Que pensez-vous de cette liste par défaut ?
+  Bien car il y a tout ?
 
-* [ ]  Sélectionnez "Plus d'options" et prenez connaissance de la liste des des dossiers sauvegardés par cette méthode. Que pensez-vous de cette liste par défaut ?
-
-* [ ]   Sur le bureau, créez un dossier "Data", puis, dedans un fichier texte "Versions.txt". Editez ce fichier et saisissez la chaîne de caractères "Version 1" puis enregistrez ce changement
-
-* [ ]    De retour dans "Plus d'options" (Options de sauvegarde), Sélectionnez "Sauvegarder les données maintenant" et attendre la fin de la sauvegarde. La date de la dernière sauvegarde s'affiche alors
-
+* [ ] Sur le bureau, créez un dossier "Data", puis, dedans un fichier texte "Versions.txt". Editez ce fichier et saisissez la chaîne de caractères "Version 1" puis enregistrez ce changement
+  
+* [x] Erell
+  
+* [ ] De retour dans "Plus d'options" (Options de sauvegarde), Sélectionnez "Sauvegarder les données maintenant" et attendre la fin de la sauvegarde. La date de la dernière sauvegarde s'affiche alors
+  
+* [x] Erell
+  
 * [ ]    De retour sur le bureau, rééditez le fichier "Data\Versions.txt" et remplacez la chaîne de caractères "Version 1" par "Version 2" puis enregistrez ce changement
-
+  
+* [x] Erell
+  
 * [ ]    Sélectionner l'icône du fichier "Versions.txt" et, par un clic droit, sélectionnez "Restaurer les versions précédentes", puis le fichier "Versions" qui est listé. Restaurez-le sur le bureau, ouvrez-le et constatez qu'il contient bien la chaîne de caractères "Version 1"
-
+  
+* [x] Erell
+  
 * [ ]    De retour dans "Plus d'options" (Options de sauvegarde), quelle valeur de l'option "Conserver mes sauvegardes" choisiriez-vous personnellement et pourquoi ?
+J'aurai gardé la même, mêlme "pour toujours" on ne sais pas jusqu'à quand c'est
 
 7. Dans la barre de tâches, zone de notifications, lancez le "Sécurité Windows"
 
@@ -105,11 +120,11 @@ Ces actions sont à réaliser sur la machine virtuelle Windows 10 'sr06-win-10-1
     Attention à bien choisir et à bien retenir ce mot de passe. Il ne sera pas possible de le retrouver une fois en place. Et heureusement !
 
     Qu'est-ce qu'un bon mot de passe selon vous et quelle est sa bonne utilisation ?
-    
-    Long, sans mot du dico, comportant des caractères spéciaux
-    un mot de passe différent pour chaque chose (pas utilisé deux fois)
-    en changer régulièrement
-    pas gardé quelque part d'autre que la tête du propriétaire 
+
+- Long, sans mot du dico, comportant des caractères spéciaux
+- un mot de passe différent pour chaque chose (pas utilisé deux fois)
+- en changer régulièrement
+- pas gardé quelque part d'autre que la tête du propriétaire 
 
 9. Les mots de passe de Windows (poste hors domaine Active Directory) sont stockés dans le fichier SAM (Security Account Manager), dans "C:/Windows/system32/config/". Ils sont cryptés en NTLMv2.
 
@@ -118,14 +133,22 @@ Ces actions sont à réaliser sur la machine virtuelle Windows 10 'sr06-win-10-1
     "Cette action ne peut être réalisée car le fichier est ouvert dans System"
 
     Allez sur Internet et faites une recherche sur "John the ripper" et/ou "Hash suite". Que permettent ces outils spécialisés ? Que faut-il en retenir concernant le choix d'un bon mot de passe ?
+    
+ Ils permettent de cracker des mots de passe
+ Je ne sais pas 
 
 10. Dans "Options de connexion", désactivez l'option de "Confidentialité" permettant de terminer automatiquement la configuration après une mise à jour avec redémarrage. Pourquoi vaut-il mieux désactiver cette option, selon vous ?
+  * [x] Erell
+ je ne sais pas non plus
 
 11. Dans "Options de connexion", sélectionnez "Ecran de verrouillage" (paragraphe "Paramètres associés")
 
     Désactivez l'affichage de l'état de toutes les applications sur l'écran de verrouillage
+  * [x] Erell
 
     Réglez l'écran de veille pour qu'il se déclenche au bout de 2 minutes et, qu'à son réveil, une authentification d'ouverture de session soit exigée. Selon vous, pourquoi activer cette fonctionnalité est-elle importante ?
+  * [x] Erell
+Si l'on oublie d'éteindre notre ordinateur au bout de peu de temps il se vérouille de lui-même.
 
     Testez le bon fonctionnement de ces réglages
 
@@ -134,12 +157,21 @@ Ces actions sont à réaliser sur la machine virtuelle Windows 10 'sr06-win-10-1
 12. Dans "Sécurité Windows", sélectionnez "Pare-feu de protection du réseau"
 
     Vérifiez que le pare-feu est activé
+  * [x] Erell
 
     Vérifiez que les notifications du pare-feu sont activées
+  * [x] Erell
 
     Sélectionnez "Paramètres avancés", constatez l'affichage de la fenêtre d'alerte du "Contrôle de compte utilisateur" (UAC). Quelles informations importantes sont présentées à l'utilisateur et dans quel but ?
+    "voulez-vous autoriser cette application à apporter des modifications à votre appareil ?"
+    "Editeur vérifié : Microsoft Windows"
+    "CLSID : {3213CD15-4DF2-415F-83F2-9FC58F3AEB34}"
+    Tout pour vérifier quelle est l'applicatione qui va modifier le PC et d'où elle provient
 
     Sélectionnez "Analyse". Dans le paragraphe "Etat du pare-feu", notez les règles, par défaut, d'application des règles entrantes et sortantes. Que pensez-vous de la règle d'application par défaut des connexions sortantes ?
+    "Les connexions entrantes qui ne correspondent pas à une règle sont bloquées"
+    "Les connexions sortantes qui ne correspondent pas à une règle sont autorisées"
+    --> il est moins dangereux que ce soit les sortantes qui soient autorisées que les entrantes mais ça reste dangereux je pense, non ?
 
     Quittez l'application pare-feu Windows
 
@@ -148,10 +180,13 @@ Ces actions sont à réaliser sur la machine virtuelle Windows 10 'sr06-win-10-1
     La protection "Windows Defender Smartscreen" consulte des listes centralisées de sites web, d'applications et de fichiers reconnus comme malveillants, ainsi que sur le comportement suspicieux de certaines pages Web
 
     Vérifiez que les protections contre le téléchargement de fichiers et d'applications, et contre les sites Web malveillants sont configurées sur "Avertir" ou "Refuser"
+    ils sont en "avertir"
 
     Sélectionnez "Exploit protection" et vérifiez que toutes les protections de ce type sont à leur valeur par défaut. Ces protections sont très importantes et permettent, au travers de mécanismes très bas niveau, voire même matériels comme la protection PED (DEP, Data Execution Prevention), de se prémunir de la plupart des attaques effectuées sur le code des applications
+  * [x] Erell
 
     Faites une recherche Internet sur "DEP" et expliquez pourquoi est-ce important d'activer cette fonctionnalité
+    https://docs.microsoft.com/en-us/windows/win32/memory/data-execution-prevention
 
 14. Dans "Sécurité Windows", sélectionnez "Sécurité des appareils"
 
