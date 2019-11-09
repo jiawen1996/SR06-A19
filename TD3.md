@@ -194,29 +194,53 @@ Si l'on oublie d'éteindre notre ordinateur au bout de peu de temps il se vérou
 
     Cependant, d'autres protections seront listées ici si le processeur dispose d'un module TPM (Trusted Platform Module, cryptage) ou si le système d'exploitation est démarré via la fonctionnalité Secure Boot
 
-
-    Faites une recherche sur Internet concernant "Secure Boot" et expliquez contre quelles programmes malveillants elle permet de se prémunir
+Faites une recherche sur Internet concernant "Secure Boot" et expliquez contre quelles programmes malveillants elle permet de se prémunir
+    
+https://docs.microsoft.com/en-us/windows-hardware/design/device-experiences/oem-secure-boot
+    
 
 
 \15. Sur le bureau, double-cliquez sur l'icône "Ce PC", puis sur l'onglet "Affichage". Sélectionnez "Options" et "Modifier les options des dossier et de recherche"
 
 ​    Sélectionnez l'onglet "Affichage" et sélectionnez "Afficher le chemin d'accès complet dans la barre de titre" et "Afficher les fichiers, dossiers ou lecteurs cachés, puis désélectionnez "Masquer les extensions des fichiers dont le type est connu". Selon vous, pourquoi faire ces choix d'options d'affichage est-il important ?
 
+Le "Masquer les extensions des fichiers dont le type est connu" était déjà décoché pour moi.
+
+Afficher le chemin d'accès est intéréssant pour savoir où l'on est exactement. Il est aussi important  de pouvoir voir les fichiers cachés et d'avoir les extension des fichiers car ça permet de savoir ce qu'ils sont. ?
+
 \16. Sur l'icône du bouton "Démarrer", faites un clic droit et sélectionnez "Gestion de l'ordinateur", puis "Gestionnaire de périphériques"
 
-​    Assurez-vous que tous les pilotes de périphériques fonctionnent normalement
+​    Assurez-vous que tous les pilotes de périphériques fonctionnent normalement.
+
+Tous OK sauf Périphérique PCI : "Les pilotes de ce périphérique ne sont pas installés. Il n'y a pas de pilotes compatibles pour ce périphérique" --> **mettre à jour ?**
 
 ​    Dans la liste des périphériques, sélectionnez "Carte réseau" puis "Intel(R) PRO/1000 MT Network Connection" et affichez ses propriétés concernant l'onglet "Pilote". 2 informations listées ici sont importantes concernant la sécurité. Lesquelles selon vous ?
+
+La version et le signataire numérique ? (j'aurai aussi mit la date)
 
 ​    Quittez le gestionnaire de périphériques et sélectionnez "Utilisateurs et groupes locaux"
 
 ​    Désactivez le compte "Invité". Selon vous, pourquoi est-il important de désactiver ce compte ?
 
+Car il n'est pas sécurisé ?
+
 ​    Sélectionnez le compte "formation" et affichez ses propriétés. De quel groupe d'utilisateurs est-il membre ? Quels sont les privilèges attachés aux membres de ce groupe ? Faut-il utiliser ce compte pour une exploitation quotidienne de l'ordinateur ? Pourquoi ?
+
+Il est membre de "Administrateurs".
+
+Les membres du groupe Administrateurs disposent d'un accès complet et illimité à l'ordinateur et au domaine.
+
+Il ne faut pas utiliser ce compte pour une exploitation quotidienne de l'ordinateur car, comme il a tout les droits, un accident est vite arrivé.
+
+
 
 ​    Sélectionnez le compte "Administrateur" et affichez ses propriétés. De quel groupe d'utilisateurs est-il membre ? Selon vous, pourquoi est-il désactivé ?
 
-​    Créez 3 nouveaux utilisateurs non privilégiés "u1", "u11" et "u2" avec un mot de passe identique pour des raisons pratiques. Leur mot de passe ne pourra être changé et il n'expirera pas non plus.
+Il est aussi membre de "Administrateur".
+
+Il est désactivé car il y a déjà un compte administrateur ?
+
+​    Créez 3 nouveaux utilisateurs non privilégiés "u1", "u11" et "u2" avec un mot de passe identique pour des raisons pratiques. Leur mot de passe ne pourra être changé et il n'expirera pas non plus. De plus si quelqu'un accède au compte, il aura beaucoup moins de possibilités de nuire.
 
 ​    Créez 2 groupes d'utilisateurs "g1 et "g2". "g1" aura pour membres "u1 et u11", "g2" aura pour membre "u2"
 
