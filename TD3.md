@@ -202,7 +202,7 @@ Si l'on oublie d'éteindre notre ordinateur au bout de peu de temps il se vérou
 
 ​    Sélectionnez l'onglet "Affichage" et sélectionnez "Afficher le chemin d'accès complet dans la barre de titre" et "Afficher les fichiers, dossiers ou lecteurs cachés, puis désélectionnez "Masquer les extensions des fichiers dont le type est connu". Selon vous, pourquoi faire ces choix d'options d'affichage est-il important ?
 
-\16. Sur l'icône du bouton "Démarrer", faites un clic droit et sélectionnez "Gestion de l'ordinateur", puis "Gestionnaire de périphériques"
+\16. Sur l'icône du bouton "Démarrer", faites un clic droit et sélectionnez "Gestion de l'ordinateur", puis "`Gestionnaire de périphériques`"
 
 ​    Assurez-vous que tous les pilotes de périphériques fonctionnent normalement
 

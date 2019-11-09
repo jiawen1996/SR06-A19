@@ -26,7 +26,6 @@ Cet exercice permet de comprendre la vulnérabilité que représente un mot de p
   ```
 Un répertoire .john a été créé : il appartient à etu qui est le seul a en avoir les droits d'écriture lecture et exécution.
   
-
 - Ajouter l'utilisateur boule, de mot-de-passe bill. Relancer john pour qu'il retrouve le mot de passe de boule tout en mesurant le temps nécessaire.
 
   ```shell
@@ -38,7 +37,6 @@ Un répertoire .john a été créé : il appartient à etu qui est le seul a en 
   ```
 John arrive a craquer le mot de passe de Boule (bill) en 17 secondes.
   
-
 - Sur passoire, vérifier les droits des fichiers /etc/passwd et /etc/shadow. Corriger-les ci-besoin.
 
 ```shell
@@ -146,7 +144,7 @@ ls -a /home/romulus
 cd /home.romulus
 ```
 
-- En tant qu'utilisateur remus, créer un fichier update.sh dans /home/remus, contenant l'instruction suivante : date >> /home/remus/log.txt
+- En tant qu'utilisateur remus, créer un fichier `update.sh` dans `/home/remus`, contenant l'instruction suivante : `date >> /home/remus/log.txt`
 
 ```shell
 su - remus
@@ -174,7 +172,7 @@ cat log.txt
 ```
 Comme prévu...
 
-- Adapter les droits des fichiers update.sh et log.txt de sorte que l'utilisateur romulus puisse également exécuter update.sh.
+- Adapter les droits des fichiers `update.sh` et `log.txt` de sorte que l'utilisateur romulus puisse également exécuter update.sh.
 
 ```shell
 su - romulus
@@ -286,12 +284,12 @@ MAIS "on Linux, things that require an interpreter, including bytecode, can't ma
 - - ```find / -type f \( -perm -2000 -o -perm -4000 \) -print 2 > /dev/null```
 
   ​			-  ```\( -perm -2000 -o -perm -4000 \)``` —— find the file with setuid or setgid
-            - ```-o``` : ou
-            - les parenthèses servent à grouper
+  ​          - ```-o``` : ou
+  ​          - les parenthèses servent à grouper
 
   ​			- 2000 —— ❓ setgid only for floder,❓ , in this case we have indicated that it’s file (-type f) -> setgid est affectable pour les fichiers exécutables aussi (mais ne fait pas la même chose que sur les répertoires) --> pour les fichiers non exécutables ça empêche d'être à plus d'un a travailler dessus, --> pour un répertoire : tous ce qui va être crée en dessous aura le même groupe que le répertoire.
-            - 2000 pour le setgid
-            - 4000 pour le setuid
+  ​          - 2000 pour le setgid
+  ​          - 4000 pour le setuid
 
 - - ```find / -type f -perm /u-s -perm /g+s -print 2> /dev/null```
 
@@ -385,7 +383,7 @@ sudo vim /etc/profile
 
 ># force umask for all users
 >umask 037
-```  
+```
 
 ## **6. Configuration des droits : sticky bit** 
 
@@ -482,7 +480,7 @@ Pour ne pas se retrouver dans ce cas : --remove-all-files ou --remove-home.
   ```
 Recherche tout les fichiers depuis la racine ayant un droit d'exécution pour l'utilisateur et un droit de modification des autres. 
 Le risque est que l'utilisateur exécute son fichier ayant préalablement été modifié par un tiers pour faire ce qu'il veut.
-    
+  
     ```shell
     find / -type f -perm /u+x -perm /o+w -print 2> /dev/null | sudo xargs chmod o-w
     ```
