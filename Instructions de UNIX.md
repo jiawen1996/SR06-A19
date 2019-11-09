@@ -2,7 +2,7 @@
 
 * show line numbers
 
-![image-20191029150600076](/Users/haida/Library/Application Support/typora-user-images/image-20191029150600076.png)
+![image-20191029150600076](./img/image-20191029150600076.png)
 
 #  User
 

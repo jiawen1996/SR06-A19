@@ -22,11 +22,11 @@ Cette machine virtuelle est issue de la machine virtuelle *passoire* fournie en 
 
 ### 1. Application des corrections vues au TD.R1, en particulier :
 
-* [ ] Recherche des mots de passe évidents et correction. On expliquera la stratégie utilisée pour construire des mots de passe robuste.
-* [ ] Correction des comptes utilisateurs ;
+* [x] Recherche des mots de passe évidents et correction. On expliquera la stratégie utilisée pour construire des mots de passe robuste.
+* [x] Correction des comptes utilisateurs ;
 * [ ] Correction des droits des fichiers (dont setuid bit, sticky bit...) ;
-* [ ] Umask restrictif ;
-* [ ] Correction des anomalies dans les droits des fichiers.
+* [x] Umask restrictif ;
+* [x] Correction des anomalies dans les droits des fichiers.
 
 ### 2. Configuration réseau vue au TD.R2 :
 
@@ -46,6 +46,11 @@ Cette machine virtuelle est issue de la machine virtuelle *passoire* fournie en 
 
 * [x] Développer un formulaire le plus simple possible qui permette de saisir des noms et de les stocker dans un fichier.
 
+  ```bash
+  sudo chown www-data:www-data -R /var/www/formulaire
+  #
+  ```
+
 * [ ] S'assurer qu'il n'y ait pas de service inutile lancé avec un scan de port local.
 
   ```bash
@@ -54,10 +59,15 @@ Cette machine virtuelle est issue de la machine virtuelle *passoire* fournie en 
 
   maintenant il reste ssh et http
 
-  je pense qu'on doit tuer ssh?
+  **je pense qu'on doit tuer ssh?**
 
 * [ ] Désinstaller les applications non nécessaires pour cette machine virtuelle destinée à héberger un serveur web (eg. lynx).
 
+  ```bash
+  apt list --installed
+  apt remove lynx
+  ```
+  
   
 
 ### 4. Utilisateurs
@@ -71,11 +81,18 @@ Cette machine virtuelle est issue de la machine virtuelle *passoire* fournie en 
   sudo passwd <username>
   ```
 
-  ![image-20191027130252089](/Users/haida/Library/Application Support/typora-user-images/image-20191027130252089.png)
+* [x] Créer un compte utilisateur non privilégié *publie* qui ait le droit d'arrêter et de relancer le serveur web (utiliser sudo) :
 
-* [ ] Créer un compte utilisateur non privilégié *publie* qui ait le droit d'arrêter et de relancer le serveur web (utiliser sudo) :
+  ```bash
+  adduser publie
+  sr06a002publie
+  ```
 
-* [ ] Créer un compte utilisateur non privilégié *edite* qui ait le droit de modifier la page web (contenant le formulaire PHP).
+  ![image-20191031164507424](./img/image-20191031164507424.png)
+
+* [x] Créer un compte utilisateur non privilégié *edite* qui ait le droit de modifier la page web (contenant le formulaire PHP).
+
+  ![image-20191031165121968](./img/image-20191031165121968.png)
 
 * [ ] Optionnel : créer un compte utilisateur *controle* en cage (avec chroot), qui ait uniquement le droit d'afficher les processus en cours d'exécution ;
 
@@ -97,18 +114,33 @@ Cette partie consiste à créer le système représenté sur la figure ci-dessus
 
 ### 1. Création d'une seconde machine virtuelle, qui aura le rôle de client web (cependant on n'utilisera pas d'interface graphique pour ne pas surcharger la plate-forme).
 
-* [ ] Cloner la machine virtuelle vm-web.
-* [ ] Renommer cette machine en "vm-cli".
-* [ ] Supprimer tous les services non indispensables (dont Apache) sur vm-cli (conserver tout de même ssh).
-* [ ] Ajouter le client web (non graphique) lynx.
+* [x] Cloner la machine virtuelle vm-web.
+* [x] Renommer cette machine en "vm-cli".
+* [x] Supprimer tous les services non indispensables (dont Apache) sur vm-cli (conserver tout de même ssh).
+* [x] Ajouter le client web (non graphique) lynx.
 
 ### 2. Configuration réseau
 
-* [ ] Dans vm-web, ajouter une seconde interface réseau sur le réseau vmbr1 de sorte que le serveur Linux soit connecté aux deux réseaux (cf. figure ci-dessus).
-* [ ] S'assurer que vm-cli ait bien une seule interface réseau sur vmbr0.
-* [ ] Sur vm-web, interdire le routage entre les deux interfaces réseaux (configuration de net.ipv4.ip_forward via sysctl).
-* [ ] Modifier les fichiers /etc/hosts afin d'associer les noms vm-cli et vm-web aux IP.
-* [ ] Vérifier que vm-cli et vm-web puissent communiquer via le réseau vmbr0. En particulier, tester la consultation du serveur web de vm-web depuis vm-cli (avec lynx).
+* [x] Dans `vm-web`, ajouter une seconde interface réseau sur le réseau vmbr1 de sorte que le serveur Linux soit connecté aux deux réseaux (cf. figure ci-dessus).
+
+* [x] S'assurer que vm-cli ait bien une seule interface réseau sur `vmbr0`.
+
+  ![image-20191107165356038](./img/image-20191107165356038.png)
+
+* [x] Sur vm-web, interdire le routage entre les deux interfaces réseaux (configuration de net.ipv4.ip_forward via sysctl).
+
+  http://www.octetmalin.net/linux/tutoriels/ip-forward.php
+
+  ![image-20191107165947212](./img/image-20191107165947212.png)
+
+* [x] Modifier les fichiers /etc/hosts afin d'associer les noms vm-cli et vm-web aux IP.
+
+* [x] Vérifier que vm-cli et vm-web puissent communiquer via le réseau vmbr0. En particulier, tester la consultation du serveur web de vm-web depuis vm-cli (avec lynx).
+
+  ```bash
+  sudo tcpdump -n -i ens18
+  lynx vm-web1
+  ```
 
 ### 3. Test du réseau vmbr1 (optionnel)
 
@@ -123,11 +155,14 @@ Cette partie consiste à créer le système représenté sur la figure ci-dessus
 Cette partie consiste à préparer une machine virtuelle Windows vm-win et de la placer dans le réseau vmbr1 (cf. figure).
 
 1. Préparation de vm-win
-   * [ ] Partir de la machine virtuelle utilisée en TD. La renommer vm-win.
-   * [ ] Appliquer les configurations demandées en TD.
+   * [x] Partir de la machine virtuelle utilisée en TD. La renommer vm-win.
+     * [x] Sélectionnez l'icône du bureau "Ce PC", et par un clic droit dessus, affichez ses propriétés
+   
+     * [x] Renommez le nom de l'ordinateur en "W10" et le groupe de travail en "SR06-WIN10". Redémarrez ensuite la machine virtuelle comme demandé par Windows
+* [x] Appliquer les configurations demandées en TD.
    * [ ] Configurer le réseau de sorte que cette machine ait une interface réseau sur le réseau vmbr1 (cf. figure).
    * [ ] Tester le formulaire web du serveur linux vm-web depuis vm-win.
-
+   
 2. Partie A
    * [ ] Créez un groupe "g3" qui aura pour membres "u1", "u11" et "u2".
    * [ ] A la racine du "Disque local C", créez un dossier "Data". Dans le dossier "Data\", créez un dossier "Public" et un dossier "Private". Dans le dossier "Private\", créez un dossier "G1".
@@ -138,12 +173,36 @@ Cette partie consiste à préparer une machine virtuelle Windows vm-win et de la
 
 3. Partie B
    * [ ] A la manière de ce que vous feriez sous Linux à l'aide du droit "--x" fixé sur un dossier, composez, avec les ACL Windows une émulation de ce droit "--x" sur le dossier "Data\Private\", pour le groupe "g3".
+   
+     Commande PowerShell : **Get-Acl**
+   
+     ```
+     Get-Acl -Path FICHIER
+     ```
+   
+
+  Cette commande permet d'extraire l'ACL (Access Control Lists) d'un fichier ou d'un dossier. L'ACL définie les permissions dont bénéficient les utilisateurs et les groupes lorsqu'ils accèdent au fichier/dossier concerné.
+
+     Commande PowerShell : **Set-Acl**
+       
+     ```
+     Set-Acl -Path FICHIER -AclObject $DROITS_ACCES
+     ```
+       
+     Cette commande permet de définir l'ACL (Access Control Lists) d'un fichier ou d'un dossier. L'ACL appliquée sera celle définie dans la variable `DROITS_ACCES`. Il est possible de définir cette variable ​`DROIT_ACCES` grâce au résultat de la commande Get-Acl.
+
    * [ ] Changez de session et ouvrez une nouvelle session avec l'utilisateur "u1".
+   
    * [ ] Allez dans le dossier "Data\Public\" et modifiez le fichier "Read-only". Que constatez-vous ?
+   
    * [ ] Allez dans le dossier "Data\Private\". Que constatez-vous ? Allez dans le dossier "Data\Private\G1\". Que constatez-vous ?Dans le dossier "Data\Private\G1\", constatez que vous pouvez modifier le fichier "Read-only" en rajoutant la ligne "Modifié par u1".Changez de session et ouvrez une nouvelle session avec l'utilisateur "u2".
+   
    * [ ] Constatez que vous ne pouvez pas modifier le fichier "Data\Private\G1\Read-only", pas plus que le fichier "Data\Public\Read-only".Changez de session et rouvrez la session de l'utilisateur "formation".Sur le dossier "Data\Private\", supprimez tout droit d'accès pour le groupe "g3".Changez de session et rouvrez la session de l'utilisateur "u1".
+   
    * [ ] Allez dans le dossier "Data\Private\". Que constatez-vous ?
+   
    * [ ] Allez dans le dossier "Data\Private\G1\". Que constatez-vous ?
+   
    * [ ] Expliquez en quoi ce comportement est-il différent de celui que vous obtiendriez avec Linux en fixant exactement les mêmes droits sur les mêmes dossiers "Data\", "Data\Private\" et "Data\Private\G1\"Partie C
 
 4. Partie C
@@ -160,6 +219,12 @@ Cette partie consiste à préparer une machine virtuelle Windows vm-win et de la
 ### 1. Surveillance des log Apache
 
 * [ ] Se connecter sur vm-web depuis vm-cli et visualiser les logs du serveur Apache.
+
+  ```bash
+  
+  ssh etu@vm-web1
+  ```
+
 * [ ] Se connecter au serveur web de vm-web depuis vm-win ; expliquer les logs obtenus.
 
 ### 2. Capture de trafic
