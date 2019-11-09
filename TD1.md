@@ -235,13 +235,13 @@ Commentaire : remus n'est pas un sudoer il faut passer par le compte etu.
 
 Cet exercice permet de comprendre le droit spécial dit *setuid* et de corriger la machine virtuelle passoire.
 
-- Comparer les droits des fichiers /usr/local/bin/readfile et /usr/local/bin/readfile-s. Le code de ce programme peut être retrouvé sur la page précédente.
+- Comparer les droits des fichiers `/usr/local/bin/readfile` et `/usr/local/bin/readfile-s`. Le code de ce programme peut être retrouvé sur la page précédente.
 
   ```shell
   stat /usr/local/bin/readfile /usr/local/bin/readfile-s | grep Access
   ```
 
-- Utiliser ces scripts pour visualiser les fichiers /etc/passwd, /etc/shadow, /etc/group, /etc/gshadow. Expliquer les droits de ces fichiers et les résultats obtenus.
+- Utiliser ces scripts pour visualiser les fichiers `/etc/passwd`, `/etc/shadow`, `/etc/group`, `/etc/gshadow`. Expliquer les droits de ces fichiers et les résultats obtenus.
 
 |                           | /etc/passwd | /etc/shadow | /etc/group | /etc/gshadow |
 | ------------------------- | ----------- | ----------- | ---------- | ------------ |
@@ -250,7 +250,7 @@ Cet exercice permet de comprendre le droit spécial dit *setuid* et de corriger 
 
 ​	cat <filename>
 
-https://linuxconfig.org/how-to-use-special-permissions-the-setuid-setgid-and-sticky-bits
+https://linuxconfig.org/how-to-use-special-permoissions-the-setuid-setgid-and-sticky-bits
 
 http://www.linux-france.org/article/memo/node19.html#461
 
