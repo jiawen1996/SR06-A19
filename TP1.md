@@ -187,8 +187,16 @@ Cette partie consiste à préparer une machine virtuelle Windows vm-win et de la
 3. Partie B
    * [ ] A la manière de ce que vous feriez sous Linux à l'aide du droit "--x" fixé sur un dossier, composez, avec les ACL Windows une émulation de ce droit "--x" sur le dossier "Data\Private\", pour le groupe "g3".
    
-     Commande PowerShell : **Get-Acl**
+     ![image-20191109193308555](./img/image-20191109193308555.png)
    
+     **Dans paramètres de sécurité avancés**
+     
+     ![image-20191109193408960](./img/image-20191109193408960.png)
+     
+     ![image-20191109193753758](./img/image-20191109193753758.png)
+     
+     Commande PowerShell : **Get-Acl**
+     
      ```
      Get-Acl -Path FICHIER
      ```
@@ -203,9 +211,9 @@ Cette commande permet de définir l'ACL (Access Control Lists) d'un fichier ou d
 
 https://docs.microsoft.com/fr-fr/powershell/module/microsoft.powershell.security/set-acl?view=powershell-6
 
-   * [ ] Changez de session et ouvrez une nouvelle session avec l'utilisateur "u1".
+   * [x] Changez de session et ouvrez une nouvelle session avec l'utilisateur "u1".
    
-   * [ ] Allez dans le dossier "Data\Public\" et modifiez le fichier "Read-only". Que constatez-vous ?
+   * [x] Allez dans le dossier "Data\Public\" et modifiez le fichier "Read-only". Que constatez-vous ?
    
    * [ ] Allez dans le dossier "Data\Private\". Que constatez-vous ? Allez dans le dossier "Data\Private\G1\". Que constatez-vous ?Dans le dossier "Data\Private\G1\", constatez que vous pouvez modifier le fichier "Read-only" en rajoutant la ligne "Modifié par u1".Changez de session et ouvrez une nouvelle session avec l'utilisateur "u2".
    
