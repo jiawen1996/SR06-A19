@@ -160,17 +160,30 @@ Cette partie consiste à préparer une machine virtuelle Windows vm-win et de la
    
      * [x] Renommez le nom de l'ordinateur en "W10" et le groupe de travail en "SR06-WIN10". Redémarrez ensuite la machine virtuelle comme demandé par Windows
 * [x] Appliquer les configurations demandées en TD.
-   * [ ] Configurer le réseau de sorte que cette machine ait une interface réseau sur le réseau vmbr1 (cf. figure).
-   * [ ] Tester le formulaire web du serveur linux vm-web depuis vm-win.
+   * [x] Configurer le réseau de sorte que cette machine ait une interface réseau sur le réseau vmbr1 (cf. figure).
    
+     pour désactiver vmbr0 
+   
+     Réseau internet -> Ethernet -> centre réseau et partage -> modifier les paramètres et la carte -> alt
+   
+     pour type de cette carte réseau, c'est E1000 pas virtio
+   
+   * [x] Tester le formulaire web du serveur linux `vm-web` depuis `vm-win`.
 2. Partie A
-   * [ ] Créez un groupe "g3" qui aura pour membres "u1", "u11" et "u2".
-   * [ ] A la racine du "Disque local C", créez un dossier "Data". Dans le dossier "Data\", créez un dossier "Public" et un dossier "Private". Dans le dossier "Private\", créez un dossier "G1".
-   * [ ] Dans le dossier "G1\", créez un fichier texte "Read-only" ; éditez-le et saisissez la ligne "Modifiez-moi" puis enregistrez ce changement. Copiez ce fichier dans le dossier "Public\".
-   * [ ] Autorisez l'accès en lecture-écriture au dossier "Data\" (et à son contenu) pour l'utilisateur "formation".
-   * [ ] Autorisez en lecture seule l'accès au dossier "Data\Public\" (et à son contenu) au groupe "g3"
-   * [ ] Autorisez en lecture-écriture l'accès au dossier "Data\Private\G1\" (et à son contenu) au groupe "g1" et l'accès en lecture seule au groupe "g2".
-
+   * [x] Créez un groupe "g3" qui aura pour membres "u1", "u11" et "u2".
+   
+   * [x] A la racine du "Disque local C", créez un dossier "Data". Dans le dossier "Data\", créez un dossier "Public" et un dossier "Private". Dans le dossier "Private\", créez un dossier "G1".
+   
+   * [x] Dans le dossier "G1\", créez un fichier texte "Read-only" ; éditez-le et saisissez la ligne "Modifiez-moi" puis enregistrez ce changement. Copiez ce fichier dans le dossier "Public\".
+   
+* [x] Autorisez l'accès en lecture-écriture au dossier "Data\" (et à son contenu) pour l'utilisateur "formation".
+  
+   * [x] Autorisez en lecture seule l'accès au dossier "Data\Public\" (et à son contenu) au groupe "g3"
+   
+      onglet sécurité
+   
+   * [x] Autorisez en lecture-écriture l'accès au dossier "Data\Private\G1\" (et à son contenu) au groupe "g1" et l'accès en lecture seule au groupe "g2".
+   
 3. Partie B
    * [ ] A la manière de ce que vous feriez sous Linux à l'aide du droit "--x" fixé sur un dossier, composez, avec les ACL Windows une émulation de ce droit "--x" sur le dossier "Data\Private\", pour le groupe "g3".
    
@@ -180,16 +193,15 @@ Cette partie consiste à préparer une machine virtuelle Windows vm-win et de la
      Get-Acl -Path FICHIER
      ```
    
+   ![img](https://scontent-cdt1-1.xx.fbcdn.net/v/t1.15752-9/75464133_727650154392963_4895835522812870656_n.png?_nc_cat=110&_nc_oc=AQkCyIWRRLhX08tS9VwT4_NkhsIVKFOk9_Iwgf9Ct50T0kzLAn00BJ4VRkJCw29vJuI&_nc_ht=scontent-cdt1-1.xx&oh=a145355049ab32aaf7fdba4ad249cdd5&oe=5E40E6D9)
+   Cette commande permet d'extraire l'ACL (Access Control Lists) d'un fichier ou d'un dossier. L'ACL définie les permissions dont bénéficient les utilisateurs et les groupes lorsqu'ils accèdent au fichier/dossier concerné.
 
-  Cette commande permet d'extraire l'ACL (Access Control Lists) d'un fichier ou d'un dossier. L'ACL définie les permissions dont bénéficient les utilisateurs et les groupes lorsqu'ils accèdent au fichier/dossier concerné.
+Commande PowerShell : Set-Acl
+    Set-Acl -Path <FICHIER> -AclObject <$DROITS_ACCES>
 
-     Commande PowerShell : **Set-Acl**
-       
-     ```
-     Set-Acl -Path FICHIER -AclObject $DROITS_ACCES
-     ```
-       
-     Cette commande permet de définir l'ACL (Access Control Lists) d'un fichier ou d'un dossier. L'ACL appliquée sera celle définie dans la variable `DROITS_ACCES`. Il est possible de définir cette variable ​`DROIT_ACCES` grâce au résultat de la commande Get-Acl.
+Cette commande permet de définir l'ACL (Access Control Lists) d'un fichier ou d'un dossier. L'ACL appliquée sera celle définie dans la variable `DROITS_ACCES`. Il est possible de définir cette variable ​`DROIT_ACCES` grâce au résultat de la commande Get-Acl.
+
+https://docs.microsoft.com/fr-fr/powershell/module/microsoft.powershell.security/set-acl?view=powershell-6
 
    * [ ] Changez de session et ouvrez une nouvelle session avec l'utilisateur "u1".
    
