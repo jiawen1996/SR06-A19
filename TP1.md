@@ -176,19 +176,21 @@ Cette partie consiste à préparer une machine virtuelle Windows vm-win et de la
    
    * [x] Dans le dossier "G1\", créez un fichier texte "Read-only" ; éditez-le et saisissez la ligne "Modifiez-moi" puis enregistrez ce changement. Copiez ce fichier dans le dossier "Public\".
    
-* [x] Autorisez l'accès en lecture-écriture au dossier "Data\" (et à son contenu) pour l'utilisateur "formation".
-  
+   * [x] Autorisez l'accès en lecture-écriture au dossier "Data\" (et à son contenu) pour l'utilisateur "formation".
+   
    * [x] Autorisez en lecture seule l'accès au dossier "Data\Public\" (et à son contenu) au groupe "g3"
    
-      onglet sécurité
+     onglet sécurité
    
    * [x] Autorisez en lecture-écriture l'accès au dossier "Data\Private\G1\" (et à son contenu) au groupe "g1" et l'accès en lecture seule au groupe "g2".
    
 3. Partie B
-   * [ ] A la manière de ce que vous feriez sous Linux à l'aide du droit "--x" fixé sur un dossier, composez, avec les ACL Windows une émulation de ce droit "--x" sur le dossier "Data\Private\", pour le groupe "g3".
-   
+   * [x] A la manière de ce que vous feriez sous Linux à l'aide du droit "--x" fixé sur un dossier, composez, avec les ACL Windows une émulation de ce droit "--x" sur le dossier "Data\Private\", pour le groupe "g3".
+
+     "--x" pour un dossier -> seulement regarder des contenus dans ce dossier
+
      ![image-20191109193308555](./img/image-20191109193308555.png)
-   
+     
      **Dans paramètres de sécurité avancés**
      
      ![image-20191109193408960](./img/image-20191109193408960.png)
@@ -200,7 +202,7 @@ Cette partie consiste à préparer une machine virtuelle Windows vm-win et de la
      ```
      Get-Acl -Path FICHIER
      ```
-   
+
    ![img](https://scontent-cdt1-1.xx.fbcdn.net/v/t1.15752-9/75464133_727650154392963_4895835522812870656_n.png?_nc_cat=110&_nc_oc=AQkCyIWRRLhX08tS9VwT4_NkhsIVKFOk9_Iwgf9Ct50T0kzLAn00BJ4VRkJCw29vJuI&_nc_ht=scontent-cdt1-1.xx&oh=a145355049ab32aaf7fdba4ad249cdd5&oe=5E40E6D9)
    Cette commande permet d'extraire l'ACL (Access Control Lists) d'un fichier ou d'un dossier. L'ACL définie les permissions dont bénéficient les utilisateurs et les groupes lorsqu'ils accèdent au fichier/dossier concerné.
 
@@ -215,19 +217,35 @@ https://docs.microsoft.com/fr-fr/powershell/module/microsoft.powershell.security
    
    * [x] Allez dans le dossier "Data\Public\" et modifiez le fichier "Read-only". Que constatez-vous ?
    
-   * [ ] Allez dans le dossier "Data\Private\". Que constatez-vous ? Allez dans le dossier "Data\Private\G1\". Que constatez-vous ?Dans le dossier "Data\Private\G1\", constatez que vous pouvez modifier le fichier "Read-only" en rajoutant la ligne "Modifié par u1".Changez de session et ouvrez une nouvelle session avec l'utilisateur "u2".
+   ![image-20191110165408616](/Users/haida/Library/Application Support/typora-user-images/image-20191110165408616.png)
    
-   * [ ] Constatez que vous ne pouvez pas modifier le fichier "Data\Private\G1\Read-only", pas plus que le fichier "Data\Public\Read-only".Changez de session et rouvrez la session de l'utilisateur "formation".Sur le dossier "Data\Private\", supprimez tout droit d'accès pour le groupe "g3".Changez de session et rouvrez la session de l'utilisateur "u1".
+   * [x] Allez dans le dossier "Data\Private\". Que constatez-vous ? Allez dans le dossier "Data\Private\G1\". Que constatez-vous ?Dans le dossier "Data\Private\G1\", constatez que vous pouvez modifier le fichier "Read-only" en rajoutant la ligne "Modifié par u1".Changez de session et ouvrez une nouvelle session avec l'utilisateur "u2".
+   
+   * [x] Constatez que vous ne pouvez pas modifier le fichier "Data\Private\G1\Read-only", pas plus que le fichier "Data\Public\Read-only".
+   
+   ![image-20191110165901863](/Users/haida/Library/Application Support/typora-user-images/image-20191110165901863.png)
+   
+   * [x] Changez de session et rouvrez la session de l'utilisateur "formation".Sur le dossier "Data\Private\", supprimez tout droit d'accès pour le groupe "g3".Changez de session et rouvrez la session de l'utilisateur "u1". 
+   
+   -> plus aucun droits spécifique au groupe g3
    
    * [ ] Allez dans le dossier "Data\Private\". Que constatez-vous ?
    
+   idem
+   
    * [ ] Allez dans le dossier "Data\Private\G1\". Que constatez-vous ?
    
-   * [ ] Expliquez en quoi ce comportement est-il différent de celui que vous obtiendriez avec Linux en fixant exactement les mêmes droits sur les mêmes dossiers "Data\", "Data\Private\" et "Data\Private\G1\"Partie C
+   idem
+   
+   * [ ] Expliquez en quoi ce comportement est-il différent de celui que vous obtiendriez avec Linux en fixant exactement les mêmes droits sur les mêmes dossiers "Data\", "Data\Private\" et "Data\Private\G1\"
+
+     sur linux on ne peut donner des droits que au groupe du propriétaire du fichier, pas de conflit de groupe ?
+
+     ​		sur linux si ce n'est pas autorisé c'est refusé 
 
 4. Partie C
-   * [ ] Changez de session et rouvrez la session de l'utilisateur "formation".
-   * [ ] Créez le dossier "Data\Sticky".
+   * [x] Changez de session et rouvrez la session de l'utilisateur "formation".
+   * [x] Créez le dossier "Data\Sticky".
    * [ ] A la manière de ce que vous feriez sous Linux à l'aide du bit "t" (sticky bit) fixé sur un dossier, composez, avec les ACL Windows une émulation de ce sticky bit sur le dossier "Data\Sticky\" pour le groupe "g3". Vous aurez à utiliser, parmi les ACL requises, une concernant l'utilisateur spécial "CREATEUR PROPRIETAIRE".
    * [ ] En utilisant les sessions des utilisateurs "formation", "u1", "u11", "u2", dans le dossier "Data\Sticky\", créez des dossiers et des fichiers. Pour mettre en évidence le bon fonctionnement de votre émulation de sticky bit sur le dossier "Data\Sticky\", tentez de lire, modifier ou supprimer les dossiers ou fichiers créés par un autre utilisateur que celui qui effectue ces actions.
 
@@ -238,16 +256,35 @@ https://docs.microsoft.com/fr-fr/powershell/module/microsoft.powershell.security
 
 ### 1. Surveillance des log Apache
 
-* [ ] Se connecter sur vm-web depuis vm-cli et visualiser les logs du serveur Apache.
+* [x] Se connecter sur vm-web depuis vm-cli et visualiser les logs du serveur Apache.
 
   ```bash
-  
   ssh etu@vm-web1
+  sudo tail /var/log/apache2/formulaire_access.log.1
   ```
 
-* [ ] Se connecter au serveur web de vm-web depuis vm-win ; expliquer les logs obtenus.
+* [x] Se connecter au serveur web de vm-web depuis vm-win ; expliquer les logs obtenus.
+
+  Utilise `putty` pour executer ssh sur client windows
+
+  ![image-20191110191011312](/Users/haida/Library/Application Support/typora-user-images/image-20191110191011312.png)
 
 ### 2. Capture de trafic
 
-* [ ] Capturer le trafic sur l'interface réseau de vm-web qui est connectée à vmbr1 avec tcpdump.
-* [ ] Renvoyer ce trafic sur votre PC gracli et visualiser ces traces avec wireshark (cf. TD.R2). Expliquer.
+* [x] Capturer le trafic sur l'interface réseau de vm-web qui est connectée à vmbr1 avec tcpdump.
+
+  ```bash
+  #dans la machine virtuel
+  sudo tcpdump -i ens19 -w capture1.cap
+  chmod 644 capture1.cap
+  
+  #dans la machine host
+  scp etu@172.23.3.125:capture1.cap .
+  wireshark capture1.cap
+  ```
+
+  
+
+* [x] Renvoyer ce trafic sur votre PC gracli et visualiser ces traces avec wireshark (cf. TD.R2). Expliquer.
+
+![image-20191110191549684](/Users/haida/Library/Application Support/typora-user-images/image-20191110191549684.png)
