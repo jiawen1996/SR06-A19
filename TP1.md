@@ -176,13 +176,13 @@ Cette partie consiste à préparer une machine virtuelle Windows vm-win et de la
    
    * [x] Dans le dossier "G1\", créez un fichier texte "Read-only" ; éditez-le et saisissez la ligne "Modifiez-moi" puis enregistrez ce changement. Copiez ce fichier dans le dossier "Public\".
    
-   * [x] Autorisez l'accès en lecture-écriture au dossier "Data\" (et à son contenu) pour l'utilisateur "formation".
+   * [ ] Autorisez l'accès en `lecture-écriture` au dossier "Data\" (et à son contenu) pour l'utilisateur "formation".
    
-   * [x] Autorisez en lecture seule l'accès au dossier "Data\Public\" (et à son contenu) au groupe "g3"
+   * [ ] Autorisez en `lecture seule` l'accès au dossier "`Data\Public`\" (et à son contenu) au groupe "g3"
    
      onglet sécurité
    
-   * [x] Autorisez en lecture-écriture l'accès au dossier "Data\Private\G1\" (et à son contenu) au groupe "g1" et l'accès en lecture seule au groupe "g2".
+   * [ ] Autorisez en `lecture-écriture` l'accès au dossier "`Data\Private\G1`\" (et à son contenu) au groupe "g1" et l'accès en `lecture seule` au groupe "g2".
    
 3. Partie B
    * [x] A la manière de ce que vous feriez sous Linux à l'aide du droit "--x" fixé sur un dossier, composez, avec les ACL Windows une émulation de ce droit "--x" sur le dossier "Data\Private\", pour le groupe "g3".
@@ -216,27 +216,27 @@ https://docs.microsoft.com/fr-fr/powershell/module/microsoft.powershell.security
    * [x] Changez de session et ouvrez une nouvelle session avec l'utilisateur "u1".
    
    * [x] Allez dans le dossier "Data\Public\" et modifiez le fichier "Read-only". Que constatez-vous ?
-   
-   ![image-20191110165408616](/Users/haida/Library/Application Support/typora-user-images/image-20191110165408616.png)
-   
+
+   ![image-20191110165408616](./img/image-20191110165408616.png)
+
    * [x] Allez dans le dossier "Data\Private\". Que constatez-vous ? Allez dans le dossier "Data\Private\G1\". Que constatez-vous ?Dans le dossier "Data\Private\G1\", constatez que vous pouvez modifier le fichier "Read-only" en rajoutant la ligne "Modifié par u1".Changez de session et ouvrez une nouvelle session avec l'utilisateur "u2".
    
    * [x] Constatez que vous ne pouvez pas modifier le fichier "Data\Private\G1\Read-only", pas plus que le fichier "Data\Public\Read-only".
-   
-   ![image-20191110165901863](/Users/haida/Library/Application Support/typora-user-images/image-20191110165901863.png)
-   
+
+   ![image-20191110165901863](./img/image-20191110165901863.png)
+
    * [x] Changez de session et rouvrez la session de l'utilisateur "formation".Sur le dossier "Data\Private\", supprimez tout droit d'accès pour le groupe "g3".Changez de session et rouvrez la session de l'utilisateur "u1". 
-   
+
    -> plus aucun droits spécifique au groupe g3
-   
+
    * [ ] Allez dans le dossier "Data\Private\". Que constatez-vous ?
-   
+
    idem
-   
+
    * [ ] Allez dans le dossier "Data\Private\G1\". Que constatez-vous ?
-   
+
    idem
-   
+
    * [ ] Expliquez en quoi ce comportement est-il différent de celui que vous obtiendriez avec Linux en fixant exactement les mêmes droits sur les mêmes dossiers "Data\", "Data\Private\" et "Data\Private\G1\"
 
      sur linux on ne peut donner des droits que au groupe du propriétaire du fichier, pas de conflit de groupe ?
@@ -267,7 +267,7 @@ https://docs.microsoft.com/fr-fr/powershell/module/microsoft.powershell.security
 
   Utilise `putty` pour executer ssh sur client windows
 
-  ![image-20191110191011312](/Users/haida/Library/Application Support/typora-user-images/image-20191110191011312.png)
+  ![image-20191110191011312](./img/image-20191110191011312.png)
 
 ### 2. Capture de trafic
 
@@ -287,4 +287,4 @@ https://docs.microsoft.com/fr-fr/powershell/module/microsoft.powershell.security
 
 * [x] Renvoyer ce trafic sur votre PC gracli et visualiser ces traces avec wireshark (cf. TD.R2). Expliquer.
 
-![image-20191110191549684](/Users/haida/Library/Application Support/typora-user-images/image-20191110191549684.png)
+![image-20191110191549684](./img/image-20191110191549684.png)
