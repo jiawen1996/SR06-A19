@@ -10,3 +10,4 @@
 * inverse - 逆元
 * irréductible - 不可约
 * corps - 域
+* bi-clé：公私钥
