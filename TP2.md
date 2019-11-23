@@ -21,38 +21,52 @@ Le but du projet est de déployer TLS/SSL dans le serveur web en utilisant un de
 
 Mettre en oeuvre une chaîne de confiance permettant d’émettre des certificats :
 
-* [ ] D’authentification serveur (permettant de mettre en place le SSL/TLS sur un serveur web);
-* [ ] D’authentification client (permettant de mettre en oeuvre de l’authentification du client sur un serveur web).
+* [x] D’authentification serveur (permettant de mettre en place le SSL/TLS sur un serveur web);
+* [x] D’authentification client (permettant de mettre en oeuvre de l’authentification du client sur un serveur web).
 
 La chaine de confiance devra respecter les contraintes suivantes :
 
-* [ ] Chaine de confiance 3 tiers (3 niveaux d’AC);
-* [ ] Ségrégation par usage, l’authentification d’un client étant considéré comme un usage différent de l’authentification d’un serveu).
+* [x] Chaine de confiance 3 tiers (3 niveaux d’AC);
+* [x] Ségrégation par usage, l’authentification d’un client étant considéré comme un usage différent de l’authentification d’un serveu).
 
 **2. Utilisation**
 
 Sur le serveur web, mettre en oeuvre :
 
 * [ ] Un vhost avec le module SSL actif et correctement configuré (aussi bien sur le navigateur qui servira pour la démonstration côté client que pour le serveur) ;
+
+  
+
 * [ ] Une authentification du client par certificat ;
+
 * [ ] Un contrôle de CRL dans la configuration du serveur web ; vérifier qu’il n’est plus possible d’authentifier un client possédant un certificat révoqué.
 
 **Pour rappel :**
 
 - Un profil de certificat d’AC doit contenir les éléments suivants :
 
-- * [ ] Key Usage: CRL Sign, Certificate Sign (critical)
-  * [ ] Extended Key Usage : aucun
-  * [ ] Basic Constraint: CA = TRUE
+- * [x] Key Usage: CRL Sign, Certificate Sign (critical)
+  * [x] Extended Key Usage : aucun
+  * [x] Basic Constraint: CA = TRUE
 
 - Un profil de certificat pour de l’authentification serveur doit contenir:
 
-- * [ ] Key Usage: Digital Signature, Key Encipherment (critical)
-  * [ ] Extended Key Usage: Server Auth
-  * [ ] Basic Constraint: Aucun
+- * [x] Key Usage: Digital Signature, Key Encipherment (critical)
+  * [x] Extended Key Usage: Server Auth
+  * [x] Basic Constraint: Aucun
 
 - Un profil de certificat pour de l’authentification client doit contenir :
 
-- * [ ] Key Usage: Digital Signature, Key Encipherment (critical)
-  * [ ] Extended Key Usage: Client Auth
-  * [ ] Basic Constraint: Aucun
+- * [x] Key Usage: Digital Signature, Key Encipherment (critical)
+  * [x] Extended Key Usage: Client Auth
+  * [x] Basic Constraint: Aucun
+
+
+
+
+
+```bash
+scp etu@172.23.3.125:server.csr .
+```
+
+![image-20191123163827758](/Users/haida/Library/Application Support/typora-user-images/image-20191123163827758.png)
