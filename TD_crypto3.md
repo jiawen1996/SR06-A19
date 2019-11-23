@@ -116,7 +116,7 @@ Vous	connaissez	à	présent	la	grande	majorité	des	incantations	magiques	 les	p
 
 Les	 opérations	 suivantes	 sont	 à	 réalisées	 sur une	 machine	 virtuelle	 linux	 sur	 laquelle	**vous	possédez	le	compte	root**. 
 
-* [ ] Installez apache. 
+* [x] Installez apache. 
 * [ ] Installez	mod_ssl. 
 * [ ] Installez	php. 
 * [ ] Vérifiez	le	bon	fonctionnement	d’apache. 
