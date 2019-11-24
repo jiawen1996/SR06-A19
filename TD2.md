@@ -766,7 +766,7 @@ et
   ```bash
   sudo a2dissite #to disenable some sites in /apache2/sites-available
   sudo service apache2 restart #reload apache2 config
-  sudo vim /etc/apache2/sites-available/mysite.conf
+  sudo vim /etc/capache2/sites-available/mysite.conf
   ```
 
   ```html

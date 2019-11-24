@@ -117,87 +117,87 @@ Vous	connaissez	à	présent	la	grande	majorité	des	incantations	magiques	 les	p
 Les	 opérations	 suivantes	 sont	 à	 réalisées	 sur une	 machine	 virtuelle	 linux	 sur	 laquelle	**vous	possédez	le	compte	root**. 
 
 * [x] Installez apache. 
-* [ ] Installez	mod_ssl. 
-* [ ] Installez	php. 
-* [ ] Vérifiez	le	bon	fonctionnement	d’apache. 
-* [ ] Créez	une	page	affichant	les	informations	système	via	php	(phpinfo). 
- * [ ]  Validez	le	bon	fonctionnement	d’apache	et	php. 
- * [ ]  A	 l’aide	 de	 la	 PKI	 mise	 en	 œuvre	 dans	 la	 partie	 I,	 émettez	 un	 certificat	 serveur	 pour	 votre	 instance	 d’apache	 (le	 CN	 du	 certificat	 doit	 obligatoirement	contenir	le	FQDN	de	votre	instance	Apache). 
- * [ ]  Configurez	mod_ssl pour	votre	instance	Apache	afin : • D’utilisez	le	certificat	émis	lors	de	l’étape	précédente ; • D’activer	le	SSL. 
- * [ ]  Validez	le	bon	fonctionnement	de	votre	instance	apache	SSL. 
- * [ ] . Le	navigateur	se	plaint.	Pourquoi ? 
- * [ ] . Mettez	 en	 œuvre	 les	 actions	 correctives	 permettant	 de	 supprimer	 le	 ‘Warning’	 obtenu	lors	 de	l’étape	précédente	et	 validez	à	nouveau	le	 bon	 fonctionnement	de	votre	instance	apache	SSL. è Votre	instance	apache	SSL	est	à	présent	fonctionnelle. 
- * [ ] . En	utilisant	la	PKI	mise	en	œuvre	lors	de	la	Partie	I,	générez	un	certificat	 d’authentification	utilisateur. 
- * [ ] . Via	openssl,	générez	un	fichier	PKCS
- * [ ] 	depuis	le	certificat	généré	lors	de	 l’étape	précédente. 
- * [ ] . Installez	le	certificat	d’authentification	client dans	votre	navigateur. 
- * [ ] . Mettez	en	œuvre	l’authentification	 forte	par	certificat	 sur	 votre	instance	 apache	SSL. 
- * [ ] . Validez	le	bon	fonctionnement	de	l’authentification	forte	par	certificat	sur	 votre	instance	apache	SSL. 
- * [ ] . Générez	 une	 CRL	 pour	 l’AC	 ayant	 émis	 le	 certificat	 d’authentification	 utilisateur. 
- * [ ] . Modifiez	 la	 configuration	 de	 mod_ssl	 afin	 de	 vérifier	 le	 statut	 de	 révocation	des	certificats	d’authentification	utilisateur. 
- * [ ] . Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Cela	fonctionne.	Pourquoi ? 
- * [ ] . Révoquez	le	certificat	d’authentification	utilisateur	utilisé. 
- * [ ] . Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Cela	fonctionne.	Pourquoi ? 
- * [ ] . Mettez	à	jour	la	CRL	configuré	dans	votre	instance	apache	SSL. 
- * [ ] . Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Cela	fonctionne.	Pourquoi ? 
- * [ ] . Redémarrez	votre	instance	apache	SSL. 
- * [ ] . Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Vous	n’avez	plus	accès.	Pourquoi ? 
- * [ ] . Demander	 à	 un	 autre	 groupe	 de	 vous	 émettre	 un	 certificat	 d’authentification	utilisateur. 
- * [ ] . Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Vous	 n’avez	 pas	 accès.	Pourquoi ? 
- * [ ] . Modifiez	 la	 configuration	 de	 votre	 instance	 apache	 SSL	 afin	 de	 pouvoir	 utilisé	le	certificat	d’authentification	obtenu	depuis	un	autre	groupe. 
- * [ ] . Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Vous	 n’avez	 pas	 accès.	Pourquoi ? 
- * [ ] . Demander	 au	 groupe	 vous	 ayant	 émis	 le	 certificat	 d’authentification	 utilisateur	de	vous	fournir	la	CRL	de	l’AC	ayant	émis	ce	certificat. 
- * [ ] . Modifiez	 la	 configuration	 de	 votre	 instance	 apache	 SSL	 afin	 de	 consommer	cette	nouvelle	CRL 
- * [ ] . Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Cela	 fonctionne.	 Pourquoi ? 
- * [ ] . Emettez	un	certificat	d’authentification	serveur	via	votre	PKI. 
- * [ ] . Générez	un	fichier	PKCS
+
+* [x] Installez	mod_ssl. 
+
+* [x] Installez	php. 
+
+* [x] Vérifiez	le	bon	fonctionnement	d’apache. 
+
+* [x] Créez	une	page	affichant	les	informations	système	via	php	(phpinfo). 
+
+ * [x] Validez	le	bon	fonctionnement	d’apache	et	php. 
+
+ * [x] A	 l’aide	 de	 la	 PKI	 mise	 en	 œuvre	 dans	 la	 partie	 I,	 émettez	 un	 certificat	 serveur	 pour	 votre	 instance	 d’apache	 (le	 CN	 du	 certificat	 doit	 obligatoirement	contenir	le	FQDN	de	votre	instance	Apache). 
+
+ * [x] Configurez	mod_ssl pour	votre	instance	Apache	afin :  
+
+    * [x] D’utilisez	le	certificat	émis	lors	de	l’étape	précédente ; 
+
+      ```bash
+      #put all the certificates at the chain together in one crt
+      openssl x509 -in trusted_ca.cer -inform DER -out trusted_ca.pem
+      openssl x509 -in root_ca.cer -inform DER -out root_ca.pem
+      cat clientcert.pem trusted_ca.pem root_ca.pem >> clientcertchain.pem
+      #openssl pkcs12 -export -in clientcertchain.pem -out clientcertchain.pfx
+      ```
+
+    * [x] D’activer	le	SSL. 
+
+ * [x] Validez	le	bon	fonctionnement	de	votre	instance	apache	SSL. 
+
+ * [x] Le	navigateur	se	plaint.	Pourquoi ? 
+
+   Verification error: self signed certificate in certificate chaine
+
+ * [x] Mettez	 en	 œuvre	 les	 actions	 correctives	 permettant	 de	 supprimer	 le	 ‘Warning’	 obtenu	lors	 de	l’étape	précédente	et	 validez	à	nouveau le	 bon	 fonctionnement	de	votre	instance	apache	SSL.
+
+   https://stackoverflow.com/questions/17597457/why-wont-curl-recognise-a-self-signed-ssl-certificate 
+
+   ```bash
+   #add RCA.crt in /usr/share/ca-certificates
+   #modify /etc/ca-certificates.conf add RCA.crt
+   sudo update-ca-certificates --fresh
+   ```
+
+Votre	instance apache	SSL	est	à	présent	fonctionnelle. 
+
+ * [ ] En	utilisant	la	PKI	mise	en	œuvre	lors	de	la	Partie	I,	générez	un	certificat	 d’authentification	utilisateur. 
+ * [ ] Via	openssl,	générez	un	fichier	PKCS depuis	le	certificat	généré	lors	de	 l’étape	précédente. 
+ * [ ] Installez	le	certificat	d’authentification	client dans	votre	navigateur. 
+ * [ ] Mettez	en	œuvre	l’authentification	 forte	par	certificat	 sur	 votre	instance	 apache	SSL. 
+ * [ ] Validez	le	bon	fonctionnement	de	l’authentification	forte	par	certificat	sur	 votre	instance	apache	SSL. 
+ * [ ] Générez	 une	 CRL	 pour	 l’AC	 ayant	 émis	 le	 certificat	 d’authentification	 utilisateur. 
+ * [ ] Modifiez	 la	 configuration	 de	 mod_ssl	 afin	 de	 vérifier	 le	 statut	 de	 révocation	des	certificats	d’authentification	utilisateur. 
+ * [ ] Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Cela	fonctionne.	Pourquoi ? 
+ * [ ] Révoquez	le	certificat	d’authentification	utilisateur	utilisé. 
+ * [ ] Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Cela	fonctionne.	Pourquoi ? 
+ * [ ] Mettez	à	jour	la	CRL	configuré	dans	votre	instance	apache	SSL. 
+ * [ ] Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Cela	fonctionne.	Pourquoi ? 
+ * [ ] Redémarrez	votre	instance	apache	SSL. 
+ * [ ] Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Vous	n’avez	plus	accès.	Pourquoi ? 
+ * [ ] Demander	 à	 un	 autre	 groupe	 de	 vous	 émettre	 un	 certificat	 d’authentification	utilisateur. 
+ * [ ] Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Vous	 n’avez	 pas	 accès.	Pourquoi ? 
+ * [ ] Modifiez	 la	 configuration	 de	 votre	 instance	 apache	 SSL	 afin	 de	 pouvoir	 utilisé	le	certificat	d’authentification	obtenu	depuis	un	autre	groupe. 
+ * [ ] Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Vous	 n’avez	 pas	 accès.	Pourquoi ? 
+ * [ ] Demander	 au	 groupe	 vous	 ayant	 émis	 le	 certificat	 d’authentification	 utilisateur	de	vous	fournir	la	CRL	de	l’AC	ayant	émis	ce	certificat. 
+ * [ ] Modifiez	 la	 configuration	 de	 votre	 instance	 apache	 SSL	 afin	 de	 consommer	cette	nouvelle	CRL 
+ * [ ] Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Cela	 fonctionne.	 Pourquoi ? 
+ * [ ] Emettez	un	certificat	d’authentification	serveur	via	votre	PKI. 
+ * [ ] Générez	un	fichier	PKCS
  * [ ] 	depuis	ce	nouveau	certificat. 
- * [ ] . Installez	ce	certificat	dans	votre	navigateur. 
- * [ ] . Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Cela	 fonctionne.	 Pourquoi ? 
- * [ ] . Modifiez	la configuration	de	votre	instance	apache	SSL	afin	de	retreindre	 l’accès	 aux	 seuls	 certificats	 émis	 par	 votre	 AC	 émettant	 les	 certificats	 d’authentification	utilisateur. 
- * [ ] . Essayez	 de	 vous	 authentifier	 fortement	 en	 utilisant	 le	 certificat	 d’authentification	serveur.	Vous	n’avez	pas	accès.	Pourquoi ? 
- * [ ] . Essayer	 de	 vous	 authentifier	 en	 utilisant	 le	 certificat	 d’authentification	 utilisateur	émis	par	votre	PKI.	Cela	fonctionne.	Pourquoi ? Question	 bonus : Comment	mettre	 en	 œuvre	 une	 gestion	 des	 accès	 plus	fine	 sur	 une	 application	 php	 en	 utilisant	 comme	 ‘principal’	 le	 DN	 du	 certificat	 d’authentification	utilisateur ?	Mettez	en	œuvre	une	solution	minimaliste.
-* [ ] Installez	mod_ssl. 
-* [ ] Installez	php. 
-* [ ] Vérifiez	le	bon	fonctionnement	d’apache. 
-* [ ] Créez	une	page	affichant	les	informations	système	via	php	(phpinfo). 
-* [ ] Validez	le	bon	fonctionnement	d’apache	et	php. 
-* [ ] A	 l’aide	 de	 la	 PKI	 mise	 en	 œuvre	 dans	 la	 partie	 I,	 émettez	 un	 certificat	 serveur	 pour	 votre	 instance	 d’apache	 (le	 CN	 du	 certificat	 doit	 obligatoirement	contenir	le	FQDN	de	votre	instance	Apache). 
-* [ ] Configurez	mod_ssl pour	votre	instance	Apache	afin : • D’utilisez	le	certificat	émis	lors	de	l’étape	précédente ; • D’activer	le	SSL. 
- * [ ]  Validez	le	bon	fonctionnement	de	votre	instance	apache	SSL. 
- * [ ] . Le	navigateur	se	plaint.	Pourquoi ? 
- * [ ] . Mettez	 en	 œuvre	 les	 actions	 correctives	 permettant	 de	 supprimer	 le	 ‘Warning’	 obtenu	lors	 de	l’étape	précédente	et	 validez	à	nouveau	le	 bon	 fonctionnement	de	votre	instance	apache	SSL. è Votre	instance	apache	SSL	est	à	présent	fonctionnelle. 
- * [ ] . En	utilisant	la	PKI	mise	en	œuvre	lors	de	la	Partie	I,	générez	un	certificat	 d’authentification	utilisateur. 
- * [ ] . Via	openssl,	générez	un	fichier	PKCS
- * [ ] 	depuis	le	certificat	généré	lors	de	 l’étape	précédente. 
- * [ ] . Installez	le	certificat	d’authentification	client dans	votre	navigateur. 
- * [ ] . Mettez	en	œuvre	l’authentification	 forte	par	certificat	 sur	 votre	instance	 apache	SSL. 
- * [ ] . Validez	le	bon	fonctionnement	de	l’authentification	forte	par	certificat	sur	 votre	instance	apache	SSL. 
- * [ ] . Générez	 une	 CRL	 pour	 l’AC	 ayant	 émis	 le	 certificat	 d’authentification	 utilisateur. 
- * [ ] . Modifiez	 la	 configuration	 de	 mod_ssl	 afin	 de	 vérifier	 le	 statut	 de	 révocation	des	certificats	d’authentification	utilisateur. 
- * [ ] . Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Cela	fonctionne.	Pourquoi ? 
- * [ ] . Révoquez	le	certificat	d’authentification	utilisateur	utilisé. 
- * [ ] . Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Cela	fonctionne.	Pourquoi ? 
- * [ ] . Mettez	à	jour	la	CRL	configuré	dans	votre	instance	apache	SSL. 
- * [ ] . Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Cela	fonctionne.	Pourquoi ? 
- * [ ] . Redémarrez	votre	instance	apache	SSL. 
- * [ ] . Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Vous	n’avez	plus	accès.	Pourquoi ? 
- * [ ] . Demander	 à	 un	 autre	 groupe	 de	 vous	 émettre	 un	 certificat	 d’authentification	utilisateur. 
- * [ ] . Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Vous	 n’avez	 pas	 accès.	Pourquoi ? 
- * [ ] . Modifiez	 la	 configuration	 de	 votre	 instance	 apache	 SSL	 afin	 de	 pouvoir	 utilisé	le	certificat	d’authentification	obtenu	depuis	un	autre	groupe. 
- * [ ] . Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Vous	 n’avez	 pas	 accès.	Pourquoi ? 
- * [ ] . Demander	 au	 groupe	 vous	 ayant	 émis	 le	 certificat	 d’authentification	 utilisateur	de	vous	fournir	la	CRL	de	l’AC	ayant	émis	ce	certificat. 
- * [ ] . Modifiez	 la	 configuration	 de	 votre	 instance	 apache	 SSL	 afin	 de	 consommer	cette	nouvelle	CRL 
- * [ ] . Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Cela	 fonctionne.	 Pourquoi ? 
- * [ ] . Emettez	un	certificat	d’authentification	serveur	via	votre	PKI. 
- * [ ] . Générez	un	fichier	PKCS
- * [ ] 	depuis	ce	nouveau	certificat. 
- * [ ] . Installez	ce	certificat	dans	votre	navigateur. 
- * [ ] . Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Cela	 fonctionne.	 Pourquoi ? 
- * [ ] . Modifiez	la configuration	de	votre	instance	apache	SSL	afin	de	retreindre	 l’accès	 aux	 seuls	 certificats	 émis	 par	 votre	 AC	 émettant	 les	 certificats	 d’authentification	utilisateur. 
- * [ ] . Essayez	 de	 vous	 authentifier	 fortement	 en	 utilisant	 le	 certificat	 d’authentification	serveur.	Vous	n’avez	pas	accès.	Pourquoi ? 
- * [ ] . Essayer	 de	 vous	 authentifier	 en	 utilisant	 le	 certificat	 d’authentification	 utilisateur	émis	par	votre	PKI.	Cela	fonctionne.	Pourquoi ? Question	 bonus : Comment	mettre	 en	 œuvre	 une	 gestion	 des	 accès	 plus	fine	 sur	 une	 application	 php	 en	 utilisant	 comme	 ‘principal’	 le	 DN	 du	 certificat	 d’authentification	utilisateur ?	Mettez	en	œuvre	une	solution	minimaliste.
+ * [ ] Installez	ce	certificat	dans	votre	navigateur. 
+ * [ ] Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Cela	 fonctionne.	 Pourquoi ? 
+ * [ ] Modifiez	la configuration	de	votre	instance	apache	SSL	afin	de	retreindre	 l’accès	 aux	 seuls	 certificats	 émis	 par	 votre	 AC	 émettant	 les	 certificats	 d’authentification	utilisateur. 
+ * [ ] Essayez	 de	 vous	 authentifier	 fortement	 en	 utilisant	 le	 certificat	 d’authentification	serveur.	Vous	n’avez	pas	accès.	Pourquoi ? 
+ * [ ] Essayer	 de	 vous	 authentifier	 en	 utilisant	 le	 certificat	 d’authentification	 utilisateur	émis	par	votre	PKI.	Cela	fonctionne.	Pourquoi ? 
+
+## Question	 bonus : 
+
+Comment	mettre	 en	 œuvre	 une	 gestion	 des	 accès	 plus	fine	 sur	 une  application	 php	 en	 utilisant	 comme	 ‘principal’	 le	 DN	 du	 certificat	 d’authentification	utilisateur ?	Mettez	en	œuvre	une	solution	minimaliste.
 
 
 
-Partie	III:	openvpn	&	certificate	based	authentication (mode	solo) L’objectif	 de	 cette	 partie	 consiste	 à	 mettre	 en	 œuvre	 une	 instance	 openvpn	 permettant	 au	 client	 de	 s’authentifier	 fortement	 par	 certificat.	 Utilisez	 les	 ressources	 à	 disposition	 sur	 Internet	 et	 n’hésitez	 pas	 à	 demander	 assistance	 si	 vous	bloquez	sur	un	point. Partie	III	bis :	Mise	en	œuvre de	EAP-TSL	sur	freeradius (mode	solo) L’objectif	 de	 cette	 partie	 consiste	 à	 mettre	 en	 œuvre	 une	 instance	 radius	 (via	 freeradius)	 implémentant le	 protocole	 d’authentification	 EAP-TLS.	 Le	 bon	 fonctionnement	 du	 serveur	 radius	 permettrait,	 ultérieurement,	 de	 mettre	 en	 œuvre (la	liste	n’est	pas	exhaustive): • Le	802.1X	(switch	authentifiant,	accès	sans	fil) ; • L’authentification	pour	les	accès	externes	(VPN	Ipsec,	VPN	SSL). Utiliser	 les	 ressources	 à	 disposition	 sur	 Internet	 et	 n’hésitez	 pas	 à	 demander	 assistance	si	vous	bloquez	sur	un	point. NB : Pour	tester	le	bon	fonctionnement	du	protocole	EAP-TLS,	il	sera	nécessaire	de	 compiler	 l’outil ‘eapol_test’ disponible	 dans	 les	 sources	 du	 supplicant	 802.1x	 ‘wpa_supplicant’.
+# Partie	III:	openvpn	&	certificate	based	authentication (mode	solo) 
+
+L’objectif	 de	 cette	 partie	 consiste	 à	 mettre	 en	 œuvre	 une	 instance	 openvpn	 permettant	 au	 client	 de	 s’authentifier	 fortement	 par	 certificat.	 Utilisez	 les	 ressources	 à	 disposition	 sur	 Internet	 et	 n’hésitez	 pas	 à	 demander	 assistance	 si	 vous	bloquez	sur	un	point. Partie	III	bis :	Mise	en	œuvre de	EAP-TSL	sur	freeradius (mode	solo) L’objectif	 de	 cette	 partie	 consiste	 à	 mettre	 en	 œuvre	 une	 instance	 radius	 (via	 freeradius)	 implémentant le	 protocole	 d’authentification	 EAP-TLS.	 Le	 bon	 fonctionnement	 du	 serveur	 radius	 permettrait,	 ultérieurement,	 de	 mettre	 en	 œuvre (la	liste	n’est	pas	exhaustive): • Le	802.1X	(switch	authentifiant,	accès	sans	fil) ; • L’authentification	pour	les	accès	externes	(VPN	Ipsec,	VPN	SSL). Utiliser	 les	 ressources	 à	 disposition	 sur	 Internet	 et	 n’hésitez	 pas	 à	 demander	 assistance	si	vous	bloquez	sur	un	point. NB : Pour	tester	le	bon	fonctionnement	du	protocole	EAP-TLS,	il	sera	nécessaire	de	 compiler	 l’outil ‘eapol_test’ disponible	 dans	 les	 sources	 du	 supplicant	 802.1x	 ‘wpa_supplicant’.
