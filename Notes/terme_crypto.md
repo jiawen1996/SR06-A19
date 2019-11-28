@@ -11,3 +11,5 @@
 * irréductible - 不可约
 * corps - 域
 * bi-clé：公私钥
+* factorisation - 因式分解
+* cryptosystèmes hybrides - 混杂加密

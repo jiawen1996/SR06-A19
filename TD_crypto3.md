@@ -134,6 +134,8 @@ Les	 opérations	 suivantes	 sont	 à	 réalisées	 sur une	 machine	 virtuelle	
 
     * [x] D’utilisez	le	certificat	émis	lors	de	l’étape	précédente ; 
 
+      https://stackoverflow.com/questions/18787491/adding-certificate-chain-to-p12pfx-certificate
+
       ```bash
       #put all the certificates at the chain together in one crt
       openssl x509 -in trusted_ca.cer -inform DER -out trusted_ca.pem
@@ -201,3 +203,15 @@ Comment	mettre	 en	 œuvre	 une	 gestion	 des	 accès	 plus	fine	 sur	 une  appl
 # Partie	III:	openvpn	&	certificate	based	authentication (mode	solo) 
 
 L’objectif	 de	 cette	 partie	 consiste	 à	 mettre	 en	 œuvre	 une	 instance	 openvpn	 permettant	 au	 client	 de	 s’authentifier	 fortement	 par	 certificat.	 Utilisez	 les	 ressources	 à	 disposition	 sur	 Internet	 et	 n’hésitez	 pas	 à	 demander	 assistance	 si	 vous	bloquez	sur	un	point. Partie	III	bis :	Mise	en	œuvre de	EAP-TSL	sur	freeradius (mode	solo) L’objectif	 de	 cette	 partie	 consiste	 à	 mettre	 en	 œuvre	 une	 instance	 radius	 (via	 freeradius)	 implémentant le	 protocole	 d’authentification	 EAP-TLS.	 Le	 bon	 fonctionnement	 du	 serveur	 radius	 permettrait,	 ultérieurement,	 de	 mettre	 en	 œuvre (la	liste	n’est	pas	exhaustive): • Le	802.1X	(switch	authentifiant,	accès	sans	fil) ; • L’authentification	pour	les	accès	externes	(VPN	Ipsec,	VPN	SSL). Utiliser	 les	 ressources	 à	 disposition	 sur	 Internet	 et	 n’hésitez	 pas	 à	 demander	 assistance	si	vous	bloquez	sur	un	point. NB : Pour	tester	le	bon	fonctionnement	du	protocole	EAP-TLS,	il	sera	nécessaire	de	 compiler	 l’outil ‘eapol_test’ disponible	 dans	 les	 sources	 du	 supplicant	 802.1x	 ‘wpa_supplicant’.
+
+
+
+
+
+
+
+**Partie 1 : connexion sécurisée automatique**
+
+- Depuis un compte du client Linux, créer des bi-clés (différentes) pour les utilisateurs *edite* et *publie* avec ssh-keygen ;
+- Utiliser ssh-copy-id pour transférer les clés concernées sur le serveur ;
+- Vérifier ensuite que les utilisateurs *edite* et *publie* peuvent se connecter automatiquement au serveur et réaliser les actions définies dans le projet Risque.
