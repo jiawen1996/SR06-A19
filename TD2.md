@@ -532,7 +532,7 @@ Après que passoire 1 ai envoyé le message contenant "Password: ", passoire 2 e
   wireshark capture1.cap
   ```
 
-  不确定会不会生成一个文件，通过pipeline自动转发给@ip_host的3000端口 
+  会生成一个文件，通过pipeline自动转发给@ip_host的3000端口 
 
   -s0 -> the default length of captured traffic is 68k
 
@@ -766,7 +766,7 @@ et
   ```bash
   sudo a2dissite #to disenable some sites in /apache2/sites-available
   sudo service apache2 restart #reload apache2 config
-  sudo vim /etc/apache2/sites-available/mysite.conf
+  sudo vim /etc/capache2/sites-available/mysite.conf
   ```
 
   ```html
