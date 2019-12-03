@@ -181,10 +181,9 @@ Votre	instance apache	SSL	est	à	présent	fonctionnelle.
 
    ```bash
    openssl pkcs12 -export -clcerts -in client1.crt -inkey client1.key -out client1.p12
-   
    #sr06a002client1
    ```
-
+   
  * [x] Installez	le	certificat	d’authentification	client dans	votre	navigateur. 
 
    * Chrome for mac
@@ -239,7 +238,7 @@ Votre	instance apache	SSL	est	à	présent	fonctionnelle.
 
  * [x] Générez	 une	 CRL	 pour	 l’AC	 ayant	 émis	 le	 certificat	 d’authentification	 utilisateur. 
 
- * [ ] Modifiez	 la	 configuration	 de	 mod_ssl	 afin	 de	 vérifier	 le	 statut	 de	 révocation	des	certificats	d’authentification	utilisateur. 
+ * [x] Modifiez	 la	 configuration	 de	 mod_ssl	 afin	 de	 vérifier	 le	 statut	 de	 révocation	des	certificats	d’authentification	utilisateur. 
 
    ```bash
    SSLCARevocationFile /etc/ssl/crl/UACA_crl.pem
