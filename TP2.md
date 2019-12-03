@@ -69,4 +69,4 @@ Sur le serveur web, mettre en oeuvre :
 scp etu@172.23.3.125:server.csr .
 ```
 
-![image-20191123163827758](/Users/haida/Library/Application Support/typora-user-images/image-20191123163827758.png)
+![image-20191123163827758](./img//image-20191123163827758.png)

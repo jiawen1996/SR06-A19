@@ -1,4 +1,4 @@
-## Projet du module Cryptographie * [ ]  Automne 2019
+# Projet du module Cryptographie 
 
 Le **projet du module Cryptographie** consiste à compléter le système informatique issu du projet précédent (module Risque) avec une sécurisation des échanges. Cette architecture sera encore complétée lors du projet du module Protection.
 
@@ -19,13 +19,21 @@ Le but du projet est de :
    - TinyCA 2
 4. et, optionnellement, exploiter cette PKI pour les étapes 1 et 2.
 
-**Partie 1 : connexion sécurisée automatique**
+## **Partie 1 : connexion sécurisée automatique**
 
-* [x]  Depuis un compte du client Linux, créer des bi-clés (différentes) pour les utilisateurs *edite* et *publie* avec ssh-keygen ;
-* [x]  Utiliser ssh-copy-id pour transférer les clés concernées sur le serveur ;
-* [x]  Vérifier ensuite que les utilisateurs *edite* et *publie* peuvent se connecter automatiquement au serveur et réaliser les actions définies dans le projet Risque.
+* [x] Depuis un compte du client Linux, créer des bi-clés (différentes) pour les utilisateurs *edite* et *publie* avec `ssh-keygen` ;
 
-**Partie 2 : contrat signé**
+  ```bash
+  #sur la VM client
+  ssh-keygen
+  ssh-copy-id -i  <trace>/.ssh/id_rsa.pub edite@10.10.10.161
+  ```
+
+* [x] Utiliser ssh-copy-id pour transférer les clés concernées sur le serveur ;
+
+* [x] Vérifier ensuite que les utilisateurs *edite* et *publie* peuvent se connecter automatiquement au serveur et réaliser les actions définies dans le projet Risque.
+
+## **Partie 2 : contrat signé**
 
 * [ ]  Créer un texte quelconque avec le logiciel de votre choix, sauvegardé dans un fichier appelé *contrat* ;
 * [ ]  Créer une bi-clé RSA en utilisant open-ssl ;
@@ -35,50 +43,84 @@ Le but du projet est de :
 
 
 
-**Partie 3 : PKI**
+## **Partie 3 : PKI**
 
-3.1 Chaîne de confiance
+### 3.1 Chaîne de confiance
 
 Mettre en oeuvre une chaîne de confiance permettant d’émettre des certificats :
 
-* [ ]  D’authentification serveur (permettant de mettre en place le SSL/TLS sur un serveur web);
-* [ ]  D’authentification client (permettant de mettre en oeuvre de l’authentification du client sur un serveur web).
+* [x] D’authentification serveur (permettant de mettre en place le SSL/TLS sur un serveur web);
+
+  ```bash
+  #sur la vm server
+  openssl genrsa -out server.key -des3 2048
+  openssl req -new -key server.key -out server.csr
+  #envoyer une requêtes de signature de certificat
+  #sur la machine host
+  scp etu@172.23.3.125:server.csr .
+  #envoyer le cert server au serveur web
+  scp /Users/haida/Projects/sr06-a19/PKI/server_cert/<name> etu@172.23.3.125:/home/etu
+  ```
+
+* [x] D’authentification client (permettant de mettre en oeuvre de l’authentification du client sur un serveur web).
+
+  ```bash
+  openssl genrsa -out client1.key -des3 2048 
+  #sr06a002client1
+  openssl req -new -key client1.key -out client1.csr
+  #signer le cetificat par xca
+  ```
+
+  
 
 La chaine de confiance devra respecter les contraintes suivantes :
 
-* [ ]  Chaine de confiance 3 tiers (3 niveaux d’AC);
-* [ ]  Ségrégation par usage, l’authentification d’un client étant considéré comme un usage différent de l’authentification d’un serveu).
+* [x] Chaine de confiance 3 tiers (3 niveaux d’AC);
 
-3.2 Utilisation
+  ```bash
+  cat uaca.crt aca.crt RCA.crt >> clientcertchain.cert.pem
+  chmod 444 clientcertchain.cert.pem 
+  openssl verify -CAfile clientcertchain.cert.pem client1.crt
+  ```
+
+* [x] Ségrégation par usage, l’authentification d’un client étant considéré comme un usage différent de l’authentification d’un serveu).
+
+  ```bash
+  cat uaca.crt aca.crt RCA.crt >> clientcertchain.cert.pem
+  chmod 444 clientcertchain.cert.pem 
+  openssl verify -CAfile clientcertchain.cert.pem client1.crt
+  ```
+
+### 3.2 Utilisation
 
 Sur le serveur web, mettre en oeuvre :
 
-* [ ]  Un vhost avec le module SSL actif et correctement configuré (aussi bien sur le navigateur qui servira pour la démonstration côté client que pour le serveur) ;
-* [ ]  Une authentification du client par certificat ;
-* [ ]  Un contrôle de CRL dans la configuration du serveur web ; vérifier qu’il n’est plus possible d’authentifier un client possédant un certificat révoqué.
+* [x]  Un vhost avec le module SSL actif et correctement configuré (aussi bien sur le navigateur qui servira pour la démonstration côté client que pour le serveur) ;
+* [x]  Une authentification du client par certificat ;
+* [x]  Un contrôle de CRL dans la configuration du serveur web ; vérifier qu’il n’est plus possible d’authentifier un client possédant un certificat révoqué.
 
 Pour rappel :
 
-* [ ]  Un profil de certificat d’AC doit contenir les éléments suivants :
+* [x]  Un profil de certificat d’AC doit contenir les éléments suivants :
 
-- * [ ]  Key Usage: CRL Sign, Certificate Sign (critical)
-  * [ ]  Extended Key Usage : aucun
-  * [ ]  Basic Constraint: CA = TRUE
+- * [x]  Key Usage: CRL Sign, Certificate Sign (critical)
+  * [x]  Extended Key Usage : aucun
+  * [x]  Basic Constraint: CA = TRUE
 
-* [ ]  Un profil de certificat pour de l’authentification serveur doit contenir:
+* [x]  Un profil de certificat pour de l’authentification serveur doit contenir:
 
-- * [ ]  Key Usage: Digital Signature, Key Encipherment (critical)
-  * [ ]  Extended Key Usage: Server Auth
-  * [ ]  Basic Constraint: Aucun
+- * [x]  Key Usage: Digital Signature, Key Encipherment (critical)
+  * [x]  Extended Key Usage: Server Auth
+  * [x]  Basic Constraint: Aucun
 
-* [ ]  Un profil de certificat pour de l’authentification client doit contenir :
+* [x]  Un profil de certificat pour de l’authentification client doit contenir :
 
-- * [ ]  Key Usage: Digital Signature, Key Encipherment (critical)
-  * [ ]  Extended Key Usage: Client Auth
-  * [ ]  Basic Constraint: Aucun
+- * [x]  Key Usage: Digital Signature, Key Encipherment (critical)
+  * [x]  Extended Key Usage: Client Auth
+  * [x]  Basic Constraint: Aucun
 
 
 
-**Partie 4 : Optionnelle**
+## **Partie 4 : Optionnelle**
 
 Refaire les parties 1 et 2 en exploitant/complétant la PKI définie à l'étape 3.

@@ -11,7 +11,7 @@
 
   ![image-20191121144848802](./img/image-20191121144848802.png)
 
-  ![image-20191123110542140](/Users/haida/Library/Application Support/typora-user-images/image-20191123110542140.png)
+  ![image-20191123110542140](./img/image-20191123110542140.png)
 
   Key identifier : générer fringerprint par MD5 pour identifier **Subject key** et **Authority key**
 
@@ -31,6 +31,14 @@
 
   * [x] Plusieurs	certificats	d’authentification utilisateur; 
 
+    ```bash
+    openssl genrsa -out client1.key -des3 2048
+    sr06a002client1
+    openssl req -new -key client1.key -out client1.csr
+    ```
+
+    ![image-20191201120609108](./img/image-20191201120609108.png)
+
   * [x] Plusieurs	certificats	d’authentification	serveur. 
 
     ```bash
@@ -39,19 +47,19 @@
     #envoyer une requêtes de signature de certificat
     ```
 
-  ![image-20191123114221857](/Users/haida/Library/Application Support/typora-user-images/image-20191123114221857.png)
+  ![image-20191123114221857](./img/image-20191123114221857.png)
 
 * [x] Emettez	les	certificats. 
 
-  ![image-20191123114335230](/Users/haida/Library/Application Support/typora-user-images/image-20191123114335230.png)
+  ![image-20191123114335230](./img/image-20191123114335230.png)
 
-  ![image-20191123132858873](/Users/haida/Library/Application Support/typora-user-images/image-20191123132858873.png)
+  ![image-20191123132858873](./img/image-20191123132858873.png)
 
-  ![image-20191123133328003](/Users/haida/Library/Application Support/typora-user-images/image-20191123133328003.png)
+  ![image-20191123133328003](./img/image-20191123133328003.png)
 
-  ![image-20191123133248813](/Users/haida/Library/Application Support/typora-user-images/image-20191123133248813.png)
+  ![image-20191123133248813](./img/image-20191123133248813.png)
 
-  ![image-20191123133606484](/Users/haida/Library/Application Support/typora-user-images/image-20191123133606484.png)
+  ![image-20191123133606484](./img/image-20191123133606484.png)
 
   Each extension in a certificate is designated as either `critical` or `non-critical`. A certificate-using system MUST reject the certificate if it encounters a critical extension it does not recognize or a critical extension that contains information that it cannot process. A non-critical extension MAY be ignored if it is not recognized, but MUST be processed if it is recognized.
 
@@ -150,7 +158,10 @@ Les	 opérations	 suivantes	 sont	 à	 réalisées	 sur une	 machine	 virtuelle	
 
  * [x] Le	navigateur	se	plaint.	Pourquoi ? 
 
-   Verification error: self signed certificate in certificate chaine
+   ```bash
+   openssl s_client -host server-web -port 443 -showcerts
+   #Verification error: self signed certificate in certificate chaine
+   ```
 
  * [x] Mettez	 en	 œuvre	 les	 actions	 correctives	 permettant	 de	 supprimer	 le	 ‘Warning’	 obtenu	lors	 de	l’étape	précédente	et	 validez	à	nouveau le	 bon	 fonctionnement	de	votre	instance	apache	SSL.
 
@@ -164,34 +175,122 @@ Les	 opérations	 suivantes	 sont	 à	 réalisées	 sur une	 machine	 virtuelle	
 
 Votre	instance apache	SSL	est	à	présent	fonctionnelle. 
 
- * [ ] En	utilisant	la	PKI	mise	en	œuvre	lors	de	la	Partie	I,	générez	un	certificat	 d’authentification	utilisateur. 
- * [ ] Via	openssl,	générez	un	fichier	PKCS depuis	le	certificat	généré	lors	de	 l’étape	précédente. 
- * [ ] Installez	le	certificat	d’authentification	client dans	votre	navigateur. 
+ * [x] En	utilisant	la	PKI	mise	en	œuvre	lors	de	la	Partie	I,	générez	un	certificat	 d’authentification	utilisateur. 
+
+ * [x] Via	openssl,	générez	un	fichier	PKCS depuis	le	certificat	généré	lors	de	 l’étape	précédente. 
+
+   ```bash
+   openssl pkcs12 -export -clcerts -in client1.crt -inkey client1.key -out client1.p12
+   
+   #sr06a002client1
+   ```
+
+ * [x] Installez	le	certificat	d’authentification	client dans	votre	navigateur. 
+
+   * Chrome for mac
+
+   ![image-20191201202622347](./img/image-20191201202622347.png)
+
+   ![image-20191201202720801](./img/image-20191201202720801.png)
+
+   * Firefox for mac
+
+   ![image-20191201202815600](./img/image-20191201202815600.png)
+
+   Ajouter des certificats pour client et aussi root Autorité
+
+![image-20191201212920232](./img/image-20191201212920232.png)
+
+![image-20191201212939072](./img/image-20191201212939072.png)
+
  * [ ] Mettez	en	œuvre	l’authentification	 forte	par	certificat	 sur	 votre	instance	 apache	SSL. 
- * [ ] Validez	le	bon	fonctionnement	de	l’authentification	forte	par	certificat	sur	 votre	instance	apache	SSL. 
- * [ ] Générez	 une	 CRL	 pour	 l’AC	 ayant	 émis	 le	 certificat	 d’authentification	 utilisateur. 
+
+   ```html
+   <IfModule mod_ssl.c>
+   	<VirtualHost *:443>
+   		ServerName server-web
+   		ServerAdmin webmaster@localhost
+   		DocumentRoot /var/www/formulaire
+   		ErrorLog ${APACHE_LOG_DIR}/formulaire_error.log
+   		CustomLog ${APACHE_LOG_DIR}/formulaire_access.log combined
+   
+   		SSLEngine on
+   		SSLCertificateFile /etc/ssl/certs/server-web.crt
+   		SSLCertificateKeyFile /etc/ssl/private/server-web.key
+       SSLCertificateChainFile /etc/ssl/certs/servercertchain.cert.pem
+   		SSLCACertificateFile /etc/ssl/certs/clientcertchain.cert.pem
+       SSLVerifyClient require
+       SSLVerifyDepth 3
+   	</VirtualHost>
+   </IfModule>
+   ```
+
+   
+
+ * [x] Validez	le	bon	fonctionnement	de	l’authentification	forte	par	certificat	sur	 votre	instance	apache	SSL. 
+
+   * sur Chrome
+
+   ![](/Users/haida/Projects/sr06-a19/img/78310055_1217650278420771_4638727759588229120_n.png)
+
+   * sur Firefox
+
+   ![](/Users/haida/Projects/sr06-a19/img/79169408_2401439073518221_2712735282985172992_n.png)
+
+ * [x] Générez	 une	 CRL	 pour	 l’AC	 ayant	 émis	 le	 certificat	 d’authentification	 utilisateur. 
+
  * [ ] Modifiez	 la	 configuration	 de	 mod_ssl	 afin	 de	 vérifier	 le	 statut	 de	 révocation	des	certificats	d’authentification	utilisateur. 
+
+   ```bash
+   SSLCARevocationFile /etc/ssl/crl/UACA_crl.pem
+   #or
+   SSLCARevocationPath /etc/ssl/crl
+   SSLCARevocationCheck chain
+   # Lorsque cette directive est définie à chain (valeur recommandée), les vérifications CRL sont effectuées sur tous les certificats de la chaîne
+   ```
+
  * [ ] Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Cela	fonctionne.	Pourquoi ? 
+
  * [ ] Révoquez	le	certificat	d’authentification	utilisateur	utilisé. 
+
  * [ ] Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Cela	fonctionne.	Pourquoi ? 
+
  * [ ] Mettez	à	jour	la	CRL	configuré	dans	votre	instance	apache	SSL. 
+
  * [ ] Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Cela	fonctionne.	Pourquoi ? 
+
  * [ ] Redémarrez	votre	instance	apache	SSL. 
+
  * [ ] Essayez	 à	 nouveau	 de	 vous	 authentifier	 fortement	 sur	 votre	 instance	 apache	SSL.	Vous	n’avez	plus	accès.	Pourquoi ? 
+
  * [ ] Demander	 à	 un	 autre	 groupe	 de	 vous	 émettre	 un	 certificat	 d’authentification	utilisateur. 
+
  * [ ] Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Vous	 n’avez	 pas	 accès.	Pourquoi ? 
+
  * [ ] Modifiez	 la	 configuration	 de	 votre	 instance	 apache	 SSL	 afin	 de	 pouvoir	 utilisé	le	certificat	d’authentification	obtenu	depuis	un	autre	groupe. 
+
  * [ ] Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Vous	 n’avez	 pas	 accès.	Pourquoi ? 
+
  * [ ] Demander	 au	 groupe	 vous	 ayant	 émis	 le	 certificat	 d’authentification	 utilisateur	de	vous	fournir	la	CRL	de	l’AC	ayant	émis	ce	certificat. 
+
  * [ ] Modifiez	 la	 configuration	 de	 votre	 instance	 apache	 SSL	 afin	 de	 consommer	cette	nouvelle	CRL 
+
  * [ ] Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Cela	 fonctionne.	 Pourquoi ? 
+
  * [ ] Emettez	un	certificat	d’authentification	serveur	via	votre	PKI. 
+
  * [ ] Générez	un	fichier	PKCS
- * [ ] 	depuis	ce	nouveau	certificat. 
+
+ * [ ] depuis	ce	nouveau	certificat. 
+
  * [ ] Installez	ce	certificat	dans	votre	navigateur. 
+
  * [ ] Essayez	 de	 vous	 authentifiez	 en	 utilisant	 ce	 certificat.	 Cela	 fonctionne.	 Pourquoi ? 
+
  * [ ] Modifiez	la configuration	de	votre	instance	apache	SSL	afin	de	retreindre	 l’accès	 aux	 seuls	 certificats	 émis	 par	 votre	 AC	 émettant	 les	 certificats	 d’authentification	utilisateur. 
+
  * [ ] Essayez	 de	 vous	 authentifier	 fortement	 en	 utilisant	 le	 certificat	 d’authentification	serveur.	Vous	n’avez	pas	accès.	Pourquoi ? 
+
  * [ ] Essayer	 de	 vous	 authentifier	 en	 utilisant	 le	 certificat	 d’authentification	 utilisateur	émis	par	votre	PKI.	Cela	fonctionne.	Pourquoi ? 
 
 ## Question	 bonus : 
@@ -204,14 +303,3 @@ Comment	mettre	 en	 œuvre	 une	 gestion	 des	 accès	 plus	fine	 sur	 une  appl
 
 L’objectif	 de	 cette	 partie	 consiste	 à	 mettre	 en	 œuvre	 une	 instance	 openvpn	 permettant	 au	 client	 de	 s’authentifier	 fortement	 par	 certificat.	 Utilisez	 les	 ressources	 à	 disposition	 sur	 Internet	 et	 n’hésitez	 pas	 à	 demander	 assistance	 si	 vous	bloquez	sur	un	point. Partie	III	bis :	Mise	en	œuvre de	EAP-TSL	sur	freeradius (mode	solo) L’objectif	 de	 cette	 partie	 consiste	 à	 mettre	 en	 œuvre	 une	 instance	 radius	 (via	 freeradius)	 implémentant le	 protocole	 d’authentification	 EAP-TLS.	 Le	 bon	 fonctionnement	 du	 serveur	 radius	 permettrait,	 ultérieurement,	 de	 mettre	 en	 œuvre (la	liste	n’est	pas	exhaustive): • Le	802.1X	(switch	authentifiant,	accès	sans	fil) ; • L’authentification	pour	les	accès	externes	(VPN	Ipsec,	VPN	SSL). Utiliser	 les	 ressources	 à	 disposition	 sur	 Internet	 et	 n’hésitez	 pas	 à	 demander	 assistance	si	vous	bloquez	sur	un	point. NB : Pour	tester	le	bon	fonctionnement	du	protocole	EAP-TLS,	il	sera	nécessaire	de	 compiler	 l’outil ‘eapol_test’ disponible	 dans	 les	 sources	 du	 supplicant	 802.1x	 ‘wpa_supplicant’.
 
-
-
-
-
-
-
-**Partie 1 : connexion sécurisée automatique**
-
-- Depuis un compte du client Linux, créer des bi-clés (différentes) pour les utilisateurs *edite* et *publie* avec ssh-keygen ;
-- Utiliser ssh-copy-id pour transférer les clés concernées sur le serveur ;
-- Vérifier ensuite que les utilisateurs *edite* et *publie* peuvent se connecter automatiquement au serveur et réaliser les actions définies dans le projet Risque.
