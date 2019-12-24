@@ -35,10 +35,24 @@ Le but du projet est de :
 
 ## **Partie 2 : contrat signé**
 
-* [ ]  Créer un texte quelconque avec le logiciel de votre choix, sauvegardé dans un fichier appelé *contrat* ;
-* [ ]  Créer une bi-clé RSA en utilisant open-ssl ;
-* [ ]  Signer le contrat avec la bi-clé en utilisant openssl ;
-* [ ]  Mettre en ligne (sur le serveur web) le contrat et la clé permettant de vérifier sa signature ;
+* [x] Créer un texte quelconque avec le logiciel de votre choix, sauvegardé dans un fichier appelé *contrat* ;
+
+* [x] Créer une bi-clé RSA en utilisant open-ssl ;
+
+  ```bash
+  openssl genrsa -out contrat.key -des3 2048
+  openssl rsa -in contrat.key -pubout -out contrat_pkey.key
+  ```
+
+* [x] Signer le contrat avec la bi-clé en utilisant openssl ;
+
+  ```bash
+  openssl dgst -sha256 -sign contrat.key -out signed_contrat.txt contrat.txt
+  openssl dgst -verify contrat_pkey.key -sha256 -signature signed_contrat.txt contrat.txt 
+  ```
+
+* [ ] Mettre en ligne (sur le serveur web) le contrat et la clé permettant de vérifier sa signature ;
+
 * [ ]  Vérifier qu'un utilisateur distant puisse vérifier l'authenticité du contrat.
 
 
