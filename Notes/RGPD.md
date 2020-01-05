@@ -1,10 +1,25 @@
 # RGPD
 
-## Champ d'application territoriale
+## Définitions
+
+### Donnée à caractère personnel
+
+所有可以用来直接或者间接识别一个人的数据
+
+### Traitement de données
+
+## Champ d'application territoriale - 适用领域范围
+
+* 在欧盟领土范围内的RT和ST
+* 在欧盟范围之外的RT和ST，但是针对
 
 ## 大的进展
 
 ### 加入了所有因素的responsabilisation
+
+### 
+
+
 
 
 
@@ -20,7 +35,7 @@
 
 * 欧洲之外的transfert超出了RGPD的触及范围
 
-### 合理的数据
+### 合理的数据，不能越界
 
 * 需要一个DPO prendre contact avec le **DPO**
 
@@ -29,6 +44,8 @@
   询问你的DPO，是否可以collecter这些数据
 
   有一个文件给service分等级，会指明
+
+### Durée de conservation limutée
 
 ### 数据安全 数据的DIC
 

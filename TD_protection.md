@@ -6,6 +6,15 @@ mais la configuration du routeur fonctionne pas.
 sudo ip route add 192.168.58.0/24 via 192.168.56.254 dev ens18
 ```
 
+Chaque fois quand tu démarres des vms
+
+```bash
+sudo ifconfig ens18 down
+sudo ifconfig ens18 up
+```
+
+
+
 ## 2. Mise en place d’un processus SSHD en écoute sur le Serveur
 
 * [x] Installer le package openssh-server. Démarrer le service ssh :
@@ -41,8 +50,8 @@ sudo ip route add 192.168.58.0/24 via 192.168.56.254 dev ens18
   sudo iptables -A INPUT -i ens18 -s 192.168.58.254 -p tcp --dport 22 -j ACCEPT
   sudo iptables -P INPUT DROP
   
-  sudo iptables -A INPUT -o ens20 -j ACCEPT
-  sudo iptables -A INPUT -o lo -j ACCEPT
+  sudo iptables -A OUTPUT -o ens20 -j ACCEPT
+  sudo iptables -A OUTPUT -o lo -j ACCEPT
   sudo iptables -A OUTPUT -o ens18 -d 192.168.58.254 -p tcp --sport 22 -j ACCEPT
   sudo iptables -P OUTPUT DROP
   ```
@@ -64,7 +73,7 @@ sudo ip route add 192.168.58.0/24 via 192.168.56.254 dev ens18
   sudo iptables -P FORWARD DROP
   
   #Sur le serveur
-   sudo iptables -A INPUT -i ens18 -s 192.168.56.2 -p tcp --dport 22 -j ACCEPT
+  sudo iptables -A INPUT -i ens18 -s 192.168.56.2 -p tcp --dport 22 -j ACCEPT
   sudo iptables -A OUTPUT -o ens18 -d 192.168.56.2 -p tcp --sport 22 -j ACCEPT
   ```
 

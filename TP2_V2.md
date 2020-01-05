@@ -27,6 +27,7 @@ Le but du projet est de :
   #sur la VM client
   ssh-keygen
   ssh-copy-id -i  <trace>/.ssh/id_rsa.pub edite@10.10.10.161
+  #mac /Users/haida...
   ```
 
 * [x] Utiliser ssh-copy-id pour transférer les clés concernées sur le serveur ;
