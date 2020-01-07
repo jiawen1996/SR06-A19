@@ -61,32 +61,44 @@ str = (char*)malloc() == null
 
 * printf - format string
 
-  具体原理：当printf在输出格式化字符串的时候，会维护一个内部指针，当printf逐步将格式化字符串的字符打印到屏幕，当遇到%的时候，printf会期望它后面跟着一个格式字符串，因此会递增内部字符串以抓取格式控制符的输入值。这就是问题所在，printf无法知道栈上是否放置了正确数量的变量供它操作，如果没有足够的变量可供操作，而指针按正常情况下递增，就会产生越界访问。甚至由于%n的问题，可导致任意地址读写。
+  具体原理：当printf在输出格式化字符串的时候，会维护一个内部指针，printf逐步将格式化字符串的字符打印到屏幕，当遇到%的时候，printf会期望它后面跟着一个格式字符串，因此会递增内部字符串以抓取格式控制符的输入值。这就是问题所在，printf无法知道栈上是否放置了正确数量的变量供它操作，如果没有足够的变量可供操作，而指针按正常情况下递增，就会产生越界访问。甚至由于%n的问题，可导致任意地址读写。
+
+### Directive de pré-compilation
 
 * 不要讲文件名以_开头命名，会和bibilo的文件冲突
+
+#### Marco-commande
 
 * ++n 在判断时执行一次，在进condition之后再执行一次
 * unsigned char i
 
+### Problème d'initialisation
+
+#### Problème de type
 
 
-ex-for-bad
+
+##### ex-for-bad
 
 根据用户输入的字符串长度输出，如果输入太多，256
 
 在unsign中256是0
 
-ex-test-bad
+##### ex-test-bad
 
 如果没有成功地test，所以没有tab这个表
 
-ex-table-bad
+##### ex-table-bad
+
+C语言的强制类型转换很简单，不管什么类型的转换统统是，在要转换的变量前面加小括号，里面写上要转换为的类型。
+
+如，TYPE b = (TYPE)a
 
 
+
+#### Problème de déclaration
 
 extern 定义全局变量
-
-#### Problème d'initialisation
 
 需要定义一个专门初始化数组的函数
 

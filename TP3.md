@@ -136,7 +136,7 @@ Il s'agit de configurer le routage et le filtrage sur le routeur Linux de sorte 
 
 **Cette partie n'est pas à réaliser par les étudiants de début de branche. Le but est d'ajouter un serveur DNS dans la DMZ ainsi qu'un serveur ssh.**
 
-* [ ] **Ajouter un serveur DNS dans la DMZ et adapter les règles de routage en conséquence. Le serveur devra permettre de trouver l'adresse du serveur web à partir de son nom.**
+* [x] **Ajouter un serveur DNS dans la DMZ et adapter les règles de routage en conséquence. Le serveur devra permettre de trouver l'adresse du serveur web à partir de son nom.**
 
   https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-private-network-dns-server-on-debian-9#configuring-dns-clients
 
@@ -209,6 +209,29 @@ Il s'agit de configurer le routage et le filtrage sur le routeur Linux de sorte 
   sudo chmod +s /etc/bind/zones
   ```
 
-  
-
 * [ ] **Ajouter un serveur ssh dans la DMZ et adapter les règles de routage en conséquence. Les clients A et B devront pouvoir s'y connecter. Mettre en place une connexion sécurisée par certificat en utilisant la PKI du projet précédent.**
+
+  https://forums.gentoo.org/viewtopic-t-441064-start-0.html
+
+  ```bash
+  sudo ip route add 192.168.58.0/24 via 192.168.60.254 dev ens18
+  sudo ip route add 192.168.56.0/24 via 192.168.60.254 dev ens18
+  
+  #Sur client A
+  ssh-keygen -f clienta.key -C "clientA CA key"
+  #sr06a002clienta
+  openssl req -new -key clienta.key -out clienta.csr
+  #change name of clienta.key to id_test and move it to ~/.ssh
+  ssh-keygen -y -f ~/.ssh/id_test > ~/.ssh/id_test.pub
+  
+  #证书的权限 - 400
+  
+  #sur la machine PKI
+  scp etu@172.23.3.104:clienta.csr .
+  #et puis signer le requête et revoie
+  scp /Users/haida/Projects/sr06-a19/PKI/ssh.sr06a002.com.crt etu@172.23.3.104:/home/etu
+  
+  
+  ```
+
+  
