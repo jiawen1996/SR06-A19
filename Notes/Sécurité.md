@@ -18,7 +18,7 @@ démarche:PSSI
 
 CMDB: les matériel, des configurations
 
-github: 可以储存des configs complètes 
+Itop: 可以储存des configs complètes 
 
 plusieurs visions - pour assurer les cours 需要访问权限
 
