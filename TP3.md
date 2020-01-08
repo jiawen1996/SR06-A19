@@ -51,7 +51,7 @@ Le but est de s'initier à la sécurisation d'une application PHP en utilisant P
 
   ![image-20200103152616431](./img/image-20200103152616431.png)
 
-* [ ] Développer une page PHP avec puis sans protection, en vous inspirant de la page https://www.php.net/manual/fr/security.database.sql-injection.php.
+* [x] Développer une page PHP avec puis sans protection, en vous inspirant de la page https://www.php.net/manual/fr/security.database.sql-injection.php.
 
 * [ ] Lancer le script phpcs sur ces pages web et analyser les résultats.
 
@@ -71,13 +71,13 @@ Le but est de compléter l'architecture construire dans les projets précédents
 
 ### 2.1 Création des VM et des réseaux
 
-* [ ] Toutes ces machines virtuelles sont connectées via des réseaux internes (un par zone de confiance), comme indiqué sur la figure ci-dessous.
+* [x] Toutes ces machines virtuelles sont connectées via des réseaux internes (un par zone de confiance), comme indiqué sur la figure ci-dessous.
 
 * [x] Le second client linux et le second serveur Linux peuvent être obtenus par clonage des VM des projets précédents. Il est conseillé d'utiliser des clones pour optimiser l'espace disque.
 
 * [ ] La VM Windows est optionnelle et dépend de la mémoire disponible (à noter que les VM Linux n'ont pas besoin de beaucoup de mémoire).
 
-* [ ] Les deux serveurs Linux doivent proposer des sites web différents et afficher notamment la bannière "Site web de l'entreprise A" ou "Site web de l'entreprise B".
+* [x] Les deux serveurs Linux doivent proposer des sites web différents et afficher notamment la bannière "Site web de l'entreprise A" ou "Site web de l'entreprise B".
 
   ```bash
   sudo -u www-data vim /var/www/formulaire/index.php
@@ -88,7 +88,7 @@ Le but est de compléter l'architecture construire dans les projets précédents
 
 * [ ] Chaque VM pourra garder une carte réseau supplémentaire configurée en NAT.
 
-* [ ] S'assurer que les plans d'adressage sont différents sur chaque réseau et que les machines d'un même réseau peuvent communiquer ensemble.
+* [x] S'assurer que les plans d'adressage sont différents sur chaque réseau et que les machines d'un même réseau peuvent communiquer ensemble.
 
 ![image-20191224181343393](img/image-20191224181343393.png) 
 

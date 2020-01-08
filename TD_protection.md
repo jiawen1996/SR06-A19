@@ -34,8 +34,8 @@ sudo ifconfig ens18 up
   ```bash
   #reset ssh private key
   sudo find / -name known_hosts
-  sudo ssh-keygen -f  "/home/etu/.ssh/known_hosts" -R 192.168.58.2
-  sudo systemctl restart ssh
+  ssh-keygen -f  "/home/etu/.ssh/known_hosts" -R 192.168.58.2 #pas de sudo sinon le fichier appartient à root et on ne peut pas rajouter d'hôtes
+  #sudo systemctl restart ssh #Pas besoin de le faire noramlement
   ```
 
   
@@ -50,16 +50,17 @@ sudo ifconfig ens18 up
   sudo iptables -A INPUT -i ens18 -s 192.168.58.254 -p tcp --dport 22 -j ACCEPT
   sudo iptables -P INPUT DROP
   
+  #On a pas besoin de le faire dans l'autre sens, si ?
   sudo iptables -A OUTPUT -o ens20 -j ACCEPT
   sudo iptables -A OUTPUT -o lo -j ACCEPT
   sudo iptables -A OUTPUT -o ens18 -d 192.168.58.254 -p tcp --sport 22 -j ACCEPT
   sudo iptables -P OUTPUT DROP
-  ```
-
+```
+  
   ```bash
   ssh toto@192.168.58.2 (depuis le Routeur)
-  ```
-
+```
+  
   ![image-20191230165519600](./img/image-20191230165519600.png)
 
 ## 4. Mise en place d’un filtrage IPtables sur le routeur en FORWARD.
@@ -72,7 +73,7 @@ sudo ifconfig ens18 up
   sudo iptables -A FORWARD -o ens18 -i ens19 -p tcp --sport 22 -d 192.168.56.2 -s 192.168.58.2 -j ACCEPT
   sudo iptables -P FORWARD DROP
   
-  #Sur le serveur
+  #Sur le serveur 
   sudo iptables -A INPUT -i ens18 -s 192.168.56.2 -p tcp --dport 22 -j ACCEPT
   sudo iptables -A OUTPUT -o ens18 -d 192.168.56.2 -p tcp --sport 22 -j ACCEPT
   ```
@@ -86,6 +87,8 @@ sudo ifconfig ens18 up
   ![image-20191230173647111](./img/image-20191230173647111.png)
 
 ## 5. Mise en place de redirection de port sur le routeur
+
+Je ne les vois pas 
 
 * [x] Toujours avec iptables mettre en place une translation d’adresse destination avec redirection de port, de manière à ce que , lorsque le client se connecte le port 2222 du Routeur, la requête arrive sur le port 22 du Serveur.
 
