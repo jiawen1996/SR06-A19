@@ -98,37 +98,31 @@ Il s'agit de configurer le routage et le filtrage sur le routeur Linux de sorte 
 
 * **serveurA : 192.168.60.2**
 
+* **serveurB : 192.168.58.2**
+
+* **clientA : 192.168.56.2**
+
+* **clientB : 192.168.58.3**
+
 * [x] **Le client A (interne au réseau de l'entreprise) puisse contacter le serveur web de l'entreprise A.**
 
 * [x] **Le client A puisse contacter le serveur web B, externe à l'entreprise.**
 
 * [x] **Le client B (externe) puisse contacter les serveurs A et B.**
 
-* [ ] **Aucune connexion ne puisse atteindre les machines du LAN.**
+  sudo iptables -A FORWARD -i ens19 -o ens21 -s 192.168.58.3 -d 192.168.60.2 -j ACCEPT
 
-  sur client A
-
-  ```bash
-  sudo iptables -A INPUT -i ens20 -j ACCEPT
-  sudo iptables -A INPUT -i lo -j ACCEPT
-  sudo iptables -A INPUT -i ens18 -s 192.168.60.2 -p tcp --dport 80 -j ACCEPT
-  sudo iptables -A INPUT -i ens18 -s 192.168.58.2 -p tcp --dport 80 -j ACCEPT
-  sudo iptables -P INPUT DROP
-  ```
+  sudo iptables -A FORWARD -o ens19 -i ens21 -d 192.168.58.3 -s 192.168.60.2 -m state --state ESTABLISHED -j ACCEPT
 
   
 
-* [ ] **Aucune connexion ne puisse être initiée depuis la DMZ à destination des autres zones.**
+  -p tcp --dport 80
 
-  sur serveur A
+* [x] **Aucune connexion ne puisse atteindre les machines du LAN.**
 
-  ```bash
-  sudo iptables -A OUTPUT -o ens20 -j ACCEPT
-  sudo iptables -A OUTPUT -o lo -j ACCEPT
-  sudo iptables -A OUTPUT -o ens18 -d 192.168.56.2 -p tcp --sport 80 -j ACCEPT
-  sudo iptables -A OUTPUT -o ens18 -d 192.168.58.3 -p tcp --sport 80 -j ACCEPT
-  sudo iptables -P OUTPUT DROP
-  ```
+  sudo iptables -P FORWARD DROP
+
+* [x] **Aucune connexion ne puisse être initiée depuis la DMZ à destination des autres zones.**
 
   
 
