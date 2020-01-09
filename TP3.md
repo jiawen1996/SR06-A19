@@ -109,22 +109,30 @@ Il s'agit de configurer le routage et le filtrage sur le routeur Linux de sorte 
 * [x] **Le client A puisse contacter le serveur web B, externe à l'entreprise.**
 
 * [x] **Le client B (externe) puisse contacter les serveurs A et B.**
-
+```bash
   sudo iptables -A FORWARD -i ens19 -o ens21 -s 192.168.58.3 -d 192.168.60.2 -j ACCEPT
 
   sudo iptables -A FORWARD -o ens19 -i ens21 -d 192.168.58.3 -s 192.168.60.2 -m state --state ESTABLISHED -j ACCEPT
+```
 
-  
-
+```bash
   -p tcp --dport 80
-
+```
 * [x] **Aucune connexion ne puisse atteindre les machines du LAN.**
 
+```bash
   sudo iptables -P FORWARD DROP
-
+```
+```bash
+  sudo iptables -A FORWARD -o ens18 -d 192.168.56.0/24 -j DROP
+```
 * [x] **Aucune connexion ne puisse être initiée depuis la DMZ à destination des autres zones.**
 
-  
+  Normalement pas besoin car tout est refusé mais au cas où
+```bash
+  sudo iptables -A FORWARD -i ens21 -s 192.168.60.0/24 -j DROP
+```
+
 
 ## **3. Installation d'un serveur ssh et d'un DNS (GI04 et plus uniquement)**
 
